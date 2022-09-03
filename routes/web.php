@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Bookmark;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/explore', [BlogController::class, 'index'])->name('explore');
+
 Route::get('/dashboard', function () {
     $max_items_per_page = 25;
 
@@ -37,5 +40,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
+Route::resource('posts', PostController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';

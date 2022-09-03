@@ -6,7 +6,6 @@ use Illuminate\View\Component;
 
 class Sidebar extends Component
 {
-    public $title;
     public $sections;
     
     /**
@@ -14,9 +13,8 @@ class Sidebar extends Component
      *
      * @return void
      */
-    public function __construct($title, $sections)
+    public function __construct($sections)
     {
-        $this->title = $title;
         $this->sections = $sections;
     }
 

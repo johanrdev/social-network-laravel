@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class BlogController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::orderBy('id', 'desc')->paginate(9);
-
-        return view('blogs.index', compact('blogs'));
+        //
     }
 
     /**
@@ -44,52 +43,55 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show(Post $post)
     {
-        $posts = Post::where('blog_id', $blog->id)->orderBy('id', 'desc')->paginate(3);
-        
-        return view('blogs.show', compact('posts'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit(Post $post)
     {
-        return view('blogs.edit', compact('blog'));
+        $categories = Category::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, Post $post)
     {
-        $blog->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description')
+        $post->update([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'category_id' => $request->input('category_id')
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard', ['tab' => 'posts']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy(Post $post)
     {
-        return "destroy";
+        $post->delete();
+
+        return redirect()->route('dashboard', ['tab' => 'posts']);
     }
 }
