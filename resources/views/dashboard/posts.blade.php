@@ -1,5 +1,5 @@
 @if (count($posts) > 0)
-    <div class="overflow-x-auto rounded-lg bg-gray-200">
+    <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left table-fixed">
             <thead class="bg-gray-300">
                 <tr>
@@ -10,7 +10,6 @@
                     </th>
                     <th class="py-3 px-6">Title</th>
                     <th class="py-3 px-6 w-40">Category</th>
-                    <th class="py-3 px-6 w-40">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,14 +22,14 @@
                         </td>
                         <td class="py-3 px-6">{{ $post->title }}</td>
                         <td class="py-3 px-6">{{ $post->category->name }}</td>
-                        <td class="py-3 px-6">
-                            <a href="#">Edit</a>
-                            <a href="#">Remove</a>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="flex justify-end">
+        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Remove" />
     </div>
 
     @if ($posts->hasPages())

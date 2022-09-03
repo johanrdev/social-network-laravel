@@ -1,5 +1,5 @@
 @if (count($bookmarks) > 0)
-    <div class="overflow-x-auto rounded-lg bg-gray-200">
+    <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left">
             <thead class="bg-gray-300">
                 <tr>
@@ -10,7 +10,6 @@
                     </th>
                     <th class="py-3 px-6">Bookmark</th>
                     <th class="py-3 px-6 w-40">Type</th>
-                    <th class="py-3 px-6 w-40">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,14 +22,14 @@
                         </td>
                         <td class="py-3 px-6">{{ $bookmark->bookmarkable_type == 'App\Models\Blog' ? $bookmark->bookmarkable->name : $bookmark->bookmarkable->title }}</td>
                         <td class="py-3 px-6">{{ $bookmark->bookmarkable_type == 'App\Models\Blog' ? 'Blog' : 'Post' }}</td>
-                        <td class="py-3 px-6">
-                            <a href="#">Edit</a>
-                            <a href="#">Remove</a>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="flex justify-end">
+        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Remove" />
     </div>
 
     @if ($bookmarks->hasPages())

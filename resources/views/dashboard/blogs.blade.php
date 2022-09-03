@@ -1,5 +1,5 @@
 @if (count($blogs) > 0)
-    <div class="overflow-x-auto rounded-lg bg-gray-200">
+    <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left table-fixed">
             <thead class="bg-gray-300">
                 <tr>
@@ -10,7 +10,7 @@
                     </th>
                     <th class="py-3 px-6">Name</th>
                     <th class="py-3 px-6 w-40">Posts</th>
-                    <th class="py-3 px-6 w-40">Action</th>
+                    {{-- <th class="py-3 px-6 w-40">Action</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -21,16 +21,20 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6">{{ $blog->name }}</td>
+                        <td class="py-3 px-6"><a href="{{ route('blogs.edit', $blog) }}">{{ $blog->name }}</a></td>
                         <td class="py-3 px-6">{{ count($blog->posts) }}</td>
-                        <td class="py-3 px-6">
-                            <a href="#">Edit</a>
+                        {{-- <td class="py-3 px-6">
+                            <a href="{{ route('blogs.edit', $blog) }}">Edit</a>
                             <a href="#">Remove</a>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="flex justify-end">
+        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Remove" />
     </div>
 
     @if ($blogs->hasPages())

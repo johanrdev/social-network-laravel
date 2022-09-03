@@ -1,5 +1,5 @@
 @if (count($comments) > 0)
-    <div class="overflow-x-auto rounded-lg bg-gray-200">
+    <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left">
             <thead class="bg-gray-300">
                 <tr>
@@ -10,7 +10,6 @@
                     </th>
                     <th class="py-3 px-6">Comment</th>
                     <th class="py-3 px-6 w-60">Post</th>
-                    <th class="py-3 px-6 w-40">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,14 +22,14 @@
                         </td>
                         <td class="py-3 px-6">{{ $comment->content }}</td>
                         <td class="py-3 px-6">{{ $comment->commentable->title }}</td>
-                        <td class="py-3 px-6">
-                            <a href="#">Edit</a>
-                            <a href="#">Remove</a>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="flex justify-end">
+        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Remove" />
     </div>
 
     @if ($comments->hasPages())

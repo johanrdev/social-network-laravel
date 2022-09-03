@@ -1,0 +1,1 @@
+edit blog: {{ $blog->name }}
