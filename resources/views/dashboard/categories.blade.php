@@ -3,14 +3,24 @@
         <table class="w-full text-left">
             <thead class="bg-gray-300">
                 <tr>
+                    <th class="py-3 px-6 w-20">
+                        <div class="flex items-center">
+                            <input type="checkbox">
+                        </div>
+                    </th>
                     <th class="py-3 px-6">Name</th>
-                    <th class="py-3 px-6">References</th>
-                    <th class="py-3 px-6">Action</th>
+                    <th class="py-3 px-6 w-40">References</th>
+                    <th class="py-3 px-6 w-40">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($categories as $category)
                     <tr class="border-b border-gray-300 last:border-b-0">
+                        <td class="py-3 px-6">
+                            <div class="flex items-center">
+                                <input type="checkbox">
+                            </div>
+                        </td>
                         <td class="py-3 px-6">{{ $category->name }}</td>
                         <td class="py-3 px-6">{{ count($category->posts) }}</td>
                         <td class="py-3 px-6">
@@ -23,9 +33,11 @@
         </table>
     </div>
 
-    <div class="pt-6">
-        {{ $categories->appends(request()->input())->links() }}
-    </div>
+    @if ($categories->hasPages())
+        <div class="pt-6">
+            {{ $categories->appends(request()->input())->links() }}
+        </div>
+    @endif
 @else
     <p>No categories was found</p>
 @endif
