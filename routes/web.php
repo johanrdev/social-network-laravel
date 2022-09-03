@@ -33,7 +33,7 @@ Route::get('/dashboard', function () {
     $comments = Comment::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
     $bookmarks = Bookmark::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
 
-    return view('dashboard', compact('blogs', 'posts', 'categories', 'comments', 'bookmarks'));
+    return view('dashboard.index', compact('blogs', 'posts', 'categories', 'comments', 'bookmarks'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
