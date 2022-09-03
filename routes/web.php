@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $blogs = Blog::where('user_id', Auth::user()->id)->paginate(5);
+
+    return view('dashboard', compact('blogs'));
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

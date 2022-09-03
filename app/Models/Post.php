@@ -8,4 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function blog() {
+        return $this->belongsTo(Blog::class);
+    }
+
+    public function category() {
+        return $this->hasOne(Category::class);
+    }
+
+    public function bookmarks() {
+        return $this->morphMany(Bookmark::class, 'bookmarkable');
+    }
+
+    public function comments() {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
