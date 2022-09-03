@@ -22,7 +22,7 @@
     </table>
 
     <div class="pt-6">
-        {{ $blogs->links() }}
+        {{ $blogs->appends(request()->input())->links() }}
     </div>
 @else
     <p>No blogs was found</p>
