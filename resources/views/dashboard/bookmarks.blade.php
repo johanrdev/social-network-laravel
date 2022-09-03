@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 @foreach ($bookmarks as $bookmark)
-                    <tr class="border-b border-gray-300 last:border-b-0">
+                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-green-100">
                         <td class="py-3 px-6">
                             <div class="flex items-center">
                                 <input type="checkbox">

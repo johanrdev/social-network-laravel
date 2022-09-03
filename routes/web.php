@@ -27,11 +27,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $max_items_per_page = 25;
 
-    $blogs = Blog::where('user_id', Auth::user()->id)->paginate($max_items_per_page);
-    $posts = Post::where('user_id', Auth::user()->id)->paginate($max_items_per_page);
-    $categories = Category::where('user_id', Auth::user()->id)->paginate($max_items_per_page);
-    $comments = Comment::where('user_id', Auth::user()->id)->paginate($max_items_per_page);
-    $bookmarks = Bookmark::where('user_id', Auth::user()->id)->paginate($max_items_per_page);
+    $blogs = Blog::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
+    $posts = Post::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
+    $categories = Category::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
+    $comments = Comment::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
+    $bookmarks = Bookmark::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
 
     return view('dashboard', compact('blogs', 'posts', 'categories', 'comments', 'bookmarks'));
 })->middleware(['auth'])->name('dashboard');

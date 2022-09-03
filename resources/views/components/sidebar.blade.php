@@ -7,7 +7,7 @@
                 <ul>
                     @foreach ($value['links'] as $sub_key => $sub_value)
                         <li class="flex border-b last:border-b-0 hover:bg-green-100 transition-colors duration-250">
-                            <a href="{{ $sub_value }}" class="grow p-2">{{ $sub_key }}</a>
+                            <a href="{{ route('dashboard') }}{{ $sub_value }}" class="grow p-2">{{ $sub_key }}</a>
                         </li>
                     @endforeach
                 </ul>
