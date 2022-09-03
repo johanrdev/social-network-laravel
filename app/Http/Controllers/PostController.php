@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +92,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Comment::where('commentable_id', $post->id)->where('commentable_type', 'App\Models\Post')->delete();
+        Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', 'App\Models\Post')->delete();
+        Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', 'App\Models\Blog')->delete();
         $post->delete();
 
         return redirect()->route('dashboard', ['tab' => 'posts']);

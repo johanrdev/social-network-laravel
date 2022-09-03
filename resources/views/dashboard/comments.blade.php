@@ -1,3 +1,5 @@
+<h2 class="text-2xl font-bold p-6">{{ $comments->total() }} Comments</h2>
+
 @if (count($comments) > 0)
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left">
@@ -20,8 +22,8 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6">{{ $comment->content }}</td>
-                        <td class="py-3 px-6">{{ $comment->commentable->title }}</td>
+                        <td class="py-3 px-6">{{ $comment->content }} ({{ $comment->commentable_id }})</td>
+                        <td class="py-3 px-6">{{ !is_null($comment->commentable) ? $comment->commentable->title : 'NULL' }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -1,3 +1,5 @@
+<h2 class="text-2xl font-bold p-6">{{ $blogs->total() }} Blogs</h2>
+
 @if (count($blogs) > 0)
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left table-fixed">
