@@ -2,6 +2,9 @@
 
 use App\Models\Blog;
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Bookmark;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,8 +26,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $blogs = Blog::where('user_id', Auth::user()->id)->paginate(10);
     $posts = Post::where('user_id', Auth::user()->id)->paginate(10);
+    $categories = Category::where('user_id', Auth::user()->id)->paginate(10);
+    $comments = Comment::where('user_id', Auth::user()->id)->paginate(10);
+    $bookmarks = Bookmark::where('user_id', Auth::user()->id)->paginate(10);
 
-    return view('dashboard', compact('blogs', 'posts'));
+    return view('dashboard', compact('blogs', 'posts', 'categories', 'comments', 'bookmarks'));
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
