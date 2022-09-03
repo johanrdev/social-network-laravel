@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Blog;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,9 +21,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $blogs = Blog::where('user_id', Auth::user()->id)->paginate(5);
+    $blogs = Blog::where('user_id', Auth::user()->id)->paginate(10);
+    $posts = Post::where('user_id', Auth::user()->id)->paginate(10);
 
-    return view('dashboard', compact('blogs'));
+    return view('dashboard', compact('blogs', 'posts'));
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
