@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Models\Bookmark;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -90,6 +93,19 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        return "destroy";
+        $posts = Post::where('blog_id', $blog->id)->get();
+
+        foreach ($posts as $post) {
+            Comment::where('commentable_id', $post->id)->where('commentable_type', 'App\Models\Post')->delete();
+            Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', 'App\Models\Post')->delete();
+        }
+
+        Bookmark::where('bookmarkable_id', $blog->id)->where('bookmarkable_type', 'App\Models\Blog')->delete();
+        Post::where('blog_id', $blog->id)->delete();
+        Category::where('blog_id', $blog->id)->delete();
+
+        $blog->delete();
+
+        return redirect()->route('dashboard', ['tab' => 'blogs']);
     }
 }

@@ -1,6 +1,15 @@
 @extends('dashboard')
 
 @section('content')
+    <form method="POST" action="{{ route('blogs.destroy', $blog) }}">
+        @method('DELETE')
+        @csrf
+
+        <div class="flex justify-end">
+            <input type="submit" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Delete" />
+        </div>
+    </form>
+
     <form method="POST" action="{{ route('blogs.update', $blog) }}">
         @method('PUT')
         @csrf
