@@ -15,7 +15,10 @@ module.exports = {
             },
             variants: {
                 margin: ['last']
-            }
+            },
+            height: {
+                '128' : '32rem'
+            },
         },
     },
 

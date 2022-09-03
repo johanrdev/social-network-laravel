@@ -13,7 +13,9 @@
                         </div>
 
                         <div class="flex flex-col p-6 col-span-2">
-                            <h2 class="text-xl font-bold">{{ $post->title }}</h2>
+                            <h2 class="text-xl font-bold">
+                                <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+                            </h2>
                             <p>{{ $post->content }}</p>
                         </div>
                     </div>
