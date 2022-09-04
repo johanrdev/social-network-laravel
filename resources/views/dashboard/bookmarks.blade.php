@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 @foreach ($bookmarks as $bookmark)
-                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-green-100">
+                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-teal-100">
                         <td class="py-3 px-6">
                             <div class="flex items-center">
                                 <input type="checkbox">
@@ -45,7 +45,7 @@
     </div>
 
     <div class="flex justify-end">
-        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Remove" />
+        <input type="button" class="py-2 px-4 rounded bg-rose-500 text-white cursor-pointer" value="Remove" />
     </div>
 
     @if ($bookmarks->hasPages())

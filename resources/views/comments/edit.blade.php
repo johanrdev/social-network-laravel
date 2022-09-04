@@ -13,7 +13,7 @@
         @csrf
 
         <div class="flex justify-end">
-            <input type="submit" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Delete" />
+            <input type="submit" class="py-2 px-4 rounded bg-transparent text-rose-500 underline font-bold text-white cursor-pointer" value="Delete" />
         </div>
     </form>
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="flex justify-end">
-            <input type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer" value="Update" />
+            <input type="submit" class="py-2 px-4 rounded bg-teal-500 text-white cursor-pointer" value="Update" />
         </div>
     </form>
 @endsection

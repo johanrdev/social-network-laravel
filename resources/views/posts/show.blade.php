@@ -7,7 +7,7 @@
                 <div class="bg-white border-b border-gray-200 grow">
 
                     <div class="w-full h-128 bg-gray-800 flex flex-col relative">
-                        <div class="absolute right-0 p-3 text-gray-300 font-bold">
+                        <div class="absolute right-0 p-6 text-gray-300 font-bold">
                             <x-bookmark :bookmark="$bookmark" :id="$post->id" :type="'post'" />
                         </div>
                         <div class="flex justify-center items-center grow">
@@ -21,30 +21,30 @@
                         </h2>
                         <ul class="flex mb-3">
                             <li>
-                                <span class="bg-gray-100 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                                     <a href="#">{{ $post->user->name }}</a>
                                 </span>
                             </li>
                             <li>
-                                <span class="bg-gray-100 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                                     <a href="#">{{ $post->created_at->diffForHumans() }}</a>
                                 </span>
                             </li>
                             <li>
-                                <span class="bg-gray-100 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                                     <a href="#">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</a>
                                 </span>
                             </li>
                         </ul>
                         
-                        <p>{!! nl2br($post->content) !!}</p>
+                        <p class="text-lg leading-loose">{!! nl2br($post->content) !!}</p>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
-                    <div class="flex flex-col pt-12 pb-24 px-16">
+                    <div class="flex flex-col pt-12 pb-6 px-16">
                         @if ($errors->any())
                                 @foreach ($errors->all() as $error)
                                     <x-alert :message="$error"></x-alert>
@@ -60,13 +60,13 @@
                             <input type="hidden" name="post_type" value="post" />
                             <textarea class="w-full rounded mb-3" name="content" rows="5" required></textarea>
                             <div class="flex justify-end">
-                                <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>
+                                <button type="submit" class="py-2 px-4 rounded bg-teal-500 text-white cursor-pointer">Publish</button>
                             </div>
                         </form>
                     </div>
                     
 
-                    <div class="pt-0 pb-24 px-16">
+                    <div class="pt-6 pb-24 px-16">
                         <h2 class="text-2xl font-bold my-3">Comments ({{ $comments->total() }})</h2>
                         
                         @foreach ($comments as $comment)

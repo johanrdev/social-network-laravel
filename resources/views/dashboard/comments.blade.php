@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 @foreach ($comments as $comment)
-                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-green-100">
+                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-teal-100">
                         <td class="py-3 px-6">
                             <div class="flex items-center">
                                 <input type="checkbox">

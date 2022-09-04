@@ -6,7 +6,7 @@
             <div class="col-span-3 flex flex-col">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6 last:mb-0">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <h2 class="pb-3 text-center font-bold">Select Blog</h2>
+                        <h2 class="pb-3 text-center font-black text-sm uppercase tracking-widest">Select Blog</h2>
                         
                         <form method="POST" action="{{ route('set_current_blog') }}">
                             @method('PUT')
@@ -18,7 +18,7 @@
                                 @endforeach
                             </select>
                             <div class="flex justify-end">
-                                <input type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer ml-3" value="Select" />
+                                <input type="submit" class="py-2 px-4 rounded bg-teal-500 text-white cursor-pointer ml-3" value="Select" />
                             </div>
                         </form>
                     </div>
