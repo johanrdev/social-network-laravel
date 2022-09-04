@@ -55,7 +55,7 @@ class PostController extends Controller
             ->where('user_id', Auth::user()->id)
         ->first();
 
-        $comments = Comment::where('commentable_id', $post->id)->paginate(3);
+        $comments = Comment::where('commentable_id', $post->id)->orderBy('id', 'desc')->paginate(3);
         
         // $bookmark = Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', $post->bookmarkable)
         return view('posts.show', compact('post', 'bookmark', 'comments'));
