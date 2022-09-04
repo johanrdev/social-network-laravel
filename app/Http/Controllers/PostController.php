@@ -50,7 +50,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $bookmark = Bookmark::where('bookmarkable_id', $post->id)
+            ->where('bookmarkable_type', 'App\Models\Post')
+            ->where('user_id', Auth::user()->id)
+        ->first();
+        
+        // $bookmark = Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', $post->bookmarkable)
+        return view('posts.show', compact('post', 'bookmark'));
     }
 
     /**

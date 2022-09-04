@@ -9,6 +9,8 @@ class Bookmark extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'bookmarkable_id', 'bookmarkable_type'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

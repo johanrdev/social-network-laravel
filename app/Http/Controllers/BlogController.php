@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -52,9 +53,14 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
+        $bookmark = Bookmark::where('bookmarkable_id', $blog->id)
+            ->where('bookmarkable_type', 'App\Models\Blog')
+            ->where('user_id', Auth::user()->id)
+        ->first();
+
         $posts = Post::where('blog_id', $blog->id)->orderBy('id', 'desc')->paginate(3);
         
-        return view('blogs.show', compact('posts'));
+        return view('blogs.show', compact('blog', 'posts', 'bookmark'));
     }
 
     /**

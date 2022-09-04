@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Bookmark;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\BookmarkController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,5 +42,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
 Route::resource('posts', PostController::class)->middleware(['auth']);
+Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';

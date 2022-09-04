@@ -11,6 +11,8 @@
                     </div>
 
                     <div class="flex flex-col p-6 col-span-2">
+                        <x-bookmark :bookmark="$bookmark" :id="$post->id" :type="'post'" />
+
                         <h2 class="text-xl font-bold">
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                         </h2>
