@@ -28,7 +28,7 @@
                             </div>
                         </td>
                         <td class="py-3 px-6"><a href="{{ route('posts.edit', $post) }}">{{ $post->title }}</a></td>
-                        <td class="py-3 px-6">{{ $post->category->name }}</td>
+                        <td class="py-3 px-6">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</td>
                     </tr>
                 @endforeach
             </tbody>

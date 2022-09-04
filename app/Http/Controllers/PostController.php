@@ -28,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('user_id', Auth::user()->id)->where('blog_id', 1);
+        $categories = Category::where('user_id', Auth::user()->id)->where('blog_id', Auth::user()->selected_blog_id)->orderBy('id', 'desc')->get();
 
         return view('posts.create', compact('categories'));
     }
@@ -41,7 +41,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'category_id' => $request->input('category_id'),
+            'user_id' => Auth::user()->id,
+            'blog_id' => Auth::user()->selected_blog_id
+        ]);
+
+        return redirect()->route('dashboard', ['tab' => 'posts']);
     }
 
     /**

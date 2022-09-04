@@ -22,4 +22,8 @@ class Blog extends Model
     public function bookmarks() {
         return $this->morphMany(Bookmark::class, 'bookmarkable');
     }
+
+    public function categories() {
+        return $this->hasMany(Category::class);
+    }
 }
