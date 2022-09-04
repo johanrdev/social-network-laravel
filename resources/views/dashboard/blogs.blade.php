@@ -6,6 +6,11 @@
 </div>
 
 @if (count($blogs) > 0)
+    @if ($blogs->hasPages())
+        <div class="pb-6">
+            {{ $blogs->appends(request()->input())->links() }}
+        </div>
+    @endif
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left table-fixed">
             <thead class="bg-gray-300">

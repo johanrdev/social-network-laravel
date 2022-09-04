@@ -3,6 +3,12 @@
 </div>
 
 @if (count($bookmarks) > 0)
+    @if ($bookmarks->hasPages())
+        <div class="pb-6">
+            {{ $bookmarks->appends(request()->input())->links() }}
+        </div>
+    @endif
+
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left">
             <thead class="bg-gray-300">
@@ -24,7 +30,13 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6">{{ $bookmark->bookmarkable_type == 'App\Models\Blog' ? $bookmark->bookmarkable->name : $bookmark->bookmarkable->title }}</td>
+                        <td class="py-3 px-6">
+                            @if ($bookmark->bookmarkable_type == 'App\Models\Blog')
+                                <a href="{{ route('blogs.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->name }}</a>
+                            @elseif ($bookmark->bookmarkable_type == 'App\Models\Post')
+                                <a href="{{ route('posts.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->title }}</a>
+                            @endif
+                        </td>
                         <td class="py-3 px-6">{{ $bookmark->bookmarkable_type == 'App\Models\Blog' ? 'Blog' : 'Post' }}</td>
                     </tr>
                 @endforeach

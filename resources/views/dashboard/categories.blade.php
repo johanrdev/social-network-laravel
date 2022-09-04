@@ -6,6 +6,12 @@
 </div>
 
 @if (count($categories) > 0)
+    @if ($categories->hasPages())
+        <div class="pb-6">
+            {{ $categories->appends(request()->input())->links() }}
+        </div>
+    @endif
+
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
         <table class="w-full text-left">
             <thead class="bg-gray-300">
