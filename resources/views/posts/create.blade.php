@@ -13,7 +13,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Title:</label>
-            <input type="text" id="title" name="title" />
+            <input type="text" id="title" name="title" required />
         </div>
 
         <div class="flex flex-col mb-3">
@@ -27,7 +27,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <textarea name="content" id="content" cols="30" rows="10" required></textarea>
         </div>
 
         <div class="flex justify-end">

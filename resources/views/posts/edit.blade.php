@@ -23,7 +23,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Title:</label>
-            <input type="text" id="title" name="title" value="{{ $post->title }}" />
+            <input type="text" id="title" name="title" value="{{ $post->title }}" required />
         </div>
 
         @if (count($categories) > 0)
@@ -43,7 +43,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" cols="30" rows="10">{{ $post->content }}</textarea>
+            <textarea name="content" id="content" cols="30" rows="10" required>{{ $post->content }}</textarea>
         </div>
 
         <div class="flex justify-end">

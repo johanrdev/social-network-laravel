@@ -4,6 +4,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
+            @if ($blogs->hasPages())
+                <div class="py-6">
+                    {{ $blogs->appends(request()->input())->links() }}
+                </div>
+            @endif
+
             <div class="grid grid-cols-3 gap-6">
                 @foreach ($blogs as $blog)
                     <a href="{{ route('blogs.show', $blog->id) }}" class="flex flex-col">

@@ -23,7 +23,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Name:</label>
-            <input type="text" name="name" value="{{ $category->name }}">
+            <input type="text" name="name" id="name" value="{{ $category->name }}" required>
         </div>
 
         <div class="flex justify-end">

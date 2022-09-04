@@ -34,13 +34,35 @@ Route::get('/explore', [BlogController::class, 'index'])->name('explore');
 Route::get('/dashboard', function () {
     $max_items_per_page = 25;
 
-    $blogs = Blog::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
-    $posts = Post::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
-    $categories = Category::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
-    $comments = Comment::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
-    $bookmarks = Bookmark::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate($max_items_per_page);
+    $blogs = Blog::where('user_id', Auth::user()->id)
+        ->orderBy('id', 'desc')
+    ->paginate($max_items_per_page);
 
-    return view('dashboard.index', compact('blogs', 'posts', 'categories', 'comments', 'bookmarks'));
+    $posts = Post::where('user_id', Auth::user()->id)
+        ->where('blog_id', Auth::user()->selected_blog_id)
+        ->orderBy('id', 'desc')
+    ->paginate($max_items_per_page);
+
+    $categories = Category::where('user_id', Auth::user()->id)
+        ->where('blog_id', Auth::user()->selected_blog_id)
+        ->orderBy('id', 'desc')
+    ->paginate($max_items_per_page);
+
+    $comments = Comment::where('user_id', Auth::user()->id)
+        ->orderBy('id', 'desc')
+    ->paginate($max_items_per_page);
+
+    $bookmarks = Bookmark::where('user_id', Auth::user()->id)
+        ->orderBy('id', 'desc')
+    ->paginate($max_items_per_page);
+
+    return view('dashboard.index', compact(
+        'blogs', 
+        'posts', 
+        'categories', 
+        'comments', 
+        'bookmarks'
+    ));
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
@@ -50,7 +72,10 @@ Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
 
 Route::put('/set_current_blog_id', function() {
-    $user = User::where('id', Auth::user()->id)->update(['selected_blog_id' => request()->input('selected_blog_id')]);
+    $user = User::where('id', Auth::user()->id)
+        ->update(['selected_blog_id' => request()
+    ->input('selected_blog_id')]);
+    
     return redirect()->back();
 })->middleware(['auth'])->name('set_current_blog');
 

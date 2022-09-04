@@ -15,14 +15,26 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col p-6 col-span-2">
+                    <div class="flex flex-col p-6 col-span-2 pt-12 pb-24 px-16">
                         <h2 class="text-2xl font-bold my-3">
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                         </h2>
-                        <ul class="flex">
-                            <li class="mr-6 font-bold">{{ $post->user->name }}</li>
-                            <li class="mr-6 font-bold">{{ $post->created_at->diffForHumans() }}</li>
-                            <li class="font-bold">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</li>
+                        <ul class="flex mb-3">
+                            <li>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <a href="#">{{ $post->user->name }}</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <a href="#">{{ $post->created_at->diffForHumans() }}</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <a href="#">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</a>
+                                </span>
+                            </li>
                         </ul>
                         
                         <p>{!! nl2br($post->content) !!}</p>
@@ -32,7 +44,7 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
-                    <div class="flex flex-col p-6">
+                    <div class="flex flex-col pt-12 pb-24 px-16">
                         @if ($errors->any())
                                 @foreach ($errors->all() as $error)
                                     <x-alert :message="$error"></x-alert>
@@ -43,10 +55,10 @@
                         <form method="POST" action="{{ route('comments.store') }}">
                             @csrf
 
-                            <h2 class="text-2xl font-bold mb-3">Comment on "{{ $post->title }}":</h2>
+                            <h2 class="text-2xl font-bold my-3">Comment on "{{ $post->title }}":</h2>
                             <input type="hidden" name="post_id" value="{{ $post->id }}" />
                             <input type="hidden" name="post_type" value="post" />
-                            <textarea class="w-full rounded mb-3" name="content" rows="5"></textarea>
+                            <textarea class="w-full rounded mb-3" name="content" rows="5" required></textarea>
                             <div class="flex justify-end">
                                 <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>
                             </div>
@@ -54,8 +66,9 @@
                     </div>
                     
 
-                    <div class="p-6">
+                    <div class="pt-0 pb-24 px-16">
                         <h2 class="text-2xl font-bold my-3">Comments ({{ $comments->total() }})</h2>
+                        
                         @foreach ($comments as $comment)
                             <div class="overflow-hidden grow flex flex-col mb-3">
                                 <div class="border-b border-gray-200 grow">

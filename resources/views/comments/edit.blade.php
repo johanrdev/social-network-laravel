@@ -23,7 +23,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" cols="30" rows="10">{{ $comment->content }}</textarea>
+            <textarea name="content" id="content" cols="30" rows="10" required>{{ $comment->content }}</textarea>
         </div>
 
         <div class="flex justify-end">
