@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Bookmark;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
 Route::resource('posts', PostController::class)->middleware(['auth']);
+Route::resource('categories', CategoryController::class)->middleware(['auth']);
 Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
 

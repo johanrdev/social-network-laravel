@@ -22,7 +22,7 @@
                         <ul class="flex">
                             <li class="mr-6 font-bold">{{ $post->user->name }}</li>
                             <li class="mr-6 font-bold">{{ $post->created_at->diffForHumans() }}</li>
-                            <li class="font-bold">{{ $post->category->name }}</li>
+                            <li class="font-bold">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</li>
                         </ul>
                         
                         <p>{{ $post->content }}</p>
