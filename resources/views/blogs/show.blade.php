@@ -36,10 +36,27 @@
                         </div>
 
                         <div class="flex flex-col p-6 col-span-2">
-                            <h2 class="text-xl font-bold">
+                            <h2 class="text-xl font-bold my-3">
                                 <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                             </h2>
-                            <p>{{ $post->content }}</p>
+                            <ul class="flex mb-3">
+                                <li>
+                                    <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                        <a href="#">{{ $post->user->name }}</a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                        <a href="#">{{ $post->created_at->diffForHumans() }}</a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                        <a href="#">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</a>
+                                    </span>
+                                </li>
+                            </ul>
+                            <p class="text-lg leading-loose">{!! substr(nl2br($post->content), 0, 200) !!} <a href="{{ route('posts.show', $post) }}" class="font-bold text-rose-500 underline">Read More</a></p>
                         </div>
                     </div>
                 </div>

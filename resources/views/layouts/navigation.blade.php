@@ -4,10 +4,10 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center text-gray-400 hover:text-gray-200 stroke-gray-400 hover:stroke-gray-200 transition-all duration-150">
                     <a href="{{ route('dashboard') }}" class="flex items-center">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
-                        <span class="text-xl uppercase font-black text-gray-400 ml-1">TextBox</span>
+                        <x-application-logo />
+                        <span class="text-xl uppercase font-black ml-1">TextBox</span>
                     </a>
                 </div>
 
