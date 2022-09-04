@@ -1,6 +1,14 @@
 @extends('dashboard')
 
 @section('content')
+    @if ($errors->any())
+        <ul class="mb-3">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     <form method="POST" action="{{ route('posts.destroy', $post) }}">
         @method('DELETE')
         @csrf
@@ -19,14 +27,20 @@
             <input type="text" id="title" name="title" value="{{ $post->title }}" />
         </div>
 
-        <div class="flex flex-col mb-3">
-            <label for="category_id">Categories:</label>
-            <select id="category_id" name="category_id">
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" @selected($category->id == $post->category->id)>{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
+        @if (count($categories) > 0)
+            <div class="flex flex-col mb-3">
+                <label for="category_id">Categories:</label>
+                <select id="category_id" name="category_id">
+                    @foreach ($categories as $category)
+                        @if (!is_null($post->category))
+                            <option value="{{ $category->id }}" @selected($category->id == $post->category->id)>{{ $category->name }}</option>
+                        @else
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        @endif
 
         <div class="flex flex-col mb-3">
             <label for="content">Content:</label>

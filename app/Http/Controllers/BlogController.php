@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreBlogRequest;
 
 class BlogController extends Controller
 {
@@ -40,7 +41,7 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBlogRequest $request)
     {
         Blog::create([
             'name' => $request->input('name'),
@@ -64,7 +65,9 @@ class BlogController extends Controller
             ->where('user_id', Auth::user()->id)
         ->first();
 
-        $posts = Post::where('blog_id', $blog->id)->orderBy('id', 'desc')->paginate(3);
+        $posts = Post::where('blog_id', $blog->id)
+            ->orderBy('id', 'desc')
+        ->paginate(9);
         
         return view('blogs.show', compact('blog', 'posts', 'bookmark'));
     }
@@ -87,7 +90,7 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(StoreBlogRequest $request, Blog $blog)
     {
         $blog->update([
             'name' => $request->input('name'),
@@ -108,11 +111,18 @@ class BlogController extends Controller
         $posts = Post::where('blog_id', $blog->id)->get();
 
         foreach ($posts as $post) {
-            Comment::where('commentable_id', $post->id)->where('commentable_type', 'App\Models\Post')->delete();
-            Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', 'App\Models\Post')->delete();
+            Comment::where('commentable_id', $post->id)
+                ->where('commentable_type', 'App\Models\Post')
+            ->delete();
+            
+            Bookmark::where('bookmarkable_id', $post->id)
+                ->where('bookmarkable_type', 'App\Models\Post')
+            ->delete();
         }
 
-        Bookmark::where('bookmarkable_id', $blog->id)->where('bookmarkable_type', 'App\Models\Blog')->delete();
+        Bookmark::where('bookmarkable_id', $blog->id)
+            ->where('bookmarkable_type', 'App\Models\Blog')
+        ->delete();
         Post::where('blog_id', $blog->id)->delete();
         Category::where('blog_id', $blog->id)->delete();
 

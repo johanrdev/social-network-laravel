@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -28,7 +29,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('user_id', Auth::user()->id)->where('blog_id', Auth::user()->selected_blog_id)->orderBy('id', 'desc')->get();
+        $categories = Category::where('user_id', Auth::user()->id)
+            ->where('blog_id', Auth::user()->selected_blog_id)
+            ->orderBy('id', 'desc')
+        ->get();
 
         return view('posts.create', compact('categories'));
     }
@@ -39,7 +43,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         Post::create([
             'title' => $request->input('title'),
@@ -79,7 +83,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $categories = Category::where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+        ->get();
 
         return view('posts.edit', compact('post', 'categories'));
     }
@@ -91,7 +97,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post)
     {
         $post->update([
             'title' => $request->input('title'),
@@ -110,9 +116,18 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        Comment::where('commentable_id', $post->id)->where('commentable_type', 'App\Models\Post')->delete();
-        Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', 'App\Models\Post')->delete();
-        Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', 'App\Models\Blog')->delete();
+        Comment::where('commentable_id', $post->id)
+            ->where('commentable_type', 'App\Models\Post')
+        ->delete();
+        
+        Bookmark::where('bookmarkable_id', $post->id)
+            ->where('bookmarkable_type', 'App\Models\Post')
+        ->delete();
+
+        Bookmark::where('bookmarkable_id', $post->id)
+            ->where('bookmarkable_type', 'App\Models\Blog')
+        ->delete();
+        
         $post->delete();
 
         return redirect()->route('dashboard', ['tab' => 'posts']);
