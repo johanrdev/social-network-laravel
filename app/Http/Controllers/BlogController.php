@@ -31,7 +31,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('blogs.create');
     }
 
     /**
@@ -42,7 +42,13 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Blog::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->route('dashboard', ['tab' => 'blogs']);
     }
 
     /**

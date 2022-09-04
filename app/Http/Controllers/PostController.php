@@ -28,7 +28,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::where('user_id', Auth::user()->id)->where('blog_id', 1);
+
+        return view('posts.create', compact('categories'));
     }
 
     /**

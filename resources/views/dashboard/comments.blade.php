@@ -1,4 +1,6 @@
-<h2 class="text-2xl font-bold p-6">{{ $comments->total() }} Comments</h2>
+<div class="flex flex-col py-3">
+    <h2 class="text-2xl font-bold">{{ $comments->total() }} Comments</h2>
+</div>
 
 @if (count($comments) > 0)
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">

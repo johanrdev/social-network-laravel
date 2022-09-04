@@ -1,4 +1,9 @@
-<h2 class="text-2xl font-bold p-6">{{ $blogs->total() }} Blogs</h2>
+<div class="flex flex-col py-3">
+    <h2 class="text-2xl font-bold">{{ $blogs->total() }} Blogs</h2>
+    <ul class="my-3">
+        <li><a href="{{ route('blogs.create') }}">New blog</a></li>
+    </ul>
+</div>
 
 @if (count($blogs) > 0)
     <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
@@ -36,7 +41,7 @@
     </div>
 
     <div class="flex justify-end">
-        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer" value="Remove" />
+        <input type="button" class="py-2 px-4 rounded bg-red-500 text-white cursor-pointer ml-3" value="Remove" />
     </div>
 
     @if ($blogs->hasPages())
