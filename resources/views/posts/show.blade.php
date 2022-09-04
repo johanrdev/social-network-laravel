@@ -25,26 +25,35 @@
                             <li class="font-bold">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</li>
                         </ul>
                         
-                        <p>{{ $post->content }}</p>
+                        <p>{!! nl2br($post->content) !!}</p>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
-                    <form method="POST" action="{{ route('comments.store') }}">
-                        @csrf
-
                         <div class="flex flex-col p-6">
-                            <h2 class="text-2xl font-bold mb-3">Comment on "{{ $post->title }}":</h2>
-                            <input type="hidden" name="post_id" value="{{ $post->id }}" />
-                            <input type="hidden" name="post_type" value="post" />
-                            <textarea class="w-full rounded mb-3" name="content" rows="5"></textarea>
-                            <div class="flex justify-end">
-                                <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>
-                            </div>
+                            @if ($errors->any())
+                                <ul class="mb-3">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+                            <form method="POST" action="{{ route('comments.store') }}">
+                                @csrf
+
+                                <h2 class="text-2xl font-bold mb-3">Comment on "{{ $post->title }}":</h2>
+                                <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                                <input type="hidden" name="post_type" value="post" />
+                                <textarea class="w-full rounded mb-3" name="content" rows="5"></textarea>
+                                <div class="flex justify-end">
+                                    <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    
 
                     <div class="p-6">
                         <h2 class="text-2xl font-bold my-3">Comments ({{ $comments->total() }})</h2>
@@ -53,7 +62,7 @@
                                 <div class="border-b border-gray-200 grow">
                                     <div class="flex flex-col p-6">
                                         <h3 class="font-bold">{{ $comment->user->name }} said ({{ $comment->created_at->diffForHumans() }}): </h3>
-                                        <p>{{ $comment->content }}</p>
+                                        <p>{!! nl2br($comment->content) !!}</p>
                                     </div>
                                 </div>
                             </div>

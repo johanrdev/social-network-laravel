@@ -8,6 +8,7 @@
             @endforeach
         </ul>
     @endif
+    
     <form method="POST" action="{{ route('blogs.destroy', $blog) }}">
         @method('DELETE')
         @csrf
