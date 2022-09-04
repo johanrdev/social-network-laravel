@@ -1,5 +1,5 @@
 <div class="flex flex-col py-3">
-    <h2 class="text-2xl font-bold">{{ $posts->total() }} Posts</h2>
+    <h2 class="text-2xl font-bold">{{ $posts->total() }} {{ $posts->total() == 1 ? 'Post' : 'Posts' }}</h2>
     <ul class="my-3">
         <li><a href="{{ route('posts.create') }}">New post</a></li>
     </ul>

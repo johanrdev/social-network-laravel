@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Blog;
+use App\Models\Post;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,6 +94,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $posts = Post::where('category_id', $category->id)->where('user_id', Auth::user()->id)->get();
+
+        foreach ($posts as $post) {
+            $post->update(['category_id' => null]);
+        }
+
         $category->delete();
 
         return redirect()->route('dashboard', ['tab' => 'categories']);

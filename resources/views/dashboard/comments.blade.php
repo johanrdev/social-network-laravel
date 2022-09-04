@@ -1,5 +1,5 @@
 <div class="flex flex-col py-3">
-    <h2 class="text-2xl font-bold">{{ $comments->total() }} Comments</h2>
+    <h2 class="text-2xl font-bold">{{ $comments->total() }} {{ $comments->total() == 1 ? 'Comment' : 'Comments' }}</h2>
 </div>
 
 @if (count($comments) > 0)

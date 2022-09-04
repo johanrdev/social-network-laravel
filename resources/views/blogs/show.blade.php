@@ -3,7 +3,7 @@
 @section('container')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="pb-12">
+            <div class="p-12">
                 <h2 class="text-2xl font-bold">{{ $blog->name }}</h2>
                 <p>{{ $blog->description }}</p>
                 <hr>

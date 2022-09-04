@@ -2,9 +2,8 @@
 
 @section('content')
     @if ($errors->any())
-        <ul class="mb-3">
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <x-alert :message="$error"></x-alert>
             @endforeach
         </ul>
     @endif

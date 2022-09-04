@@ -1,5 +1,5 @@
 <div class="flex flex-col py-3">
-    <h2 class="text-2xl font-bold">{{ $bookmarks->total() }} Bookmarks</h2>
+    <h2 class="text-2xl font-bold">{{ $bookmarks->total() }} {{ $bookmarks->total() == 1 ? 'Bookmark' : 'Bookmarks' }}</h2>
 </div>
 
 @if (count($bookmarks) > 0)

@@ -32,27 +32,26 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
-                        <div class="flex flex-col p-6">
-                            @if ($errors->any())
-                                <ul class="mb-3">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                    <div class="flex flex-col p-6">
+                        @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <x-alert :message="$error"></x-alert>
+                                @endforeach
+                            </ul>
+                        @endif
 
-                            <form method="POST" action="{{ route('comments.store') }}">
-                                @csrf
+                        <form method="POST" action="{{ route('comments.store') }}">
+                            @csrf
 
-                                <h2 class="text-2xl font-bold mb-3">Comment on "{{ $post->title }}":</h2>
-                                <input type="hidden" name="post_id" value="{{ $post->id }}" />
-                                <input type="hidden" name="post_type" value="post" />
-                                <textarea class="w-full rounded mb-3" name="content" rows="5"></textarea>
-                                <div class="flex justify-end">
-                                    <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>
-                                </div>
-                            </form>
-                        </div>
+                            <h2 class="text-2xl font-bold mb-3">Comment on "{{ $post->title }}":</h2>
+                            <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                            <input type="hidden" name="post_type" value="post" />
+                            <textarea class="w-full rounded mb-3" name="content" rows="5"></textarea>
+                            <div class="flex justify-end">
+                                <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>
+                            </div>
+                        </form>
+                    </div>
                     
 
                     <div class="p-6">
