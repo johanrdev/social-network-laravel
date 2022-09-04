@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Models\Blog;
 use App\Models\Post;
 use App\Models\Category;
@@ -47,5 +48,10 @@ Route::resource('posts', PostController::class)->middleware(['auth']);
 Route::resource('categories', CategoryController::class)->middleware(['auth']);
 Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
+
+Route::put('/set_current_blog_id', function() {
+    $user = User::where('id', Auth::user()->id)->update(['selected_blog_id' => request()->input('selected_blog_id')]);
+    return redirect()->back();
+})->middleware(['auth'])->name('set_current_blog');
 
 require __DIR__.'/auth.php';

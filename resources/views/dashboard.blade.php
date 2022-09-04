@@ -7,14 +7,20 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6 last:mb-0">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <h2 class="pb-3 text-center font-bold">Select Blog</h2>
-                        <select class="w-full mb-3">
-                            @foreach ($userBlogs as $blog)
-                                <option value="{{ $blog->id }}">{{ $blog->name }}</option>
-                            @endforeach
-                        </select>
-                        <div class="flex justify-end">
-                            <input type="button" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer ml-3" value="Select" />
-                        </div>
+                        
+                        <form method="POST" action="{{ route('set_current_blog') }}">
+                            @method('PUT')
+                            @csrf
+
+                            <select class="w-full mb-3" name="selected_blog_id">
+                                @foreach ($userBlogs as $blog)
+                                    <option value="{{ $blog->id }}" @selected(Auth::user()->selected_blog_id == $blog->id)>{{ $blog->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="flex justify-end">
+                                <input type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer ml-3" value="Select" />
+                            </div>
+                        </form>
                     </div>
                 </div>
                 
