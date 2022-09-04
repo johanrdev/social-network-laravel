@@ -65,7 +65,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        return view('comments.edit', compact('comment'));
     }
 
     /**
@@ -77,7 +77,11 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $comment->update([
+            'content' => $request->input('content')
+        ]);
+
+        return redirect()->route('dashboard', ['tab' => 'comments']);
     }
 
     /**
@@ -88,6 +92,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->route('dashboard', ['tab' => 'comments']);
     }
 }

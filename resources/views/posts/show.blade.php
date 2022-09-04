@@ -6,16 +6,25 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
 
-                    <div class="w-full h-128 bg-gray-800 flex justify-center items-center">
-                        <span class="uppercase text-gray-600 font-bold text-3xl">Image</span>
+                    <div class="w-full h-128 bg-gray-800 flex flex-col relative">
+                        <div class="absolute right-0 p-3 text-gray-300 font-bold">
+                            <x-bookmark :bookmark="$bookmark" :id="$post->id" :type="'post'" />
+                        </div>
+                        <div class="flex justify-center items-center grow">
+                            <span class="uppercase text-gray-600 font-bold text-3xl">Image</span>
+                        </div>
                     </div>
 
-                    <div class="flex flex-col p-24 pb-40 col-span-2">
-                        <x-bookmark :bookmark="$bookmark" :id="$post->id" :type="'post'" />
-
-                        <h2 class="text-xl font-bold">
+                    <div class="flex flex-col p-6 col-span-2">
+                        <h2 class="text-2xl font-bold my-3">
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                         </h2>
+                        <ul class="flex">
+                            <li class="mr-6 font-bold">{{ $post->user->name }}</li>
+                            <li class="mr-6 font-bold">{{ $post->created_at->diffForHumans() }}</li>
+                            <li class="font-bold">{{ $post->category->name }}</li>
+                        </ul>
+                        
                         <p>{{ $post->content }}</p>
                     </div>
                 </div>
@@ -29,7 +38,7 @@
                         <div class="flex flex-col p-6">
                             <h2 class="text-2xl font-bold mb-3">Comment on "{{ $post->title }}":</h2>
                             <input type="hidden" name="post_id" value="{{ $post->id }}" />
-                            <input type="hidden" name="post_type" value="'post'" />
+                            <input type="hidden" name="post_type" value="post" />
                             <textarea class="w-full rounded mb-3" name="content" rows="5"></textarea>
                             <div class="flex justify-end">
                                 <button type="submit" class="py-2 px-4 rounded bg-green-500 text-white cursor-pointer">Publish</button>

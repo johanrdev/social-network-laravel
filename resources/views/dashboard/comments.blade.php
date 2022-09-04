@@ -22,7 +22,9 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6">{{ $comment->content }} ({{ $comment->commentable_id }})</td>
+                        <td class="py-3 px-6">
+                            <a href="{{ route('comments.edit', $comment) }}">{{ $comment->content }}</a>
+                        </td>
                         <td class="py-3 px-6">{{ !is_null($comment->commentable) ? $comment->commentable->title : 'NULL' }}</td>
                     </tr>
                 @endforeach
