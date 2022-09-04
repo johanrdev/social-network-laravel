@@ -1,7 +1,7 @@
 <div class="flex flex-col py-3">
     <h2 class="text-2xl font-bold">{{ $categories->total() }} Category</h2>
     <ul class="my-3">
-        <li><a href="#">New category</a></li>
+        <li><a href="{{ route('categories.create') }}">New category</a></li>
     </ul>
 </div>
 
