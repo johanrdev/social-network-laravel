@@ -20,6 +20,24 @@
                     </div>
                 </div>
             </div>
+
+            <h2 class="text-2xl font-bold">Comments ({{ $comments->total() }})</h2>
+            @foreach ($comments as $comment)
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
+                    <div class="bg-white border-b border-gray-200 grow">
+                        <div class="flex flex-col p-6">
+                            <h3 class="font-bold">{{ $comment->user->name }} said: </h3>
+                            <p>{{ $comment->content }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            @if ($comments->hasPages())
+                <div class="pt-6 -mt-3">
+                    {{ $comments->appends(request()->input())->links() }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
