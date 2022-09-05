@@ -15,36 +15,36 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col p-6 col-span-2 pt-12 pb-24 px-16">
+                    <div class="flex flex-col p-6 col-span-2 pt-6 pb-12 px-8 lg:pt-12 lg:pb-24 lg:px-16">
                         <h2 class="text-2xl font-bold my-3">
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                         </h2>
-                        <ul class="flex mb-3">
+                        <ul class="flex mb-3 flex-wrap">
                             <li>
-                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 whitespace-nowrap">
                                     <a href="#">{{ $post->user->name }}</a>
                                 </span>
                             </li>
                             <li>
-                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 whitespace-nowrap">
                                     <a href="#">{{ $post->created_at->diffForHumans() }}</a>
                                 </span>
                             </li>
                             <li>
-                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 whitespace-nowrap">
                                     <a href="#">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</a>
                                 </span>
                             </li>
                         </ul>
                         
-                        <p class="text-lg leading-loose">{!! nl2br($post->content) !!}</p>
+                        <p class="text-md sm:text-lg leading-loose">{!! nl2br($post->content) !!}</p>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
-                    <div class="flex flex-col pt-12 pb-6 px-16">
+                    <div class="flex flex-col pt-6 pb-12 px-8 lg:pt-12 lg:pb-24 lg:px-16">
                         @if ($errors->any())
                                 @foreach ($errors->all() as $error)
                                     <x-alert :message="$error"></x-alert>
@@ -66,7 +66,7 @@
                     </div>
                     
 
-                    <div class="pt-6 pb-24 px-16">
+                    <div class="pt-6 pb-12 px-8 lg:pt-12 lg:pb-24 lg:px-16">
                         <h2 class="text-2xl font-bold my-3">Comments ({{ $comments->total() }})</h2>
                         
                         @foreach ($comments as $comment)
