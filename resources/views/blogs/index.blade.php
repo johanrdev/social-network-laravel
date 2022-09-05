@@ -5,19 +5,19 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             @if ($blogs->hasPages())
-                <div class="py-6">
+                <div class="py-6 px-6 sm:px-0">
                     {{ $blogs->appends(request()->input())->links() }}
                 </div>
             @endif
 
-            <div class="grid grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:grid-cols-3">
                 @foreach ($blogs as $blog)
                     <x-blog-card :blog="$blog"></x-blog-card>
                 @endforeach
             </div>
 
             @if ($blogs->hasPages())
-                <div class="pt-6">
+                <div class="pt-6 px-6 sm:px-0">
                     {{ $blogs->appends(request()->input())->links() }}
                 </div>
             @endif
