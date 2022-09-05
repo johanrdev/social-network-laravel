@@ -11,10 +11,10 @@
             {{ $blogs->appends(request()->input())->links() }}
         </div>
     @endif
-    <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
+    <div class="overflow-x-auto rounded-sm bg-gray-200 mb-3">
         <table class="w-full text-left table-fixed">
-            <thead class="bg-gray-300">
-                <tr>
+            <thead>
+                <tr class="border-b-2 bg-slate-300 border-slate-400">
                     <th class="py-3 px-6 w-20">
                         <div class="flex items-center">
                             <input type="checkbox">
@@ -25,7 +25,7 @@
             </thead>
             <tbody>
                 @foreach ($blogs as $blog)
-                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-teal-100">
+                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-teal-100 bg-slate-100 odd:bg-slate-200">
                         <td class="py-3 px-6 w-10">
                             <div class="flex items-center">
                                 <input type="checkbox">

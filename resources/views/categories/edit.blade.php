@@ -1,14 +1,14 @@
 @extends('dashboard')
 
 @section('content')
-    <div class="flex justify-between py-3">
+    <div class="flex justify-between items-center py-3">
         <h2 class="text-2xl font-bold">Edit category</h2>
 
         <form method="POST" action="{{ route('categories.destroy', $category) }}">
             @method('DELETE')
             @csrf
     
-            <div class="flex mb-3">
+            <div class="flex">
                 <x-button type="transparent">Delete</x-button>
             </div>
         </form>

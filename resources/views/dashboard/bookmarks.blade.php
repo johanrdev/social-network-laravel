@@ -9,10 +9,10 @@
         </div>
     @endif
 
-    <div class="overflow-x-auto rounded-lg bg-gray-200 mb-3">
+    <div class="overflow-x-auto rounded-sm mb-3">
         <table class="w-full text-left">
-            <thead class="bg-gray-300">
-                <tr>
+            <thead>
+                <tr class="border-b-2 bg-slate-300 border-slate-400">
                     <th class="py-3 px-6 w-20">
                         <div class="flex items-center">
                             <input type="checkbox">
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 @foreach ($bookmarks as $bookmark)
-                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-teal-100">
+                    <tr class="border-b border-gray-300 last:border-b-0 hover:bg-teal-100 bg-slate-100 odd:bg-slate-200">
                         <td class="py-3 px-6">
                             <div class="flex items-center">
                                 <input type="checkbox">
