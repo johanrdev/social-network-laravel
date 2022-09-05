@@ -23,13 +23,13 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Title:</label>
-            <input type="text" id="title" name="title" value="{{ $post->title }}" required />
+            <x-input type="text" id="title" name="title" value="{{ $post->title }}" required />
         </div>
 
         @if (count($categories) > 0)
             <div class="flex flex-col mb-3">
                 <label for="category_id">Categories:</label>
-                <select id="category_id" name="category_id">
+                <x-select id="category_id" name="category_id">
                     @foreach ($categories as $category)
                         @if (!is_null($post->category))
                             <option value="{{ $category->id }}" @selected($category->id == $post->category->id)>{{ $category->name }}</option>
@@ -37,13 +37,13 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endif
                     @endforeach
-                </select>
+                </x-select>
             </div>
         @endif
 
         <div class="flex flex-col mb-3">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" cols="30" rows="10" required>{{ $post->content }}</textarea>
+            <x-textbox name="content" id="content" cols="30" rows="10" required>{{ $post->content }}</x-textbox>
         </div>
 
         <div class="flex justify-end">

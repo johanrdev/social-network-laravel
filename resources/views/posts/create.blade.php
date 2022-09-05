@@ -13,21 +13,21 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Title:</label>
-            <input type="text" id="title" name="title" required />
+            <x-input type="text" id="title" name="title" required />
         </div>
 
         <div class="flex flex-col mb-3">
             <label for="category_id">Categories:</label>
-            <select id="category_id" name="category_id">
+            <x-select id="category_id" name="category_id">
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
-            </select>
+            </x-select>
         </div>
 
         <div class="flex flex-col mb-3">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" cols="30" rows="10" required></textarea>
+            <x-textbox name="content" id="content" cols="30" rows="20" required></x-textbox>
         </div>
 
         <div class="flex justify-end">

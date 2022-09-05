@@ -13,7 +13,7 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required>
+            <x-input type="text" name="name" id="name" required />
         </div>
 
         <div class="flex justify-end">

@@ -13,12 +13,12 @@
 
         <div class="flex flex-col mb-3">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required />
+            <x-input type="text" id="name" name="name" required />
         </div>
 
         <div class="flex flex-col mb-3">
             <label for="description">Content:</label>
-            <textarea name="description" id="description" cols="30" rows="10" required></textarea>
+            <x-textbox name="description" id="description" cols="10" rows="7" required></x-textbox>
         </div>
 
         <div class="flex justify-end">

@@ -58,7 +58,7 @@
                             <h2 class="text-2xl font-bold my-3">Comment on "{{ $post->title }}":</h2>
                             <input type="hidden" name="post_id" value="{{ $post->id }}" />
                             <input type="hidden" name="post_type" value="post" />
-                            <textarea class="w-full rounded mb-3" name="content" rows="5" required></textarea>
+                            <x-textbox class="w-full rounded mb-3" name="content" rows="5" required></x-textbox>
                             <div class="flex justify-end">
                                 <x-button type="green">Publish</x-button>
                             </div>

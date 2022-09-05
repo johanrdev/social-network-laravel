@@ -1,21 +1,26 @@
-@if ($type == 'green')
-    @php
-        $classes = 'bg-teal-500 hover:bg-teal-700 text-white';
-    @endphp
-@elseif ($type == 'red')
-    @php
-        $classes = 'bg-rose-500 hover:bg-rose-700 text-white';
-    @endphp
-@elseif ($type == 'transparent')
-    @php
-        $classes = 'bg-transparent text-rose-500 font-bold underline';
-    @endphp
-@else
-    @php
-        $classes = 'bg-teal-500 hover:bg-teal-700 text-white';
-    @endphp
-@endif
+@switch ($type)
+    @case('green')
+        @php
+            $classes = 'bg-teal-500 hover:bg-teal-700 text-white border-teal-700 border-b-2 hover:border-teal-900';
+        @endphp
+        @break
+    @case('red')
+        @php
+            $classes = 'bg-rose-500 hover:bg-rose-700 text-white border-rose-700 border-b-2 hover:border-rose-900';
+        @endphp
+        @break
+    @case('transparent')
+        @php
+            $classes = 'bg-transparent hover:bg-transparent text-rose-500 hover:text-rose-700 underline border-transparent border-b-0 hover:border-transparent';
+        @endphp
+        @break
+    @default
+        @php
+            $classes = 'bg-teal-500 hover:bg-teal-700 text-white border-teal-700 border-b-2 hover:border-teal-900';
+        @endphp
+        @break
+@endswitch
 
-<button {{ $attributes->merge(['type' => 'submit', 'class' => 'py-2 px-5 rounded mb-3 transition-all duration-150 cursor-pointer ' . $classes]) }}>
+<button {{ $attributes->merge(['type' => 'submit', 'class' => 'py-3 px-5 rounded mb-3 transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest ' . $classes]) }}>
     {{ $slot }}
 </button>
