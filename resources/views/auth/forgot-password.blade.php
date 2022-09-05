@@ -6,6 +6,15 @@
             </a>
         </x-slot>
 
+        <div class="flex justify-between items-center py-3">
+            <h2 class="text-2xl font-bold">Reset password</h2>
+            <ul>
+                <li>
+                    <a href="#" class="transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest text-teal-500 hover:text-teal-700 underline">Go back</a>
+                </li>
+            </ul>
+        </div>
+
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
@@ -27,8 +36,8 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
+                <x-button type="green">
+                    {{ __('Send Link') }}
                 </x-button>
             </div>
         </form>

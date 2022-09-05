@@ -6,6 +6,15 @@
             </a>
         </x-slot>
 
+        <div class="flex justify-between items-center py-3">
+            <h2 class="text-2xl font-bold">Login</h2>
+            <ul>
+                <li>
+                    <a href="#" class="transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest text-teal-500 hover:text-teal-700 underline">Go back</a>
+                </li>
+            </ul>
+        </div>
+
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -47,7 +56,7 @@
                     </a>
                 @endif
 
-                <x-button class="ml-3">
+                <x-button type="green" class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
             </div>

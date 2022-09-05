@@ -6,6 +6,15 @@
             </a>
         </x-slot>
 
+        <div class="flex justify-between items-center py-3">
+            <h2 class="text-2xl font-bold">Register</h2>
+            <ul>
+                <li>
+                    <a href="#" class="transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest text-teal-500 hover:text-teal-700 underline">Go back</a>
+                </li>
+            </ul>
+        </div>
+
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -50,7 +59,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button class="ml-4">
+                <x-button type="green" class="ml-4">
                     {{ __('Register') }}
                 </x-button>
             </div>
