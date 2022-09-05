@@ -1,3 +1,17 @@
-<button {{ $attributes->merge(['type' => 'submit', 'class' => 'inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150']) }}>
+@if ($type == 'green')
+    @php
+        $classes = 'bg-teal-500 hover:bg-teal-700 text-white';
+    @endphp
+@elseif ($type == 'red')
+    @php
+        $classes = 'bg-rose-500 hover:bg-rose-700 text-white';
+    @endphp
+@else
+    @php
+        $classes = 'bg-teal-500 hover:bg-teal-700 text-white';
+    @endphp
+@endif
+
+<button {{ $attributes->merge(['type' => 'submit', 'class' => 'py-2 px-5 rounded mb-3 transition-all duration-150 cursor-pointer ' . $classes]) }}>
     {{ $slot }}
 </button>

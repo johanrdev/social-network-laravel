@@ -46,7 +46,7 @@
     </div>
 
     <div class="flex justify-end">
-        <input type="button" class="py-2 px-4 rounded bg-rose-500 text-white cursor-pointer ml-3" value="Remove" />
+        <x-button type="red">Remove</x-button>
     </div>
 
     @if ($blogs->hasPages())

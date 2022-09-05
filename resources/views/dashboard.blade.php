@@ -18,7 +18,7 @@
                                 @endforeach
                             </select>
                             <div class="flex justify-end">
-                                <input type="submit" class="py-2 px-4 rounded bg-teal-500 text-white cursor-pointer ml-3" value="Select" />
+                                <x-button type="green">Select</x-button>
                             </div>
                         </form>
                     </div>

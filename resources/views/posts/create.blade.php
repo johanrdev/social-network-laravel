@@ -31,7 +31,7 @@
         </div>
 
         <div class="flex justify-end">
-            <input type="submit" class="py-2 px-4 rounded bg-teal-500 text-white cursor-pointer" value="Publish" />
+            <x-button type="green">Publish</x-button>
         </div>
     </form>
 @endsection

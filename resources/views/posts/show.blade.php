@@ -60,7 +60,7 @@
                             <input type="hidden" name="post_type" value="post" />
                             <textarea class="w-full rounded mb-3" name="content" rows="5" required></textarea>
                             <div class="flex justify-end">
-                                <button type="submit" class="py-2 px-4 rounded bg-teal-500 text-white cursor-pointer">Publish</button>
+                                <x-button type="green">Publish</x-button>
                             </div>
                         </form>
                     </div>
