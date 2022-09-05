@@ -18,8 +18,7 @@
                             <input type="checkbox">
                         </div>
                     </th>
-                    <th class="py-3 px-6">Bookmark</th>
-                    <th class="py-3 px-6 w-40">Type</th>
+                    <th class="py-2 px-2 sm:py-3 sm:px-6">Bookmark</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,14 +29,13 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6">
+                        <td class="py-2 px-2 sm:py-3 sm:px-6 break-words">
                             @if ($bookmark->bookmarkable_type == 'App\Models\Blog')
                                 <a href="{{ route('blogs.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->name }}</a>
                             @elseif ($bookmark->bookmarkable_type == 'App\Models\Post')
                                 <a href="{{ route('posts.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->title }}</a>
                             @endif
                         </td>
-                        <td class="py-3 px-6">{{ $bookmark->bookmarkable_type == 'App\Models\Blog' ? 'Blog' : 'Post' }}</td>
                     </tr>
                 @endforeach
             </tbody>

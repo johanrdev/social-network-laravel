@@ -20,9 +20,7 @@
                             <input type="checkbox">
                         </div>
                     </th>
-                    <th class="py-3 px-6">Name</th>
-                    <th class="py-3 px-6 w-40">Posts</th>
-                    {{-- <th class="py-3 px-6 w-40">Action</th> --}}
+                    <th class="py-2 px-2 sm:py-3 sm:px-6">Name</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +31,7 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6"><a href="{{ route('blogs.edit', $blog) }}">{{ $blog->name }}</a></td>
-                        <td class="py-3 px-6">{{ count($blog->posts) }}</td>
-                        {{-- <td class="py-3 px-6">
-                            <a href="{{ route('blogs.edit', $blog) }}">Edit</a>
-                            <a href="#">Remove</a>
-                        </td> --}}
+                        <td class="py-2 px-2 sm:py-3 sm:px-6 break-words"><a href="{{ route('blogs.edit', $blog) }}">{{ $blog->name }}</a></td>
                     </tr>
                 @endforeach
             </tbody>

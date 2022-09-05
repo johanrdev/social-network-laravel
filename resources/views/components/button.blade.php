@@ -21,6 +21,6 @@
         @break
 @endswitch
 
-<button {{ $attributes->merge(['type' => 'submit', 'class' => 'py-3 px-5 rounded mb-3 transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest ' . $classes]) }}>
+<button {{ $attributes->merge(['type' => 'submit', 'class' => 'py-3 px-5 rounded mb-0 transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest ' . $classes]) }}>
     {{ $slot }}
 </button>

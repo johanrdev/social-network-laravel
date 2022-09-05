@@ -21,8 +21,7 @@
                             <input type="checkbox">
                         </div>
                     </th>
-                    <th class="py-3 px-6">Title</th>
-                    <th class="py-3 px-6 w-40">Category</th>
+                    <th class="py-2 px-2 sm:py-3 sm:px-6">Title</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,8 +32,7 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6"><a href="{{ route('posts.edit', $post) }}">{{ $post->title }}</a></td>
-                        <td class="py-3 px-6">{{ !is_null($post->category) ? $post->category->name : 'Uncategorized' }}</td>
+                        <td class="py-2 px-2 sm:py-3 sm:px-6 break-words"><a href="{{ route('posts.edit', $post) }}">{{ $post->title }}</a></td>
                     </tr>
                 @endforeach
             </tbody>

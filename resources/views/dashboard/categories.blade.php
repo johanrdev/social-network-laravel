@@ -21,8 +21,7 @@
                             <input type="checkbox">
                         </div>
                     </th>
-                    <th class="py-3 px-6">Name</th>
-                    <th class="py-3 px-6 w-40">References</th>
+                    <th class="py-2 px-2 sm:py-3 sm:px-6">Name</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,10 +32,9 @@
                                 <input type="checkbox">
                             </div>
                         </td>
-                        <td class="py-3 px-6">
+                        <td class="py-2 px-2 sm:py-3 sm:px-6 break-words">
                             <a href="{{ route('categories.edit', $category) }}">{{ $category->name }}</a>
                         </td>
-                        <td class="py-3 px-6">{{ count($category->posts) }}</td>
                     </tr>
                 @endforeach
             </tbody>
