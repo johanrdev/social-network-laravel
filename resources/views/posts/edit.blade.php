@@ -13,7 +13,7 @@
         @csrf
 
         <div class="flex justify-end">
-            <input type="submit" class="py-2 px-4 rounded bg-transparent text-rose-500 underline font-bold text-white cursor-pointer" value="Delete" />
+            <x-button type="transparent">Delete</x-button>
         </div>
     </form>
 

@@ -6,6 +6,10 @@
     @php
         $classes = 'bg-rose-500 hover:bg-rose-700 text-white';
     @endphp
+@elseif ($type == 'transparent')
+    @php
+        $classes = 'bg-transparent text-rose-500 font-bold underline';
+    @endphp
 @else
     @php
         $classes = 'bg-teal-500 hover:bg-teal-700 text-white';
