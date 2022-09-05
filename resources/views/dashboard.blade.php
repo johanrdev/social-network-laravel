@@ -14,11 +14,11 @@
                             @method('PUT')
                             @csrf
 
-                            <select class="w-full mb-3" name="selected_blog_id">
+                            <x-select class="w-full mb-3" name="selected_blog_id">
                                 @foreach ($userBlogs as $blog)
                                     <option value="{{ $blog->id }}" @selected(Auth::user()->selected_blog_id == $blog->id)>{{ $blog->name }}</option>
                                 @endforeach
-                            </select>
+                            </x-select>
                             <div class="flex justify-end">
                                 <x-button type="green">Select</x-button>
                             </div>

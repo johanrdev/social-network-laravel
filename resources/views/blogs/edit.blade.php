@@ -1,21 +1,25 @@
 @extends('dashboard')
 
 @section('content')
+    <div class="flex justify-between py-3">
+        <h2 class="text-2xl font-bold">Edit blog</h2>
+
+        <form method="POST" action="{{ route('blogs.destroy', $blog) }}">
+            @method('DELETE')
+            @csrf
+    
+            <div class="flex mb-3">
+                <x-button type="transparent">Delete</x-button>
+            </div>
+        </form>
+    </div>
+
     @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <x-alert :message="$error"></x-alert>
             @endforeach
         </ul>
     @endif
-    
-    <form method="POST" action="{{ route('blogs.destroy', $blog) }}">
-        @method('DELETE')
-        @csrf
-
-        <div class="flex justify-end">
-            <x-button type="transparent">Delete</x-button>
-        </div>
-    </form>
 
     <form method="POST" action="{{ route('blogs.update', $blog) }}">
         @method('PUT')

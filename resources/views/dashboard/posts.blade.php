@@ -1,7 +1,7 @@
 <div class="flex flex-col py-3">
     <h2 class="text-2xl font-bold">{{ $posts->total() }} {{ $posts->total() == 1 ? 'Post' : 'Posts' }}</h2>
     <ul class="my-3">
-        <li><a href="{{ route('posts.create') }}">New post</a></li>
+        <li><a href="{{ route('posts.create') }}" class="transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest text-teal-500 hover:text-teal-700 underline">New post</a></li>
     </ul>
 </div>
 

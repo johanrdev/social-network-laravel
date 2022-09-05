@@ -11,7 +11,7 @@
         @break
     @case('transparent')
         @php
-            $classes = 'bg-transparent hover:bg-transparent text-rose-500 hover:text-rose-700 underline border-transparent border-b-0 hover:border-transparent';
+            $classes = 'py-0 px-0 bg-transparent hover:bg-transparent text-rose-500 hover:text-rose-700 underline border-transparent border-b-0 hover:border-transparent';
         @endphp
         @break
     @default

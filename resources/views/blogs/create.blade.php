@@ -1,6 +1,10 @@
 @extends('dashboard')
 
 @section('content')
+    <div class="flex flex-col py-3">
+        <h2 class="text-2xl font-bold">New blog</h2>
+    </div>
+
     @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <x-alert :message="$error"></x-alert>
