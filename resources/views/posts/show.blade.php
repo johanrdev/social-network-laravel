@@ -74,7 +74,7 @@
                                 <div class="border-b border-gray-200 grow">
                                     <div class="flex flex-col p-6">
                                         <h3 class="font-bold">{{ $comment->user->name }} said ({{ $comment->created_at->diffForHumans() }}): </h3>
-                                        <p>{!! nl2br($comment->content) !!}</p>
+                                        <p>{!! nl2br(e($comment->content)) !!}</p>
                                     </div>
                                 </div>
                             </div>
