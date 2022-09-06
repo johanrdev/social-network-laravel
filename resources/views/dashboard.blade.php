@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('container')
-    <div class="py-12">
+    <div class="pb-12 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-3 flex flex-col">
+            <div class="col-span-12 lg:col-span-3 flex flex-col order-1 lg:order-0">
                 
                 <!-- Select blog start -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6 lg:mb-6 last:mb-0 flex flex-col">
@@ -41,7 +41,7 @@
                 ]" />
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-12 lg:col-span-9 flex flex-col">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-12 lg:col-span-9 flex flex-col order-0 lg:order-1">
                 <div class="p-6 bg-white border-b border-gray-200 grow">
                     @yield('content')
                 </div>

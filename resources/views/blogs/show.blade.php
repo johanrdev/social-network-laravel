@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('container')
-    <div class="py-12">
+    <div class="pb-12 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-12 flex flex-col justify-center items-center">
-                <h2 class="text-5xl font-black">{{ $blog->name }}</h2>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black">{{ $blog->name }}</h2>
                 <ul class="flex flex-col sm:flex-row mt-3">
                     <li class="text-center">
                         <span class="bg-transparent text-sm font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">

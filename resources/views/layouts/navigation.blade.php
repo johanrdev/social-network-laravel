@@ -4,12 +4,14 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center text-gray-400 hover:text-gray-200 stroke-gray-400 hover:stroke-gray-200 transition-all duration-150">
+                
                     <a href="{{ route('dashboard') }}" class="flex items-center">
-                        <x-application-logo />
-                        <span class="text-xl uppercase font-black ml-1">TextBox</span>
+                        <div class="shrink-0 flex items-center text-gray-400 hover:text-gray-200 stroke-gray-400 hover:stroke-gray-200 transition-all duration-150 cursor-pointer">
+                            <x-application-logo />
+                            <span class="text-xl uppercase font-black ml-1">TextBox</span>
+                        </div>
                     </a>
-                </div>
+                
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-px sm:ml-10 sm:flex">
