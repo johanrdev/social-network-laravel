@@ -18,7 +18,7 @@ $('#remove').on('click', function() {
         var joined_values = allVals.join(',');
 
          $.ajax({
-            url: `http://localhost:8000/${type}`,
+            url: `https://textbox.jronn.me/${type}`,
             type: 'DELETE',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token').attr('content') },
             data: `ids=${joined_values}`,
