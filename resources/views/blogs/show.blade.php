@@ -56,7 +56,7 @@
                                     </span>
                                 </li>
                             </ul>
-                            <p class="text-lg leading-loose">{!! substr(nl2br($post->content), 0, 200) !!} <a href="{{ route('posts.show', $post) }}" class="font-bold text-rose-500 underline">Read More</a></p>
+                            <p class="text-lg leading-loose">{!! substr(nl2br(e($post->content)), 0, 200) !!} <a href="{{ route('posts.show', $post) }}" class="font-bold text-rose-500 underline">Read More</a></p>
                         </div>
                     </div>
                 </div>

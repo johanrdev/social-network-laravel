@@ -37,7 +37,7 @@
                             </li>
                         </ul>
                         
-                        <p class="text-md sm:text-lg leading-loose">{!! nl2br($post->content) !!}</p>
+                        <p class="text-md sm:text-lg leading-loose">{!! nl2br(e($post->content)) !!}</p>
                     </div>
                 </div>
             </div>
