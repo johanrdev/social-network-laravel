@@ -123,11 +123,45 @@ class BlogController extends Controller
         Bookmark::where('bookmarkable_id', $blog->id)
             ->where('bookmarkable_type', 'App\Models\Blog')
         ->delete();
+        
         Post::where('blog_id', $blog->id)->delete();
+
         Category::where('blog_id', $blog->id)->delete();
 
         $blog->delete();
 
-        return redirect()->route('dashboard', ['tab' => 'blogs']);
+        return response()->json([
+            'success' => 'Record was successfully deleted!'
+        ]);
+    }
+
+    public function destroyAll(Request $request) {
+        $ids = $request->ids;
+
+        $posts = Post::whereIn('blog_id', explode(',', $ids))->get();
+
+        foreach ($posts as $post) {
+            Comment::where('commentable_id', $post->id)
+                ->where('commentable_type', 'App\Models\Post')
+            ->delete();
+            
+            Bookmark::where('bookmarkable_id', $post->id)
+                ->where('bookmarkable_type', 'App\Models\Post')
+            ->delete();
+        }
+
+        Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
+            ->where('bookmarkable_type', 'App\Models\Blog')
+        ->delete();
+        
+        Post::whereIn('blog_id', explode(',', $ids))->delete();
+
+        Category::whereIn('blog_id', explode(',', $ids))->delete();
+
+        Blog::whereIn('id', explode(',', $ids))->delete();
+
+        return response()->json([
+            'success' => 'Deleted selected records'
+        ]);
     }
 }

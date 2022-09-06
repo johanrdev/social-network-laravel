@@ -39,12 +39,12 @@ Route::get('/dashboard', function () {
     ->paginate($max_items_per_page);
 
     $posts = Post::where('user_id', Auth::user()->id)
-        ->where('blog_id', Auth::user()->selected_blog_id)
+        // ->where('blog_id', Auth::user()->selected_blog_id)
         ->orderBy('id', 'desc')
     ->paginate($max_items_per_page);
 
     $categories = Category::where('user_id', Auth::user()->id)
-        ->where('blog_id', Auth::user()->selected_blog_id)
+        // ->where('blog_id', Auth::user()->selected_blog_id)
         ->orderBy('id', 'desc')
     ->paginate($max_items_per_page);
 
@@ -70,6 +70,12 @@ Route::resource('posts', PostController::class)->middleware(['auth']);
 Route::resource('categories', CategoryController::class)->middleware(['auth']);
 Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
+
+Route::delete('/blogs', [BlogController::class, 'destroyAll'])->middleware(['auth']);
+Route::delete('/posts', [PostController::class, 'destroyAll'])->middleware(['auth']);
+Route::delete('/categories', [CategoryController::class, 'destroyAll'])->middleware(['auth']);
+Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->middleware(['auth']);
+Route::delete('/comments', [CommentController::class, 'destroyAll'])->middleware(['auth']);
 
 Route::put('/set_current_blog_id', function() {
     $user = User::where('id', Auth::user()->id)

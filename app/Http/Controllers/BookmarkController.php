@@ -102,4 +102,10 @@ class BookmarkController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroyAll(Request $request) {
+        $ids = $request->ids;
+
+        Bookmark::whereIn('id', explode(',', $ids))->delete();
+    }
 }

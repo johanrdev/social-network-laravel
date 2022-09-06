@@ -132,4 +132,26 @@ class PostController extends Controller
 
         return redirect()->route('dashboard', ['tab' => 'posts']);
     }
+
+    public function destroyAll(Request $request) {
+        $ids = $request->ids;
+
+        Comment::whereIn('commentable_id', explode(',', $ids))
+            ->where('commentable_type', 'App\Models\Post')
+        ->delete();
+        
+        Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
+            ->where('bookmarkable_type', 'App\Models\Post')
+        ->delete();
+
+        Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
+            ->where('bookmarkable_type', 'App\Models\Blog')
+        ->delete();
+
+        Post::whereIn('id', explode(',', $ids))->delete();
+
+        return response()->json([
+            'success' => 'Deleted selected records'
+        ]);
+    }
 }

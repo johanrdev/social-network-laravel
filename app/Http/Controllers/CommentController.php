@@ -97,4 +97,14 @@ class CommentController extends Controller
 
         return redirect()->route('dashboard', ['tab' => 'comments']);
     }
+
+    public function destroyAll(Request $request) {
+        $ids = $request->ids;
+        
+        Comment::whereIn('id', explode(',', $ids))->delete();
+
+        return response()->json([
+            'success' => 'Deleted selected records'
+        ]);
+    }
 }

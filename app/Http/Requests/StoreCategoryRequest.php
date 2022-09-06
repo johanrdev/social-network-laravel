@@ -24,7 +24,8 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:30'
+            'name' => 'required|min:3|max:30',
+            'blog_id' => 'required'
         ];
     }
 }

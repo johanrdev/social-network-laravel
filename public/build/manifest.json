@@ -4,8 +4,13 @@
     "src": "resources/js/app.js",
     "isEntry": true
   },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard.32cb72bb.js",
+    "src": "resources/js/dashboard.js",
+    "isEntry": true
+  },
   "resources/css/app.css": {
-    "file": "assets/app.1c51d67c.css",
+    "file": "assets/app.2b65b467.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }
