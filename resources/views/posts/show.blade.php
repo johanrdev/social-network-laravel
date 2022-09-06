@@ -44,7 +44,7 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-3">
                 <div class="bg-white border-b border-gray-200 grow">
-                    <div class="flex flex-col pt-6 pb-12 px-8 lg:pt-12 lg:pb-24 lg:px-16">
+                    <div class="flex flex-col pt-6 pb-6 px-8 lg:pt-12 lg:pb-6 lg:px-16">
                         @if ($errors->any())
                                 @foreach ($errors->all() as $error)
                                     <x-alert :message="$error"></x-alert>
@@ -66,12 +66,12 @@
                     </div>
                     
 
-                    <div class="pt-6 pb-12 px-8 lg:pt-12 lg:pb-24 lg:px-16">
+                    <div class="pt-6 pb-12 px-8 lg:pt-6 lg:pb-24 lg:px-16">
                         <h2 class="text-2xl font-bold my-3">Comments ({{ $comments->total() }})</h2>
                         
                         @foreach ($comments as $comment)
-                            <div class="overflow-hidden grow flex flex-col mb-3">
-                                <div class="border-b border-gray-200 grow">
+                            <div class="overflow-hidden grow flex flex-col mb-3 bg-gray-200 rounded">
+                                <div class="border-b-2 border-gray-400 grow">
                                     <div class="flex flex-col p-6">
                                         <h3 class="font-bold">{{ $comment->user->name }} said ({{ $comment->created_at->diffForHumans() }}): </h3>
                                         <p>{!! nl2br(e($comment->content)) !!}</p>
