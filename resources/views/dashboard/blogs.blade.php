@@ -1,5 +1,4 @@
 <div class="flex flex-col py-3">
-    <h2>Testing</h2>
     <h2 class="text-2xl font-bold">{{ $blogs->total() }} {{ $blogs->total() == 1 ? 'Blog' : 'Blogs' }}</h2>
     <ul class="my-3">
         <li><a href="{{ route('blogs.create') }}" class="transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest text-teal-500 hover:text-teal-700 underline">New blog</a></li>
