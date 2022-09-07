@@ -1,35 +1,51 @@
-import jQuery from 'jquery';
+window.onload = function() {
+    var ids_input = document.getElementById('ids');
+    var check_all_checkbox = document.getElementById('check-all');
 
-window.$= jQuery;
+    if (ids_input) {
+        var checkboxes = document.getElementsByClassName('remove-checkbox');
+        
+        for (let checkbox of checkboxes) {
+            checkbox.addEventListener('change', function(e) {
+                var id = e.target.getAttribute('data-post-id');
 
-$('input#check-all').click(function() {
-    $('input[type="checkbox"]').not(this).prop('checked', this.checked);
-});
+                if (this.checked) {
+                    if (ids_input.value.length > 0) {
+                        ids_input.value += `,${id}`;
+                    } else {
+                        ids_input.value += `${id}`;
+                    }
+                } else {
+                    if (ids_input.value.includes(`${id}`)) {
+                        var str = ids_input.value;
+                        var new_str = str.replaceAll(id, '');
+                        ids_input.value = new_str.replace(/(^,)|(,$)/g, '');
+                    }
+                }
+            });
+        }
+    }
 
-$('#remove').on('click', function() {
-    var allVals = [];
-    var type = $('input[data-type]').data('type');
+    if (check_all_checkbox) {
+        check_all_checkbox.addEventListener('change', function(e) {
+            var checkboxes = document.getElementsByClassName('remove-checkbox');
 
-    $('input[type="checkbox"]:not(#check-all):checked').each(function() {
-        allVals.push($(this).data('post-id'));
-    });
-
-    if (allVals.length > 0) {
-        var joined_values = allVals.join(',');
-
-         $.ajax({
-            url: `https://textbox.jronn.me/${type}`,
-            type: 'DELETE',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token').attr('content') },
-            data: `ids=${joined_values}`,
-            success: function(res) {
-                $('input[type="checkbox"]:not(#check-all):checked').each(function() {
-                    $(this).parents('tr').remove();
-                });
-            },
-            error: function(data) {
-                console.log(data.responseText);
+            for (let checkbox of checkboxes) {
+                checkbox.checked = !checkbox.checked;
+                triggerEvent(checkbox, 'change');
             }
         });
     }
-});
+
+    function triggerEvent(element, type) {
+        if ('createEvent' in document) {
+            var e = document.createEvent('HTMLEvents');
+            e.initEvent(type, false, true);
+            element.dispatchEvent(e);
+        } else {
+            var e = document.createEventObject();
+            e.eventType = type;
+            element.fireEvent('on' + e.eventType, e);
+        }
+    }
+}

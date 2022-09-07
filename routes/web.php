@@ -65,17 +65,19 @@ Route::get('/dashboard', function () {
     ));
 })->middleware(['auth'])->name('dashboard');
 
+// Resource routes for each model
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
 Route::resource('posts', PostController::class)->middleware(['auth']);
 Route::resource('categories', CategoryController::class)->middleware(['auth']);
 Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
 
-Route::delete('/blogs', [BlogController::class, 'destroyAll'])->middleware(['auth']);
-Route::delete('/posts', [PostController::class, 'destroyAll'])->middleware(['auth']);
-Route::delete('/categories', [CategoryController::class, 'destroyAll'])->middleware(['auth']);
-Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->middleware(['auth']);
-Route::delete('/comments', [CommentController::class, 'destroyAll'])->middleware(['auth']);
+// Delete checked items routes
+Route::delete('/blogs', [BlogController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBlogs');
+Route::delete('/posts', [PostController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedPosts');
+Route::delete('/categories', [CategoryController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedCategories');
+Route::delete('/comments', [CommentController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedComments');
+Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBookmarks');
 
 Route::put('/set_current_blog_id', function() {
     $user = User::where('id', Auth::user()->id)

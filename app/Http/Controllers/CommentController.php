@@ -100,11 +100,27 @@ class CommentController extends Controller
 
     public function destroyAll(Request $request) {
         $ids = $request->ids;
-        
-        Comment::whereIn('id', explode(',', $ids))->delete();
+        $id_array = explode(',', $ids);
+        $count = 0;
 
-        return response()->json([
-            'success' => 'Deleted selected records'
-        ]);
+        if ($ids == null) {
+            return redirect()->route('dashboard', ['tab' => 'comments']);
+        }
+
+        foreach ($id_array as $id) {
+            $recordExists = Comment::where('id', $id)
+                ->where('user_id', Auth::user()->id)
+            ->exists();
+
+            if ($recordExists) $count++;
+        }
+
+        if ($count === count($id_array)) {
+            Comment::whereIn('id', explode(',', $ids))
+                ->where('user_id', Auth::user()->id)
+            ->delete();
+        }
+
+        return redirect()->route('dashboard', ['tab' => 'comments']);
     }
 }

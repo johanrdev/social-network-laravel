@@ -107,19 +107,33 @@ class CategoryController extends Controller
 
     public function destroyAll(Request $request) {
         $ids = $request->ids;
+        $id_array = explode(',', $ids);
+        $count = 0;
 
-        $posts = Post::whereIn('category_id', explode(',', $ids))
-            ->where('user_id', Auth::user()->id)
-        ->get();
-
-        foreach ($posts as $post) {
-            $post->update(['category_id' => null]);
+        if ($ids == null) {
+            return redirect()->route('dashboard', ['tab' => 'categories']);
         }
 
-        $categories = Category::whereIn('id', explode(',', $ids))->delete();
+        foreach ($id_array as $id) {
+            $recordExists = Category::where('id', $id)
+                ->where('user_id', Auth::user()->id)
+            ->exists();
 
-        return response()->json([
-            'success' => $categories
-        ]);
+            if ($recordExists) $count++;
+        }
+
+        if ($count === count($id_array)) {
+            $posts = Post::whereIn('category_id', explode(',', $ids))
+                ->where('user_id', Auth::user()->id)
+            ->get();
+
+            foreach ($posts as $post) {
+                $post->update(['category_id' => null]);
+            }
+
+            $categories = Category::whereIn('id', explode(',', $ids))->delete();
+        }
+
+        return redirect()->route('dashboard', ['tab' => 'categories']);
     }
 }

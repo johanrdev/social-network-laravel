@@ -135,23 +135,42 @@ class PostController extends Controller
 
     public function destroyAll(Request $request) {
         $ids = $request->ids;
+        $id_array = explode(',', $ids);
+        $count = 0;
 
-        Comment::whereIn('commentable_id', explode(',', $ids))
-            ->where('commentable_type', 'App\Models\Post')
-        ->delete();
-        
-        Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
-            ->where('bookmarkable_type', 'App\Models\Post')
-        ->delete();
+        if ($ids == null) {
+            return redirect()->route('dashboard', ['tab' => 'posts']);
+        }
 
-        Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
-            ->where('bookmarkable_type', 'App\Models\Blog')
-        ->delete();
+        foreach ($id_array as $id) {
+            $recordExists = Post::where('id', $id)
+                ->where('user_id', Auth::user()->id)
+            ->exists();
 
-        Post::whereIn('id', explode(',', $ids))->delete();
+            if ($recordExists) $count++;
+        }
 
-        return response()->json([
-            'success' => 'Deleted selected records'
-        ]);
+        if ($count === count($id_array)) {
+            // Remove any comments associated with the posts
+            Comment::whereIn('commentable_id', explode(',', $ids))
+                ->where('commentable_type', 'App\Models\Post')
+            ->delete();
+            
+            // Remove any bookmarks associated with the posts
+            Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
+                ->where('bookmarkable_type', 'App\Models\Post')
+            ->delete();
+
+            // Remove any blog bookmarks associated with the posts
+            Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
+                ->where('bookmarkable_type', 'App\Models\Blog')
+            ->delete();
+
+            Post::whereIn('id', explode(',', $ids))
+                ->where('user_id', Auth::user()->id)
+            ->delete();
+        }
+
+        return redirect()->route('dashboard', ['tab' => 'posts']);
     }
 }

@@ -105,7 +105,25 @@ class BookmarkController extends Controller
 
     public function destroyAll(Request $request) {
         $ids = $request->ids;
+        $id_array = explode(',', $ids);
+        $count = 0;
 
-        Bookmark::whereIn('id', explode(',', $ids))->delete();
+        if ($ids == null) {
+            return redirect()->route('dashboard', ['tab' => 'bookmarks']);
+        }
+
+        foreach ($id_array as $id) {
+            $recordExists = Bookmark::where('id', $id)
+                ->where('user_id', Auth::user()->id)
+            ->exists();
+
+            if ($recordExists) $count++;
+        }
+
+        if ($count === count($id_array)) {
+            Bookmark::whereIn('id', explode(',', $ids))->delete();
+        }
+
+        return redirect()->route('dashboard', ['tab' => 'bookmarks']);
     }
 }

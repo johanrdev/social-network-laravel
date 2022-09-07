@@ -130,38 +130,63 @@ class BlogController extends Controller
 
         $blog->delete();
 
-        return response()->json([
-            'success' => 'Record was successfully deleted!'
-        ]);
+        return redirect()->route('dashboard', ['tab' => 'blogs']);
     }
 
     public function destroyAll(Request $request) {
         $ids = $request->ids;
+        $id_array = explode(',', $ids);
+        $count = 0;
 
-        $posts = Post::whereIn('blog_id', explode(',', $ids))->get();
+        if ($ids == null) {
+            return redirect()->route('dashboard', ['tab' => 'blogs']);
+        }
 
-        foreach ($posts as $post) {
-            Comment::where('commentable_id', $post->id)
-                ->where('commentable_type', 'App\Models\Post')
+        foreach ($id_array as $id) {
+            $recordExists = Blog::where('id', $id)
+                ->where('user_id', Auth::user()->id)
+            ->exists();
+
+            if ($recordExists) $count++;
+        }
+
+        if ($count === count($id_array)) {
+            // Get all comments associated with the blog
+            $posts = Post::whereIn('blog_id', explode(',', $ids))
+                ->where('user_id', Auth::user()->id)
+            ->get();
+
+            foreach ($posts as $post) {
+                // Remove any comments associated with the associated posts
+                Comment::where('commentable_id', $post->id)
+                    ->where('commentable_type', 'App\Models\Post')
+                ->delete();
+                
+                // Also remove any bookmarks associated with the associated posts
+                Bookmark::where('bookmarkable_id', $post->id)
+                    ->where('bookmarkable_type', 'App\Models\Post')
+                ->delete();
+            }
+
+            // Remove any bookmarks associated with the blog
+            Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
+                ->where('bookmarkable_type', 'App\Models\Blog')
             ->delete();
             
-            Bookmark::where('bookmarkable_id', $post->id)
-                ->where('bookmarkable_type', 'App\Models\Post')
+            // Remove any posts associated with the blog
+            Post::whereIn('blog_id', explode(',', $ids))->delete();
+
+            // Remove any categories associated with the blog
+            Category::whereIn('blog_id', explode(',', $ids))
+                ->where('user_id', Auth::user()->id)
+            ->delete();
+
+            // Finally, remove the selected blogs
+            Blog::whereIn('id', explode(',', $ids))
+                ->where('user_id', Auth::user()->id)
             ->delete();
         }
 
-        Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
-            ->where('bookmarkable_type', 'App\Models\Blog')
-        ->delete();
-        
-        Post::whereIn('blog_id', explode(',', $ids))->delete();
-
-        Category::whereIn('blog_id', explode(',', $ids))->delete();
-
-        Blog::whereIn('id', explode(',', $ids))->delete();
-
-        return response()->json([
-            'success' => 'Deleted selected records'
-        ]);
+        return redirect()->route('dashboard', ['tab' => 'blogs']);
     }
 }
