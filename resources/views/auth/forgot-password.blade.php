@@ -15,7 +15,7 @@
             </ul>
         </div>
 
-        <div class="mb-4 text-md text-gray-400">
+        <div class="mb-4 text-sm text-gray-400">
             {{ __('Forgot your password? No problem. Enter your email address in the field below and we\'ll send a password reset link to your inbox.') }}
         </div>
 
@@ -32,7 +32,7 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="block mt-1 w-full bg-gray-900 border-2 border-gray-600 focus:border-teal-400 text-gray-400 font-semibold" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <div class="flex items-center justify-end mt-4">
