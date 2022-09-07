@@ -50,14 +50,16 @@
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full bg-gray-900 border-2 border-gray-600 focus:border-teal-400 text-gray-400 font-semibold"
-                                type="password"
-                                name="password_confirmation" required />
+                         type="password"
+                         name="password_confirmation" required />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-400 hover:text-gray-200 font-semibold" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+            <div class="flex items-center justify-between mt-4">
+                <div class="flex flex-col">
+                    <a class="underline text-sm text-gray-400 hover:text-gray-200 font-semibold" href="{{ route('login') }}">
+                        {{ __('Already registered?') }}
+                    </a>
+                </div>
 
                 <x-button type="green" class="ml-4">
                     {{ __('Register') }}

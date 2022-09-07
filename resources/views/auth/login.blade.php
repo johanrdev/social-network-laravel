@@ -49,12 +49,18 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-400 hover:text-gray-200 font-semibold" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+            <div class="flex items-center justify-between mt-4">
+                <div class="flex flex-col">
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-400 hover:text-gray-200 font-semibold" href="{{ route('password.request') }}">
+                            {{ __('Forgot your password?') }}
+                        </a>
+                    @endif
+
+                    <a class="underline text-sm text-gray-400 hover:text-gray-200 font-semibold" href="{{ route('register') }}">
+                        {{ __('Don\'t have an account?') }}
                     </a>
-                @endif
+                </div>
 
                 <x-button type="green" class="ml-3">
                     {{ __('Log in') }}
