@@ -24,7 +24,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gradient-to-b from-gray-700 to-black dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+        <div class="relative flex items-top justify-center min-h-screen bg-gradient-to-b from-gray-700 to-gray-900 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 flex flex-col">
                 <div class="flex flex-col items-center justify-center pt-8 sm:pt-0 stroke-gray-500">
                     <svg class="w-40 h-40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
