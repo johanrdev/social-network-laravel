@@ -7,15 +7,17 @@ use Illuminate\View\Component;
 class UserCard extends Component
 {
     public $user;
+    public $showInfo;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $showInfo)
     {
         $this->user = $user;
+        $this->showInfo = $showInfo;
     }
 
     /**
