@@ -58,4 +58,12 @@ class User extends Authenticatable
     public function bookmarks() {
         return $this->morphMany(Bookmark::class, 'bookmarkable');
     }
+
+    public function sentMessages() {
+        return $this->morphMany(Message::class, 'sender');
+    }
+
+    public function receivedMessages() {
+        return $this->morphMany(Message::class, 'recipient');
+    }
 }
