@@ -45,13 +45,17 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        Post::create([
+        $post = Post::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'category_id' => $request->input('category_id'),
             'user_id' => Auth::user()->id,
             'blog_id' => Auth::user()->selected_blog_id
         ]);
+
+        $bookmark = Bookmark::where('bookmarkable_id', $post->blog->id)
+            ->where('has_changes', false)
+        ->update(['has_changes' => true]);
 
         return redirect()->route('dashboard', ['tab' => 'posts']);
     }

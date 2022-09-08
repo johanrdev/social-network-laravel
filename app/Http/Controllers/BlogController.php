@@ -65,6 +65,12 @@ class BlogController extends Controller
             ->where('user_id', Auth::user()->id)
         ->first();
 
+        if ($bookmark) {
+            if ($bookmark->has_changes) {
+                $bookmark->update(['has_changes' => false]);
+            }
+        }
+
         $posts = Post::where('blog_id', $blog->id)
             ->orderBy('id', 'desc')
         ->paginate(9);

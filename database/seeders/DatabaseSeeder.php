@@ -19,25 +19,29 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(1)->create(['name' => 'admin', 'is_admin' => 1])->each(function ($user) {
-            $blogs = Blog::factory(20)->create(['user_id' => $user->id]);
+            $blogs = Blog::factory(5)->create(['user_id' => $user->id]);
+
+            $user->update(['selected_blog_id' => $blogs->first()->id]);
 
             foreach ($blogs as $blog) {
-                $categories = Category::factory(5)->create(['user_id' => $blog->user->id, 'blog_id' => $blog->id]);
+                $categories = Category::factory(3)->create(['user_id' => $blog->user->id, 'blog_id' => $blog->id]);
 
                 foreach ($categories as $category) {
-                    Post::factory(25)->create(['user_id' => $category->user->id, 'blog_id' => $category->blog->id, 'category_id' => $category->id]);
+                    Post::factory(8)->create(['user_id' => $category->user->id, 'blog_id' => $category->blog->id, 'category_id' => $category->id]);
                 }
             }
         });
         
-        User::factory(10)->create()->each(function ($user) {
-            $blogs = Blog::factory(20)->create(['user_id' => $user->id]);
+        User::factory(9)->create()->each(function ($user) {
+            $blogs = Blog::factory(5)->create(['user_id' => $user->id]);
+
+            $user->update(['selected_blog_id' => $blogs->first()->id]);
 
             foreach ($blogs as $blog) {
-                $categories = Category::factory(5)->create(['user_id' => $blog->user->id, 'blog_id' => $blog->id]);
+                $categories = Category::factory(3)->create(['user_id' => $blog->user->id, 'blog_id' => $blog->id]);
 
                 foreach ($categories as $category) {
-                    Post::factory(25)->create(['user_id' => $category->user->id, 'blog_id' => $category->blog->id, 'category_id' => $category->id]);
+                    Post::factory(8)->create(['user_id' => $category->user->id, 'blog_id' => $category->blog->id, 'category_id' => $category->id]);
                 }
             }
         });
