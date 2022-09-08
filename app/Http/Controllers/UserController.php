@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -64,7 +67,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return "edit user profile";
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -74,9 +77,24 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user_to_update = User::find(Auth::user()->id);
+
+        if (Hash::check($request->input('current_password'), $user_to_update->password)) {
+            $user->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'description' => $request->input('description')
+            ]);
+    
+            $user_to_update->touch();
+
+            return redirect()->route('users.show', Auth::user());
+        } else {
+            return redirect()->route('users.edit', Auth::user())->withErrors(['Current password is incorrect']);
+        }
     }
 
     /**

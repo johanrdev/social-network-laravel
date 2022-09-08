@@ -15,6 +15,7 @@
     </div>
     
     @if ($errors->any())
+        <ul>
             @foreach ($errors->all() as $error)
                 <x-alert :message="$error"></x-alert>
             @endforeach
