@@ -69,9 +69,16 @@ class PostController extends Controller
             ->where('user_id', Auth::user()->id)
         ->first();
 
-        $comments = Comment::where('commentable_id', $post->id)->orderBy('id', 'desc')->paginate(3);
+        if ($bookmark) {
+            if ($bookmark->has_changes) {
+                $bookmark->update(['has_changes' => false]);
+            }
+        }
+
+        $comments = Comment::where('commentable_id', $post->id)
+            ->orderBy('id', 'desc')
+        ->paginate(3);
         
-        // $bookmark = Bookmark::where('bookmarkable_id', $post->id)->where('bookmarkable_type', $post->bookmarkable)
         return view('posts.show', compact('post', 'bookmark', 'comments'));
     }
 
@@ -104,6 +111,10 @@ class PostController extends Controller
             'content' => $request->input('content'),
             'category_id' => $request->input('category_id')
         ]);
+
+        Bookmark::where('bookmarkable_id', $post->id)
+            ->where('bookmarkable_type', 'App\Models\Post')
+        ->update(['has_changes' => true]);
 
         return redirect()->route('dashboard', ['tab' => 'posts']);
     }

@@ -29,11 +29,19 @@
                                 <input type="checkbox" class="remove-checkbox" data-post-id="{{ $bookmark->id }}">
                             </div>
                         </td>
-                        <td class="py-2 px-2 sm:py-3 sm:px-6 break-words">
-                            @if ($bookmark->bookmarkable_type == 'App\Models\Blog')
-                                <a href="{{ route('blogs.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->name }}</a>
-                            @elseif ($bookmark->bookmarkable_type == 'App\Models\Post')
-                                <a href="{{ route('posts.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->title }}</a>
+                        <td class="py-2 px-2 sm:py-3 sm:px-6 break-words flex items-center">
+                            <span class="relative mr-2">
+                                @if ($bookmark->bookmarkable_type == 'App\Models\Blog')
+                                    <a href="{{ route('blogs.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->name }}</a>
+                                @elseif ($bookmark->bookmarkable_type == 'App\Models\Post')
+                                    <a href="{{ route('posts.show', $bookmark->bookmarkable_id) }}">{{ $bookmark->bookmarkable->title }}</a>
+                                @endif
+                            </span>
+
+                            @if ($bookmark->has_changes)
+                                <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none">
+                                    Updated
+                                </span>
                             @endif
                         </td>
                     </tr>
