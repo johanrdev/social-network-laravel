@@ -51,6 +51,13 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('users.show', Auth::user())">
+                                {{ __('Show profile') }}
+                            </x-dropdown-link>
+                            <hr>
+                            <x-dropdown-link :href="route('users.edit', Auth::user())">
+                                {{ __('Edit profile') }}
+                            </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -88,11 +95,14 @@
                 <x-responsive-nav-link :href="route('explore')" :active="request()->routeIs('explore')">
                     {{ __('Explore') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
             </div>
 
             <!-- Responsive Settings Options -->
             <div class="border-t border-gray-500">
-                <x-responsive-nav-link :href="route('explore')" :active="request()->routeIs('explore')">
+                <x-responsive-nav-link :href="route('users.show', Auth::user())" :active="request()->routeIs('users.show')">
                     <div>
                         <div class="font-medium text-base text-xs font-semibold uppercase tracking-widest">Signed in as {{ Auth::user()->name }}</div>
                         <div class="font-medium text-sm">{{ Auth::user()->email }}</div>
@@ -100,11 +110,11 @@
                 </x-responsive-nav-link>
                 
 
-                <div class="space-y-1 border-t border-gray-500">
+                <div class="space-y-1 border-0 border-gray-500">
                     <!-- Authentication -->
+                    <x-responsive-nav-link :href="route('users.edit', Auth::user())">Edit profile</x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <x-responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
