@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Bookmark;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
@@ -66,6 +67,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 // Resource routes for each model
+Route::resource('users', UserController::class)->middleware(['auth']);
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
 Route::resource('posts', PostController::class)->middleware(['auth']);
 Route::resource('categories', CategoryController::class)->middleware(['auth']);
