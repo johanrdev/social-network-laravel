@@ -18,17 +18,8 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $user_ids = User::all()->pluck('id')->toArray();
-        $random_user_index = rand(0, count($user_ids) - 1);
-
-        $posts = Post::where('user_id', $user_ids[$random_user_index])->get();
-        $random_post_index = rand(0, count($posts) - 1);
-
         return [
-            'content' => $this->faker->text(100),
-            'user_id' => $user_ids[$random_user_index],
-            'commentable_id' => $posts[$random_post_index]->id,
-            'commentable_type' => 'App\Models\Post'
+            'content' => $this->faker->text(100)
         ];
     }
 }

@@ -82,14 +82,14 @@ class UserController extends Controller
         $user_to_update = User::find(Auth::user()->id);
 
         if (Hash::check($request->input('current_password'), $user_to_update->password)) {
+            // $user_to_update->touch();
+
             $user->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-                'description' => $request->input('description')
+                'description' => $request->input('description'),
+                'password' => Hash::make($request->input('password'))
             ]);
-    
-            $user_to_update->touch();
 
             return redirect()->route('users.show', Auth::user());
         } else {
