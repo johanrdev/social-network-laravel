@@ -19,6 +19,10 @@ class MessageController extends Controller
             ->orderBy('id', 'desc')
         ->paginate(10);
 
+        Message::where('is_read', false)
+            ->where('recipient_id', Auth::user()->id)
+        ->update(['is_read' => true]);
+
         return view('messages.index', compact('messages'));
     }
 
@@ -41,7 +45,7 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         if ($request->input('recipient_id') == Auth::user()->id) {
-            return "Cannot send a message to yourself";
+            return redirect()->route('messages.create', ['recipient_id' => $request->input('recipient_id')])->withErrors([['message' => 'Cannot send a message to yourself.']]);
         }
         
         $recipient_id = $request->input('recipient_id');
@@ -54,7 +58,7 @@ class MessageController extends Controller
             'recipient_id' => $request->input('recipient_id')
         ]);
 
-        return redirect()->route('users.show', $request->input('recipient_id'));
+        return redirect()->route('messages.index');
     }
 
     /**

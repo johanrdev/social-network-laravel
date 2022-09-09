@@ -29,8 +29,14 @@
                         {{ __('Users') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
+                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')" class="relative">
                         {{ __('Messages') }}
+
+                        @if ($new_messages > 0)
+                            <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none absolute -right-2 top-2">
+                                {{ $new_messages }} New
+                            </span>
+                        @endif
                     </x-nav-link>
                 </div>
             </div>

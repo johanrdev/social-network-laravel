@@ -24,11 +24,11 @@
                                     <h2 class="text-xl font-bold">
                                         <a href="{{ route('users.show', $message->sender_id) }}">{{ $message->sender->name }}</a>
                                     </h2>
-                                    <ul>
-                                        <li>{{ $message->created_at->diffForHumans() }}</li>
+                                    <ul class="flex">
+                                        <li class="mr-4">{{ $message->created_at->diffForHumans() }}</li>
+                                        <li class="mr-4"><a href="{{ route('messages.create') }}?recipient_id={{ $message->sender_id }}" class="font-bold">Reply</a></li>
                                     </ul>
                                     <p>{{ $message->content }}</p>
-                                    <p class="text-right"><a href="{{ route('messages.create') }}?recipient_id={{ $message->sender_id }}" class="font-bold">Reply</a></p>
                                 </div>
                             </div>
                         </div>

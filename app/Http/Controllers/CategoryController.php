@@ -95,7 +95,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $posts = Post::where('category_id', $category->id)->where('user_id', Auth::user()->id)->get();
+        $posts = Post::where('category_id', $category->id)
+            ->where('user_id', Auth::user()->id)
+        ->get();
 
         foreach ($posts as $post) {
             $post->update(['category_id' => null]);
