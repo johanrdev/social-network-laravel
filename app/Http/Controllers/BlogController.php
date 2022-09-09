@@ -103,7 +103,7 @@ class BlogController extends Controller
             'description' => $request->input('description')
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('message', 'The blog was successfully updated!');
     }
 
     /**

@@ -82,7 +82,8 @@ class CommentController extends Controller
             'content' => $request->input('content')
         ]);
 
-        return redirect()->route('dashboard', ['tab' => 'comments']);
+        return redirect()->route('dashboard', ['tab' => 'comments'])
+            ->with('message', 'The comment was successfully updated!');
     }
 
     /**

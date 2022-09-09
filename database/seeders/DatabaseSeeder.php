@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(1)->create(['name' => 'admin', 'is_admin' => 1])->each(function ($user) {
+        User::factory(1)->create(['name' => 'admin', 'email' => 'admin@example.com', 'password' => Hash::make('admin'), 'is_admin' => 1])->each(function ($user) {
             $blogs = Blog::factory(5)->create(['user_id' => $user->id]);
 
             $user->update(['selected_blog_id' => $blogs->first()->id]);

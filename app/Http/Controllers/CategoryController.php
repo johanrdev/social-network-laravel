@@ -83,7 +83,8 @@ class CategoryController extends Controller
             'name' => $request->input('name')
         ]);
 
-        return redirect()->route('dashboard', ['tab' => 'categories']);
+        return redirect()->route('dashboard', ['tab' => 'categories'])
+            ->with('message', 'The category was successfully updated!');
     }
 
     /**

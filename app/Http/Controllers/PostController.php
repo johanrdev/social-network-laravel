@@ -120,7 +120,8 @@ class PostController extends Controller
             ->where('bookmarkable_type', 'App\Models\Post')
         ->update(['has_changes' => true]);
 
-        return redirect()->route('dashboard', ['tab' => 'posts']);
+        return redirect()->route('dashboard', ['tab' => 'posts'])
+            ->with('message', 'The post was successfully updated!');
     }
 
     /**

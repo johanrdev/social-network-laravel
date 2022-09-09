@@ -43,6 +43,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-12 lg:col-span-9 flex flex-col order-0 lg:order-1">
                 <div class="p-6 bg-white border-b border-gray-200 grow">
+                    @if (session()->has('message'))
+                        <x-alert :type="'success'" :message="session()->get('message')"></x-alert>
+                    @endif
+
                     @yield('content')
                 </div>
             </div>

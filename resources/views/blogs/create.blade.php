@@ -7,7 +7,7 @@
 
     @if ($errors->any())
             @foreach ($errors->all() as $error)
-                <x-alert :message="$error"></x-alert>
+                <x-alert :message="$error" :type="'danger'"></x-alert>
             @endforeach
         </ul>
     @endif

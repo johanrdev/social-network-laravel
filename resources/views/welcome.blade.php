@@ -38,10 +38,10 @@
                         @auth
                             <a href="{{ url('/dashboard') }}" class="text-xs text-gray-200 dark:text-gray-500 uppercase font-semibold tracking-wides">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-xs text-gray-400 dark:text-gray-500 uppercase font-black tracking-widest bg-teal-600 border-b-2 border-teal-900 py-3 px-6 rounded text-teal-200">Sign in</a>
+                            <a href="{{ route('login') }}" class="text-xs text-gray-400 dark:text-gray-500 uppercase font-black tracking-widest bg-teal-600 border-b-2 border-teal-900 py-3 px-6 rounded text-teal-200 hover:text-white transition-colors duration-150 ease-in-out">Sign in</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="text-xs text-gray-400 dark:text-gray-500 uppercase font-black tracking-widest bg-teal-600 border-b-2 border-teal-900 py-3 px-6 rounded text-teal-200 ml-4">Sign up</a>
+                                <a href="{{ route('register') }}" class="text-xs text-gray-400 dark:text-gray-500 uppercase font-black tracking-widest bg-teal-600 border-b-2 border-teal-900 py-3 px-6 rounded text-teal-200 ml-4 hover:text-white transition-colors duration-150 ease-in-out">Sign up</a>
                             @endif
                         @endauth
                     </div>

@@ -19,7 +19,15 @@
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <x-alert :message="$error"></x-alert>
+                @endforeach
+            </ul>
+        @endif
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

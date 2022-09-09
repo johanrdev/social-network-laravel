@@ -47,7 +47,7 @@
                     <div class="flex flex-col pt-6 pb-6 px-8 lg:pt-12 lg:pb-6 lg:px-16">
                         @if ($errors->any())
                                 @foreach ($errors->all() as $error)
-                                    <x-alert :message="$error"></x-alert>
+                                    <x-alert :message="$error" :type="'danger'"></x-alert>
                                 @endforeach
                             </ul>
                         @endif
