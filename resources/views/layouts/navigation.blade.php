@@ -33,8 +33,8 @@
                         {{ __('Messages') }}
 
                         @if ($new_messages > 0)
-                            <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none absolute -right-2 top-2">
-                                {{ $new_messages }} New
+                            <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none absolute -right-2 top-4">
+                                {{ $new_messages }}
                             </span>
                         @endif
                     </x-nav-link>
@@ -113,7 +113,7 @@
 
                     @if ($new_messages > 0)
                             <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
-                                {{ $new_messages }} New
+                                {{ $new_messages }}
                             </span>
                         @endif
                 </x-responsive-nav-link>
