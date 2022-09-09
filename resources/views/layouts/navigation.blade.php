@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-gray-700 border-b border-gray-700 shadow-sm">
+<nav x-data="{ open: false }" class="bg-gray-800 sm:bg-gray-700 border-b border-gray-700 shadow-sm">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-700">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -120,7 +120,7 @@
             </div>
 
             <!-- Responsive Settings Options -->
-            <div class="border-t border-gray-500">
+            <div class="border-t border-gray-700 sm:border-gray-500">
                 <x-responsive-nav-link :href="route('users.show', Auth::user())" :active="request()->routeIs('users.show')">
                     <div>
                         <div class="text-xs font-bold uppercase">Signed in as {{ Auth::user()->name }}</div>
@@ -129,7 +129,7 @@
                 </x-responsive-nav-link>
                 
 
-                <div class="space-y-1 border-0 border-gray-500">
+                <div class="space-y-1 border-t border-gray-700 sm:border-gray-500">
                     <!-- Authentication -->
                     <x-responsive-nav-link :href="route('users.edit', Auth::user())">Edit profile</x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
