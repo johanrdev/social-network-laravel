@@ -108,6 +108,15 @@
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users')">
                     {{ __('Users') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('messages.index')" :active="request()->routeIs('messages')" class="relative">
+                    {{ __('Messages') }}
+
+                    @if ($new_messages > 0)
+                            <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none absolute right-4 top-2">
+                                {{ $new_messages }} New
+                            </span>
+                        @endif
+                </x-responsive-nav-link>
             </div>
 
             <!-- Responsive Settings Options -->
