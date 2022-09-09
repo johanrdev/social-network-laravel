@@ -12,7 +12,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:grid-cols-3">
                 @foreach ($users as $user)
-                    <x-user-card :user="$user" :showInfo="false"></x-user-card>
+                    <x-user-card :user="$user" :showInfo="false" :showFullDescription="false"></x-user-card>
                 @endforeach
             </div>
 

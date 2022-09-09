@@ -40,10 +40,10 @@
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="flex items-center text-md font-medium text-gray-400 hover:text-gray-200 hover:border-indigo-200 focus:outline-none focus:text-gray-200 focus:border-indigo-200 transition duration-150 ease-in-out">
+                            <button class="flex items-center font-medium text-gray-400 hover:text-gray-200 hover:border-indigo-200 focus:outline-none focus:text-gray-200 focus:border-indigo-200 transition duration-150 ease-in-out">
                                 <div class="text-right">
-                                    <div class="font-medium text-base text-xs font-semibold uppercase tracking-widest">Signed in as {{ Auth::user()->name }}</div>
-                                    <div class="font-medium text-sm">{{ Auth::user()->email }}</div>
+                                    <div class="font-bold text-xs">Signed in as {{ Auth::user()->name }}</div>
+                                    <div class="font-bold text-xs">{{ Auth::user()->email }}</div>
                                 </div>
 
                                 <div class="ml-1">

@@ -8,16 +8,18 @@ class UserCard extends Component
 {
     public $user;
     public $showInfo;
+    public $showFullDescription;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($user, $showInfo)
+    public function __construct($user, $showInfo, $showFullDescription)
     {
         $this->user = $user;
         $this->showInfo = $showInfo;
+        $this->showFullDescription = $showFullDescription;
     }
 
     /**

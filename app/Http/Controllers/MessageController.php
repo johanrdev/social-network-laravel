@@ -29,7 +29,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        //
+        return view('messages.create');
     }
 
     /**
@@ -40,7 +40,21 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->input('recipient_id') == Auth::user()->id) {
+            return "Cannot send a message to yourself";
+        }
+        
+        $recipient_id = $request->input('recipient_id');
+
+        Message::create([
+            'content' => $request->input('content'),
+            'sender_type' => 'App\Models\User',
+            'sender_id' => Auth::user()->id,
+            'recipient_type' => 'App\Models\User',
+            'recipient_id' => $request->input('recipient_id')
+        ]);
+
+        return redirect()->route('users.show', $request->input('recipient_id'));
     }
 
     /**

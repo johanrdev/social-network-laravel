@@ -6,8 +6,9 @@
     </div>
     
     @if ($errors->any())
+        <ul>
             @foreach ($errors->all() as $error)
-                <x-alert :message="$error" :type="'danger'"></x-alert>
+                <li><x-alert :message="$error" :type="'danger'"></x-alert></li>
             @endforeach
         </ul>
     @endif

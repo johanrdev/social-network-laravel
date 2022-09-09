@@ -3,7 +3,7 @@
 @section('container')
     <div class="pb-12 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-user-card :user="$user" :showInfo="true"></x-user-card>
+            <x-user-card :user="$user" :showInfo="true" :showFullDescription="true"></x-user-card>
 
             @if ($blogs->hasPages())
                 <div class="py-6 px-6 sm:px-0">
