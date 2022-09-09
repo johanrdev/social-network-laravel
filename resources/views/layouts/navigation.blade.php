@@ -123,8 +123,8 @@
             <div class="border-t border-gray-500">
                 <x-responsive-nav-link :href="route('users.show', Auth::user())" :active="request()->routeIs('users.show')">
                     <div>
-                        <div class="font-medium text-base text-xs font-semibold uppercase tracking-widest">Signed in as {{ Auth::user()->name }}</div>
-                        <div class="font-medium text-sm">{{ Auth::user()->email }}</div>
+                        <div class="text-xs font-bold uppercase">Signed in as {{ Auth::user()->name }}</div>
+                        <div class="text-xs font-bold">{{ Auth::user()->email }}</div>
                     </div>
                 </x-responsive-nav-link>
                 
