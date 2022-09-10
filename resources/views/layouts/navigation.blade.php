@@ -146,6 +146,15 @@
                         </span>
                     @endif
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('friends.index')" :active="request()->routeIs('friends')" class="relative">
+                    {{ __('Friends') }}
+
+                    @if ($new_requests > 0)
+                        <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
+                            {{ $new_requests }}
+                        </span>
+                    @endif
+                </x-responsive-nav-link>
             </div>
 
             <!-- Responsive Settings Options -->
