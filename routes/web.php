@@ -13,6 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,8 @@ Route::get('/dashboard', function () {
     ));
 })->middleware(['auth'])->name('dashboard');
 
+Route::model('friend', User::class);
+
 // Resource routes for each model
 Route::resource('users', UserController::class)->middleware(['auth']);
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
@@ -76,6 +79,7 @@ Route::resource('categories', CategoryController::class)->middleware(['auth']);
 Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
 Route::resource('messages', MessageController::class)->middleware(['auth']);
+Route::resource('friendrequests', FriendRequestController::class)->middleware(['auth']);
 Route::resource('friends', FriendController::class)->middleware(['auth']);
 
 // Delete checked items routes
@@ -84,6 +88,10 @@ Route::delete('/posts', [PostController::class, 'destroyAll'])->middleware(['aut
 Route::delete('/categories', [CategoryController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedCategories');
 Route::delete('/comments', [CommentController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedComments');
 Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBookmarks');
+
+Route::post('/friends', [FriendController::class, 'createRequest'])->middleware(['auth'])->name('createFriendRequest');
+Route::post('/friends/{friendRequest}', [FriendController::class, 'acceptRequest'])->middleware(['auth'])->name('acceptFriendRequest');
+Route::delete('/friends/destroy/{friendRequest}', [FriendController::class, 'declineRequest'])->middleware(['auth'])->name('declineFriendRequest');
 
 Route::put('/set_current_blog_id', function() {
     $user = User::where('id', Auth::user()->id)

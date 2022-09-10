@@ -16,10 +16,8 @@ return new class extends Migration
         Schema::create('friend_requests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('from_id');
-            $table->unsignedBigInteger('to_id');
-            $table->foreign('from_id')->references('id')->on('users');
-            $table->foreign('to_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('friend_id')->constrained('users');
             $table->boolean('is_accepted')->default(false);
         });
     }

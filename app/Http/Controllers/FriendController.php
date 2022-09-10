@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\FriendRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,11 +37,7 @@ class FriendController extends Controller
      */
     public function store(Request $request)
     {
-        Auth::user()->friends()->attach($request->input('friend_id'));
-        $u = User::find($request->input('friend_id'));
-        $u->friends()->attach(Auth::user()->id);
-
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        
     }
 
     /**
@@ -85,17 +82,43 @@ class FriendController extends Controller
      */
     public function destroy(User $user)
     {
-        // return Auth::user()->test2;
-        // $user->friends()->detach(Auth::user()->id);
-
-        // $u = User::find($usr->id);
-
-        // return request()->input('friend_id');
-
         Auth::user()->friends()->detach($user->id);
-        
-        $u = User::find(request()->input('friend_id'));
-        $u->friends()->detach(Auth::user()->id);
+        $user->friends()->detach(Auth::user()->id);
+
+        return redirect()->route('dashboard', ['tab' => 'friends']);
+    }
+
+    public function createRequest(Request $request) {
+        $request_exists = FriendRequest::where('user_id', Auth::user()->id)
+            ->where('friend_id', $request->input('friend_id'))
+        ->exists();
+
+        if (!$request_exists) {
+            FriendRequest::create([
+                'user_id' => Auth::user()->id,
+                'friend_id' => $request->input('friend_id'),
+                'is_accepted' => false
+            ]);
+        }
+
+        return redirect()->route('dashboard', ['tab' => 'friends']);
+    }
+
+    public function acceptRequest(FriendRequest $friendRequest) {
+        Auth::user()->friends()->attach($friendRequest->user->id);
+        $friendRequest->user->friends()->attach(Auth::user()->id);
+
+        $friendRequest->delete();
+
+        // $friendRequest->user->friends()->attach
+        // $u = User::find($request->input('friend_id'));
+        // $u->friends()->attach(Auth::user()->id);
+
+        return redirect()->route('dashboard', ['tab' => 'friends']);
+    }
+
+    public function declineRequest(FriendRequest $friendRequest) {
+        $friendRequest->delete();
 
         return redirect()->route('dashboard', ['tab' => 'friends']);
     }
