@@ -83,6 +83,13 @@ class FriendController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        return Auth::user()->friends()->detach($user->id);
+        // $user->friends()->detach(Auth::user()->id);
+
+        // $u = User::find($usr->id);
+
+        // return request()->input('friend_id');
+
+        return redirect()->route('dashboard', ['tab' => 'friends']);
     }
 }
