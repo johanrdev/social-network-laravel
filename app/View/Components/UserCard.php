@@ -10,18 +10,20 @@ class UserCard extends Component
     public $showInfo;
     public $showDescription;
     public $showFullDescription;
+    public $showFriendRequestLink;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($user, $showInfo = true, $showDescription = true, $showFullDescription = true)
+    public function __construct($user, $showInfo = true, $showDescription = true, $showFullDescription = true, $showFriendRequestLink = true)
     {
         $this->user = $user;
         $this->showInfo = $showInfo;
         $this->showDescription = $showDescription;
         $this->showFullDescription = $showFullDescription;
+        $this->showFriendRequestLink = $showFriendRequestLink;
     }
 
     /**

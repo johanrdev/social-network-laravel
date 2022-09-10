@@ -24,7 +24,7 @@
                     <span>Joined {{ $user->created_at->diffForHumans() }}</span>
                     
                     @if (Auth::user()->id !== $user->id)
-                        <div class="uppercase underline text-rose-500 font-bold flex flex-col sm:flex-row items-center">
+                        <div class="flex flex-col sm:flex-row items-center">
                             <a href="{{ route('messages.create') }}?recipient_id={{ $user->id }}" class="py-3 px-5 rounded mb-0 transition-all duration-150 cursor-pointer font-black text-sm uppercase tracking-widest py-0 px-0 bg-transparent hover:bg-transparent text-rose-500 hover:text-rose-700 underline border-transparent border-b-0 hover:border-transparent">Send message</a>
                             @if (Auth::user()->friends->contains($user->id))
                                 <form method="POST" action="{{ route('friends.destroy', $user) }}">
@@ -35,12 +35,16 @@
                                     <x-button :type="'transparent'">Remove friend</x-button>
                                 </form>
                             @else
-                                <form method="POST" action="{{ route('createFriendRequest') }}">
-                                    @csrf
+                                @if (!$showFriendRequestLink)
+                                    <form method="POST" action="{{ route('createFriendRequest') }}">
+                                        @csrf
 
-                                    <input type="hidden" name="friend_id" value="{{ $user->id }}" />
-                                    <x-button :type="'transparent'">Friend request</x-button>
-                                </form>
+                                        <input type="hidden" name="friend_id" value="{{ $user->id }}" />
+                                        <x-button :type="'transparent'">Friend request</x-button>
+                                    </form>
+                                @else
+                                    <p class="uppercase">Pending request</p>
+                                @endif
                             @endif
                         </div>
                     @endif

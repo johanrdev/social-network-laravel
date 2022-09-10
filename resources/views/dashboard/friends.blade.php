@@ -69,11 +69,28 @@
         <h2 class="text-2xl font-bold">{{ count(Auth::user()->friends) }} {{ count(Auth::user()->friends) == 1 ? 'Friend' : 'Friends' }}</h2>
     </div>
     
-    @if (count($blogs) > 0)
+    @if (count(Auth::user()->friends) > 0)
         @foreach (Auth::user()->friends as $friend)
-            <x-user-card :user="$friend" :showInfo="false" :showDescription="false" :showFullDescription="false"></x-user-card>
+
+            <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
+                <div class="flex">
+                    <div class="bg-gray-800 rounded-full w-10 h-10 mr-0 mr-3 shrink-0 flex flex-col items-center justify-center self-center sm:self-start">
+                        <span class="uppercase text-gray-600 font-bold text-xl">U</span>
+                    </div>
+                    <div class="flex text-center sm:text-left grow justify-between items-center">
+                        <h2 class="text-xl font-bold"><a href="{{ route('users.show', $friend) }}">{{ $friend->name }}</a></h2>
+                        <form method="POST" action="{{ route('friends.destroy', $friend) }}">
+                            @method('DELETE')
+                            @csrf
+                            
+                            <input type="hidden" name="friend_id" value="{{ $friend->id }}" />
+                            <x-button :type="'transparent'">Remove friend</x-button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         @endforeach
     @else
-        <p>No friends was found</p>
+        <p>No friends were found</p>
     @endif
 </div>

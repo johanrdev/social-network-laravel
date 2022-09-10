@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\FriendRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +57,15 @@ class UserController extends Controller
             ->orderBy('id', 'desc')
         ->paginate(9);
 
-        return view('users.show', compact('user', 'blogs'));
+        $has_request = FriendRequest::where(function($query) use ($user) {
+            $query->where('user_id', Auth::user()->id);
+            $query->where('friend_id', $user->id);
+        })->orWhere(function($query) use ($user)  {
+            $query->where('user_id', $user->id);
+            $query->where('friend_id', Auth::user()->id);
+        })->exists();
+
+        return view('users.show', compact('user', 'blogs', 'has_request'));
     }
 
     /**
