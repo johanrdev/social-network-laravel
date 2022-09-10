@@ -32,8 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
             $blogs = Blog::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
             $new_messages = Message::where('recipient_id', Auth::user()->id)->where('is_read', false)->count();
+            $new_requests = Auth::user()->incomingRequests()->count();
             
-            $view->with('userBlogs', $blogs)->with('new_messages', $new_messages);
+            $view->with('userBlogs', $blogs)->with('new_messages', $new_messages)->with('new_requests', $new_requests);
         });
     }
 }
