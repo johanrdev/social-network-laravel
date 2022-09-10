@@ -37,6 +37,8 @@ class FriendController extends Controller
     public function store(Request $request)
     {
         Auth::user()->friends()->attach($request->input('friend_id'));
+        $u = User::find($request->input('friend_id'));
+        $u->friends()->attach(Auth::user()->id);
 
         return redirect()->route('dashboard', ['tab' => 'friends']);
     }
@@ -83,12 +85,17 @@ class FriendController extends Controller
      */
     public function destroy(User $user)
     {
-        return Auth::user()->friends()->detach($user->id);
+        // return Auth::user()->test2;
         // $user->friends()->detach(Auth::user()->id);
 
         // $u = User::find($usr->id);
 
         // return request()->input('friend_id');
+
+        Auth::user()->friends()->detach($user->id);
+        
+        $u = User::find(request()->input('friend_id'));
+        $u->friends()->detach(Auth::user()->id);
 
         return redirect()->route('dashboard', ['tab' => 'friends']);
     }
