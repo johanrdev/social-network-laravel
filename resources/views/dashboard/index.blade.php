@@ -12,6 +12,8 @@
         @include('dashboard.comments')
     @elseif (request('tab') == 'bookmarks')
         @include('dashboard.bookmarks')
+    @elseif (request('tab') == 'friends')
+        {{ Auth::user()->friends }}
     @endif
 
 @endsection

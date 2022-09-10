@@ -35,7 +35,8 @@
                             'Posts' => '?tab=posts',
                             'Categories' => '?tab=categories',
                             'Comments' => '?tab=comments',
-                            'Bookmarks' => '?tab=bookmarks'
+                            'Bookmarks' => '?tab=bookmarks',
+                            'Friends' => '?tab=friends'
                         ]
                     ]
                 ]" />

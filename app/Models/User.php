@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function receivedMessages() {
         return $this->morphMany(Message::class, 'recipient');
     }
+
+    public function friends() {
+        return $this->belongsToMany(User::class, 'friend_users', 'user_id', 'friend_id');
+    }
 }
