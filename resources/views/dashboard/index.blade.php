@@ -13,7 +13,7 @@
     @elseif (request('tab') == 'bookmarks')
         @include('dashboard.bookmarks')
     @elseif (request('tab') == 'friends')
-        {{ Auth::user()->friends }}
+        @include('dashboard.friends')
     @endif
 
 @endsection

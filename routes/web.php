@@ -13,6 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\FriendController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,6 +76,7 @@ Route::resource('categories', CategoryController::class)->middleware(['auth']);
 Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
 Route::resource('comments', CommentController::class)->middleware(['auth']);
 Route::resource('messages', MessageController::class)->middleware(['auth']);
+Route::resource('friends', FriendController::class)->middleware(['auth']);
 
 // Delete checked items routes
 Route::delete('/blogs', [BlogController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBlogs');
