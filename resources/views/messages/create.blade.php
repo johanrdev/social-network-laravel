@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="flex flex-col py-3">
-        <h2 class="text-2xl font-bold">New message</h2>
+        <h2 class="text-2xl font-bold">{{ !$recipient ? 'New message' : 'Reply' }}</h2>
+        @if (!is_null($message) && !is_null($recipient))
+            <p><strong>{{ $recipient->name }} said ({{ $message->created_at->diffForHumans() }}):</strong> <br> {{ $message->content }}</p>
+        @endif
     </div>
     
     @if ($errors->any())

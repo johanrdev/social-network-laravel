@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,30 @@ class MessageController extends Controller
      */
     public function create()
     {
-        return view('messages.create');
+        if (empty(request('recipient_id'))) {
+            return redirect()->route('messages.index');
+        }
+
+        $recipient = null;
+        $message = null;
+
+        if (!empty(request('message_id')) && !empty(request('recipient_id'))) {
+            $valid_message =  Message::where('id', request('message_id'))
+                ->where('recipient_id', Auth::user()->id)
+                ->where('sender_id', request('recipient_id'))
+            ->exists();
+
+            if ($valid_message) {
+                $message = Message::where('id', request('message_id'))
+                    ->where('recipient_id', Auth::user()->id)
+                    ->where('sender_id', request('recipient_id'))
+                ->first();
+
+                $recipient = User::where('id', request('recipient_id'))->first();
+            }
+        }
+
+        return view('messages.create', compact('message', 'recipient'));
     }
 
     /**
@@ -45,7 +69,8 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         if ($request->input('recipient_id') == Auth::user()->id) {
-            return redirect()->route('messages.create', ['recipient_id' => $request->input('recipient_id')])->withErrors([['message' => 'Cannot send a message to yourself.']]);
+            return redirect()->route('messages.create', ['recipient_id' => $request->input('recipient_id')])
+                ->withErrors([['message' => 'Cannot send a message to yourself.']]);
         }
         
         $recipient_id = $request->input('recipient_id');
