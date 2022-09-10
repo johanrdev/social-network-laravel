@@ -16,7 +16,9 @@ class FriendController extends Controller
      */
     public function index()
     {
-        //
+        $friends = Auth::user()->friends()->paginate(2);
+
+        return view('friends.index', compact('friends'));
     }
 
     /**
