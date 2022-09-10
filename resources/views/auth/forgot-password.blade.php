@@ -36,7 +36,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-button type="green">
+                <x-button type="green" class="px-3">
                     {{ __('Send Link') }}
                 </x-button>
             </div>

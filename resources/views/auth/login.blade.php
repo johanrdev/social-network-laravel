@@ -70,7 +70,7 @@
                     </a>
                 </div>
 
-                <x-button type="green" class="ml-3">
+                <x-button type="green" class="ml-3 px-3">
                     {{ __('Log in') }}
                 </x-button>
             </div>

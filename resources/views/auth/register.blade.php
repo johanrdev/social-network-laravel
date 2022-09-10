@@ -68,7 +68,7 @@
                     </a>
                 </div>
 
-                <x-button type="green" class="ml-4">
+                <x-button type="green" class="ml-4 px-3">
                     {{ __('Register') }}
                 </x-button>
             </div>
