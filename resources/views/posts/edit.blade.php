@@ -52,7 +52,7 @@
         </div>
 
         <div class="flex justify-end">
-            <x-button type="green">Update</x-button>
+            <x-button type="green" class="px-3">Update</x-button>
         </div>
     </form>
 @endsection

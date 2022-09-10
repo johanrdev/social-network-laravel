@@ -40,7 +40,7 @@
                                         @csrf
 
                                         <input type="hidden" name="friend_id" value="{{ $user->id }}" />
-                                        <x-button :type="'transparent'">Friend request</x-button>
+                                        <x-button :type="'transparent'">Send friend request</x-button>
                                     </form>
                                 @else
                                     <p class="uppercase">Pending request</p>

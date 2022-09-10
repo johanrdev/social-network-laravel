@@ -36,7 +36,7 @@
         </div>
 
         <div class="flex justify-end">
-            <x-button type="green">Publish</x-button>
+            <x-button type="green" class="px-3">Publish</x-button>
         </div>
     </form>
 @endsection

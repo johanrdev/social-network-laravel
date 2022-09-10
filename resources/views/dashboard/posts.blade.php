@@ -45,7 +45,7 @@
             @csrf
 
             <input type="hidden" id="ids" name="ids" />
-            <x-button type="red" id="remove">Remove checked</x-button>
+            <x-button type="red" id="remove" class="px-3">Remove checked</x-button>
         </form>
     </div>
 

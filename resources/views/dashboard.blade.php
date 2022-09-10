@@ -20,7 +20,7 @@
                                 @endforeach
                             </x-select>
                             <div class="flex justify-end">
-                                <x-button type="green">Select</x-button>
+                                <x-button type="green" class="px-3">Select</x-button>
                             </div>
                         </form>
                     </div>

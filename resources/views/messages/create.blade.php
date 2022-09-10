@@ -26,7 +26,7 @@
 
         <div class="flex justify-end">
             <input type="hidden" name="recipient_id" value="{{ request('recipient_id') }}">
-            <x-button type="green">Publish</x-button>
+            <x-button type="green" class="px-3">Publish</x-button>
         </div>
     </form>
 @endsection

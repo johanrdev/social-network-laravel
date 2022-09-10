@@ -60,7 +60,7 @@
                             <input type="hidden" name="post_type" value="post" />
                             <x-textbox class="w-full rounded mb-3" name="content" rows="5" required></x-textbox>
                             <div class="flex justify-end">
-                                <x-button type="green">Publish</x-button>
+                                <x-button type="green" class="px-3">Publish</x-button>
                             </div>
                         </form>
                     </div>
