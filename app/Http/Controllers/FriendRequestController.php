@@ -49,7 +49,7 @@ class FriendRequestController extends Controller
             ]);
         }
 
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 
     /**
@@ -97,7 +97,7 @@ class FriendRequestController extends Controller
             $u->friends()->attach(Auth::user()->id);
         }
 
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 
     /**
@@ -120,6 +120,6 @@ class FriendRequestController extends Controller
             ->delete();
         }
 
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 }

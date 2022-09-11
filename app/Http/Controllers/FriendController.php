@@ -87,7 +87,7 @@ class FriendController extends Controller
         Auth::user()->friends()->detach($user->id);
         $user->friends()->detach(Auth::user()->id);
 
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 
     public function createRequest(Request $request) {
@@ -103,7 +103,7 @@ class FriendController extends Controller
             ]);
         }
 
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 
     public function acceptRequest(FriendRequest $friendRequest) {
@@ -112,16 +112,12 @@ class FriendController extends Controller
 
         $friendRequest->delete();
 
-        // $friendRequest->user->friends()->attach
-        // $u = User::find($request->input('friend_id'));
-        // $u->friends()->attach(Auth::user()->id);
-
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 
     public function declineRequest(FriendRequest $friendRequest) {
         $friendRequest->delete();
 
-        return redirect()->route('dashboard', ['tab' => 'friends']);
+        return redirect()->route('friends.index');
     }
 }
