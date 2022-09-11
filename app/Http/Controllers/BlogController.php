@@ -144,7 +144,7 @@ class BlogController extends Controller
         $id_array = explode(',', $ids);
         $count = 0;
 
-        if ($ids == null) {
+        if (!$ids) {
             return redirect()->route('dashboard', ['tab' => 'blogs']);
         }
 
@@ -157,34 +157,27 @@ class BlogController extends Controller
         }
 
         if ($count === count($id_array)) {
-            // Get all comments associated with the blog
+            // Get all posts related to the blog
             $posts = Post::whereIn('blog_id', explode(',', $ids))
                 ->where('user_id', Auth::user()->id)
             ->get();
 
+            // Removing polymorphic related data here since I can't use cascade delete
             foreach ($posts as $post) {
-                // Remove any comments associated with the associated posts
+                // Remove any comments related to the posts
                 Comment::where('commentable_id', $post->id)
                     ->where('commentable_type', 'App\Models\Post')
                 ->delete();
                 
-                // Also remove any bookmarks associated with the associated posts
+                // Remove any bookmarks related to the posts
                 Bookmark::where('bookmarkable_id', $post->id)
                     ->where('bookmarkable_type', 'App\Models\Post')
                 ->delete();
             }
 
-            // Remove any bookmarks associated with the blog
+            // Remove any bookmarks related to the blogs
             Bookmark::whereIn('bookmarkable_id', explode(',', $ids))
                 ->where('bookmarkable_type', 'App\Models\Blog')
-            ->delete();
-            
-            // Remove any posts associated with the blog
-            Post::whereIn('blog_id', explode(',', $ids))->delete();
-
-            // Remove any categories associated with the blog
-            Category::whereIn('blog_id', explode(',', $ids))
-                ->where('user_id', Auth::user()->id)
             ->delete();
 
             // Finally, remove the selected blogs

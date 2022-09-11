@@ -27,7 +27,16 @@
         @csrf
 
         <div class="flex flex-col mb-3">
-            <label for="name">Name:</label>
+            <x-label for="blog_id" :value="__('Blog')" />
+            <x-select name="blog_id" id="blog_id">
+                @foreach ($blogs as $blog)
+                    <option value="{{ $blog->id }}" @selected($category->blog_id == $blog->id)>{{ $blog->name }}</option>
+                @endforeach
+            </x-select>
+        </div>
+
+        <div class="flex flex-col mb-3">
+            <x-label for="name" :value="__('Name')" />
             <x-input type="text" name="name" id="name" value="{{ $category->name }}" required />
         </div>
 

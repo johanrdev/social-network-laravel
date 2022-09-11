@@ -21,15 +21,15 @@
                                         <div class="bg-gray-800 rounded-full w-20 h-20 mr-6 shrink-0 self-center flex flex-col items-center justify-center">
                                             <span class="uppercase text-gray-600 font-bold text-3xl">U</span>
                                         </div>
-                                        <div class="flex flex-col grow">
+                                        <div class="flex flex-col grow justify-center">
                                             <h2 class="text-xl font-bold flex justify-between">
-                                                <a href="{{ route('users.show', $message->sender_id) }}">{{ $message->sender->name }}</a>
-                                                <a href="{{ route('messages.create') }}?message_id={{ $message->id }}&recipient_id={{ $message->sender_id }}">Reply</a>
+                                                <a href="{{ route('showConversation', $message->sender_id) }}">{{ $message->sender->name }}</a>
+                                                {{-- <a href="{{ route('messages.create') }}?message_id={{ $message->id }}&recipient_id={{ $message->sender_id }}">Reply</a> --}}
                                             </h2>
                                             <ul class="flex justify-between">
-                                                <li class="mr-4">{{ $message->created_at->diffForHumans() }}</li>
+                                                {{-- <li class="mr-4">{{ $message->created_at->diffForHumans() }}</li> --}}
                                             </ul>
-                                            <p>{{ $message->content }}</p>
+                                            {{-- <p>{{ $message->content }}</p> --}}
                                         </div>
                                     </div>
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Comment;
@@ -29,12 +30,31 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('user_id', Auth::user()->id)
-            ->where('blog_id', Auth::user()->selected_blog_id)
-            ->orderBy('id', 'desc')
-        ->get();
+        $blogs = Blog::where('user_id', Auth::user()->id)->get();
+        
+        $blog_id = request('blog_id') ?? '';
 
-        return view('posts.create', compact('categories'));
+        if ($blog_id) {
+            $is_valid_blog_id = Blog::where('user_id', Auth::user()->id)->where('id', $blog_id)->exists();
+
+            if ($is_valid_blog_id) {
+                $selected_blog = Blog::where('user_id', Auth::user()->id)
+                    ->where('id', $blog_id)
+                    ->select('name')
+                ->first();
+                
+                $categories = Category::where('user_id', Auth::user()->id)
+                    ->where('blog_id', $blog_id)
+                    ->orderBy('id', 'desc')
+                ->get();
+
+                return view('posts.create', compact('selected_blog', 'categories'));
+            } else {
+                return redirect()->route('posts.create', compact('blogs'))->withErrors(['error' => 'Select a valid blog']);
+            }
+        } else {
+            return view('posts.create', compact('blogs'));
+        }
     }
 
     /**
@@ -45,14 +65,33 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        // Check in case blog id has been tampered with
+        $is_valid_blog_id = Blog::where('user_id', Auth::user()->id)
+            ->where('id', $request->input('blog_id'))
+        ->exists();
+
+        // Check in case category id has been tampered with
+        $is_valid_category_id = Category::where('user_id', Auth::user()->id)
+            ->where('id', $request->input('category_id'))
+            ->where('blog_id', $request->input('blog_id'))
+        ->exists();
+
+        // Return errors if blog or category id is invalid
+        if (!$is_valid_blog_id || !$is_valid_category_id) {
+            return redirect()->route('posts.create')
+                ->withErrors(['error' => 'Please select a valid blog.']);
+        }
+
+        // Create the post
         $post = Post::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'category_id' => $request->input('category_id'),
             'user_id' => Auth::user()->id,
-            'blog_id' => Auth::user()->selected_blog_id
+            'blog_id' => $request->input('blog_id')
         ]);
 
+        // Notify all bookmark subscribers that the blog has updates
         $bookmark = Bookmark::where('bookmarkable_id', $post->blog->id)
             ->where('has_changes', false)
         ->update(['has_changes' => true]);
@@ -95,10 +134,15 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::where('user_id', Auth::user()->id)
+            ->where('blog_id', $post->blog_id)
             ->orderBy('id', 'desc')
         ->get();
 
-        return view('posts.edit', compact('post', 'categories'));
+        $blogs = Blog::where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+        ->get();
+
+        return view('posts.edit', compact('post', 'categories', 'blogs'));
     }
 
     /**
@@ -110,12 +154,31 @@ class PostController extends Controller
      */
     public function update(StorePostRequest $request, Post $post)
     {
+        // Check in case blog id has been tampered with
+        $is_valid_blog_id = Blog::where('user_id', Auth::user()->id)
+            ->where('id', $request->input('blog_id'))
+        ->exists();
+
+        // Check in case category id has been tampered with
+        $is_valid_category_id = Category::where('user_id', Auth::user()->id)
+            ->where('id', $request->input('category_id'))
+            ->where('blog_id', $request->input('blog_id'))
+        ->exists();
+
+        // Return errors if blog or category id is invalid
+        if (!$is_valid_blog_id || !$is_valid_category_id) {
+            return redirect()->route('posts.edit', $post)
+                ->withErrors(['error' => 'Invalid blog id.']);
+        }
+        
+        // Update the post
         $post->update([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'category_id' => $request->input('category_id')
         ]);
 
+        // Notify all bookmark subscribers that the post has updates
         Bookmark::where('bookmarkable_id', $post->id)
             ->where('bookmarkable_type', 'App\Models\Post')
         ->update(['has_changes' => true]);

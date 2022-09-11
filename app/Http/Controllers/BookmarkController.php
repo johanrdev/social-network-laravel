@@ -15,7 +15,7 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        //
+        return view('bookmarks.index');
     }
 
     /**

@@ -18,11 +18,8 @@ class MessageController extends Controller
     {
         $messages = Message::where('recipient_id', Auth::user()->id)
             ->orderBy('id', 'desc')
+            ->groupBy('sender_id')
         ->paginate(10);
-
-        Message::where('is_read', false)
-            ->where('recipient_id', Auth::user()->id)
-        ->update(['is_read' => true]);
 
         return view('messages.index', compact('messages'));
     }
@@ -129,5 +126,28 @@ class MessageController extends Controller
     public function destroy(Message $message)
     {
         //
+    }
+
+    public function getConversation($id) {
+        Message::where('is_read', false)
+            ->where('recipient_id', Auth::user()->id)
+        ->update(['is_read' => true]);
+        
+        $messages = Message::where(function($query) use ($id) {
+            $query->where('sender_id', $id);
+            $query->where('recipient_id', Auth::user()->id);
+        })->orWhere(function($query) use ($id) {
+            $query->where('sender_id', Auth::user()->id);
+            $query->where('recipient_id', $id);
+        })
+        ->orderBy('id', 'desc')
+        ->get();
+
+        foreach ($messages as $message) {
+            echo '<p><strong>From: ' . $message->sender->name . '</strong></p>';
+            echo '<p>' . $message->content . '</p>';
+        }
+
+        return;
     }
 }

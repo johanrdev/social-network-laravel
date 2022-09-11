@@ -82,16 +82,20 @@ Route::resource('messages', MessageController::class)->middleware(['auth']);
 Route::resource('friendrequests', FriendRequestController::class)->middleware(['auth']);
 Route::resource('friends', FriendController::class)->middleware(['auth']);
 
-// Delete checked items routes
+// Delete dashboard checked items routes
 Route::delete('/blogs', [BlogController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBlogs');
 Route::delete('/posts', [PostController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedPosts');
 Route::delete('/categories', [CategoryController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedCategories');
 Route::delete('/comments', [CommentController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedComments');
 Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBookmarks');
 
+// Friendship routes
 Route::post('/friends', [FriendController::class, 'createRequest'])->middleware(['auth'])->name('createFriendRequest');
 Route::post('/friends/{friendRequest}', [FriendController::class, 'acceptRequest'])->middleware(['auth'])->name('acceptFriendRequest');
 Route::delete('/friends/destroy/{friendRequest}', [FriendController::class, 'declineRequest'])->middleware(['auth'])->name('declineFriendRequest');
+
+// Messages routes
+Route::get('/messages/conversation/{id}', [MessageController::class, 'getConversation'])->middleware(['auth'])->name('showConversation');
 
 Route::put('/set_current_blog_id', function() {
     $user = User::where('id', Auth::user()->id)

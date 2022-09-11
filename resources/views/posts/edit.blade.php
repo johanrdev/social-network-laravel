@@ -26,28 +26,37 @@
         @method('PUT')
         @csrf
 
+        <input type="hidden" name="blog_id" value="{{ $post->blog_id }}">
+
         <div class="flex flex-col mb-3">
-            <label for="name">Title:</label>
+            <x-label for="name" :value="__('Title')" />
             <x-input type="text" id="title" name="title" value="{{ $post->title }}" required />
         </div>
 
-        @if (count($categories) > 0)
-            <div class="flex flex-col mb-3">
-                <label for="category_id">Categories:</label>
-                <x-select id="category_id" name="category_id">
-                    @foreach ($categories as $category)
-                        @if (!is_null($post->category))
-                            <option value="{{ $category->id }}" @selected($category->id == $post->category->id)>{{ $category->name }}</option>
-                        @else
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endif
-                    @endforeach
-                </x-select>
-            </div>
-        @endif
+        <div class="flex flex-col mb-3">
+            <x-label for="category_id" :value="__('Category')" />
+            <x-select id="category_id" name="category_id">
+                @foreach ($categories as $category)
+                    @if (!is_null($post->category))
+                        <option value="{{ $category->id }}" @selected($category->id == $post->category->id)>{{ $category->name }}</option>
+                    @else
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endif
+                @endforeach
+            </x-select>
+        </div>
+
+        {{-- <div class="flex flex-col mb-3">
+            <x-label for="blog_id" :value="__('Blog')" />
+            <x-select name="blog_id" id="blog_id">
+                @foreach ($blogs as $blog)
+                    <option value="{{ $blog->id }}" @selected($category->blog_id == $blog->id)>{{ $blog->name }}</option>
+                @endforeach
+            </x-select>
+        </div> --}}
 
         <div class="flex flex-col mb-3">
-            <label for="content">Content:</label>
+            <x-label for="content" :value="__('Content')" />
             <x-textbox name="content" id="content" cols="30" rows="10" required>{{ $post->content }}</x-textbox>
         </div>
 

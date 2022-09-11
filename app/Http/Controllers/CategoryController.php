@@ -28,7 +28,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $blogs = Blog::where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+        ->get();
+
+        return view('categories.create', compact('blogs'));
     }
 
     /**
@@ -41,7 +45,7 @@ class CategoryController extends Controller
     {
         Category::create([
             'name' => $request->input('name'),
-            'blog_id' => Auth::user()->selected_blog_id,
+            'blog_id' => $request->input('blog_id'),
             'user_id' => Auth::user()->id
         ]);
 
@@ -67,7 +71,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        $blogs = Blog::where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+        ->get();
+
+        return view('categories.edit', compact('category', 'blogs'));
     }
 
     /**
@@ -80,7 +88,8 @@ class CategoryController extends Controller
     public function update(StoreCategoryRequest $request, Category $category)
     {
         $category->update([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
+            'blog_id' => $request->input('blog_id')
         ]);
 
         return redirect()->route('dashboard', ['tab' => 'categories'])
