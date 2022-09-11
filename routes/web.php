@@ -40,9 +40,6 @@ Route::get('/dashboard', function () {
 
 Route::model('friend', User::class);
 
-// Custom route name for blogs index page
-Route::get('/browse', [BlogController::class, 'index'])->name('browse');
-
 // Resource routes for each model
 Route::resource('users', UserController::class)->middleware(['auth']);
 Route::resource('blogs', BlogController::class)->middleware(['auth']);
