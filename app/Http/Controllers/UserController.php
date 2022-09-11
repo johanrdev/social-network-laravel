@@ -63,6 +63,10 @@ class UserController extends Controller
             ->limit(5)
         ->get();
 
+        $friends = User::whereHas('friends', function($query) use ($user) {
+            $query->where('friend_id', $user->id);
+        })->orderBy('name', 'asc')->get();
+
         $has_request = FriendRequest::where(function($query) use ($user) {
             $query->where('user_id', Auth::user()->id);
             $query->where('friend_id', $user->id);
@@ -71,7 +75,7 @@ class UserController extends Controller
             $query->where('friend_id', Auth::user()->id);
         })->exists();
 
-        return view('users.show', compact('user', 'blogs', 'posts', 'has_request'));
+        return view('users.show', compact('user', 'blogs', 'posts', 'friends', 'has_request'));
     }
 
     /**
