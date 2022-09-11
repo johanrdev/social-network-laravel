@@ -12,4 +12,5 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public $pagination_max_items_per_page = 5;
+    public $pagination_max_blogs_per_page_in_profile = 4;
 }

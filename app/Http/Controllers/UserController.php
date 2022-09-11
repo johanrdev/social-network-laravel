@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Post;
 use App\Models\FriendRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +56,12 @@ class UserController extends Controller
     {
         $blogs = Blog::where('user_id', $user->id)
             ->orderBy('id', 'desc')
-        ->paginate(9);
+        ->paginate($this->pagination_max_blogs_per_page_in_profile);
+
+        $posts = Post::where('user_id', $user->id)
+            ->orderBy('id', 'desc')
+            ->limit(5)
+        ->get();
 
         $has_request = FriendRequest::where(function($query) use ($user) {
             $query->where('user_id', Auth::user()->id);
@@ -65,7 +71,7 @@ class UserController extends Controller
             $query->where('friend_id', Auth::user()->id);
         })->exists();
 
-        return view('users.show', compact('user', 'blogs', 'has_request'));
+        return view('users.show', compact('user', 'blogs', 'posts', 'has_request'));
     }
 
     /**
