@@ -16,7 +16,7 @@ class FriendController extends Controller
      */
     public function index()
     {
-        $friends = Auth::user()->friends()->paginate(10);
+        $friends = Auth::user()->friends()->paginate($this->pagination_max_items_per_page);
 
         return view('friends.index', compact('friends'));
     }

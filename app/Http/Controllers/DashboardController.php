@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public $max_items_per_page = 15;
-
     public function blogs() {
         $blogs = Blog::where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
-        ->paginate($this->max_items_per_page);
+        ->paginate($this->pagination_max_items_per_page);
 
         return view('dashboard.blogs', compact('blogs'));
     }
@@ -24,7 +22,7 @@ class DashboardController extends Controller
     public function posts() {
         $posts = Post::where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
-        ->paginate($this->max_items_per_page);
+        ->paginate($this->pagination_max_items_per_page);
 
         return view('dashboard.posts', compact('posts'));
     }
@@ -32,7 +30,7 @@ class DashboardController extends Controller
     public function categories() {
         $categories = Category::where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
-        ->paginate($this->max_items_per_page);
+        ->paginate($this->pagination_max_items_per_page);
 
         return view('dashboard.categories', compact('categories'));
     }
@@ -40,7 +38,7 @@ class DashboardController extends Controller
     public function comments() {
         $comments = Comment::where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
-        ->paginate($this->max_items_per_page);
+        ->paginate($this->pagination_max_items_per_page);
 
         return view('dashboard.comments', compact('comments'));
     }

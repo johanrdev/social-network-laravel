@@ -131,9 +131,7 @@ class BlogController extends Controller
         ->delete();
         
         Post::where('blog_id', $blog->id)->delete();
-
         Category::where('blog_id', $blog->id)->delete();
-
         $blog->delete();
 
         return redirect()->route('blogs');

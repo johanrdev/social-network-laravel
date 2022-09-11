@@ -10,4 +10,6 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public $pagination_max_items_per_page = 5;
 }
