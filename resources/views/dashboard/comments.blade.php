@@ -1,3 +1,7 @@
+@extends('dashboard')
+
+@section('content')
+
 <div class="flex flex-col py-3">
     <h2 class="text-2xl font-bold">{{ $comments->total() }} {{ $comments->total() == 1 ? 'Comment' : 'Comments' }}</h2>
 </div>
@@ -55,3 +59,5 @@
 @else
     <p>No comment was found</p>
 @endif
+
+@endsection

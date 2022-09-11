@@ -1,3 +1,7 @@
+@extends('dashboard')
+
+@section('content')
+
 <div class="flex flex-col py-3">
     <h2 class="text-2xl font-bold">{{ $categories->total() }} {{ $categories->total() == 1 ? 'Category' : 'Categories' }}</h2>
     <ul class="my-3">
@@ -59,3 +63,5 @@
 @else
     <p>No categories was found</p>
 @endif
+
+@endsection

@@ -49,7 +49,7 @@ class BlogController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        return redirect()->route('dashboard', ['tab' => 'blogs']);
+        return redirect()->route('blogs');
     }
 
     /**
@@ -103,7 +103,7 @@ class BlogController extends Controller
             'description' => $request->input('description')
         ]);
 
-        return redirect()->route('dashboard')->with('message', 'The blog was successfully updated!');
+        return redirect()->route('blogs')->with('message', 'The blog was successfully updated!');
     }
 
     /**
@@ -136,7 +136,7 @@ class BlogController extends Controller
 
         $blog->delete();
 
-        return redirect()->route('dashboard', ['tab' => 'blogs']);
+        return redirect()->route('blogs');
     }
 
     public function destroyAll(Request $request) {
@@ -145,7 +145,7 @@ class BlogController extends Controller
         $count = 0;
 
         if (!$ids) {
-            return redirect()->route('dashboard', ['tab' => 'blogs']);
+            return redirect()->route('blogs');
         }
 
         foreach ($id_array as $id) {
@@ -186,6 +186,6 @@ class BlogController extends Controller
             ->delete();
         }
 
-        return redirect()->route('dashboard', ['tab' => 'blogs']);
+        return redirect()->route('blogs')->with(['message' => 'Removed checked items successfully!']);
     }
 }

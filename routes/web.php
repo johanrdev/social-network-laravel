@@ -15,6 +15,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,43 +34,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/explore', [BlogController::class, 'index'])->name('explore');
-
 Route::get('/dashboard', function () {
-    $max_items_per_page = 25;
-
-    $blogs = Blog::where('user_id', Auth::user()->id)
-        ->orderBy('id', 'desc')
-    ->paginate($max_items_per_page);
-
-    $posts = Post::where('user_id', Auth::user()->id)
-        // ->where('blog_id', Auth::user()->selected_blog_id)
-        ->orderBy('id', 'desc')
-    ->paginate($max_items_per_page);
-
-    $categories = Category::where('user_id', Auth::user()->id)
-        // ->where('blog_id', Auth::user()->selected_blog_id)
-        ->orderBy('id', 'desc')
-    ->paginate($max_items_per_page);
-
-    $comments = Comment::where('user_id', Auth::user()->id)
-        ->orderBy('id', 'desc')
-    ->paginate($max_items_per_page);
-
-    $bookmarks = Bookmark::where('user_id', Auth::user()->id)
-        ->orderBy('id', 'desc')
-    ->paginate($max_items_per_page);
-
-    return view('dashboard.index', compact(
-        'blogs', 
-        'posts', 
-        'categories', 
-        'comments', 
-        'bookmarks'
-    ));
+    return view('dashboard.index');
 })->middleware(['auth'])->name('dashboard');
 
 Route::model('friend', User::class);
+
+// Custom route name for blogs index page
+Route::get('/browse', [BlogController::class, 'index'])->name('browse');
 
 // Resource routes for each model
 Route::resource('users', UserController::class)->middleware(['auth']);
@@ -82,27 +54,60 @@ Route::resource('messages', MessageController::class)->middleware(['auth']);
 Route::resource('friendrequests', FriendRequestController::class)->middleware(['auth']);
 Route::resource('friends', FriendController::class)->middleware(['auth']);
 
+// Dashboard routes
+Route::get('/dashboard/blogs', [DashboardController::class, 'blogs'])
+    ->middleware(['auth'])
+->name('blogs');
+
+Route::get('/dashboard/posts', [DashboardController::class, 'posts'])
+    ->middleware(['auth'])
+->name('posts');
+
+Route::get('/dashboard/categories', [DashboardController::class, 'categories'])
+    ->middleware(['auth'])
+->name('categories');
+
+Route::get('/dashboard/comments', [DashboardController::class, 'comments'])
+    ->middleware(['auth'])
+->name('comments');
+
 // Delete dashboard checked items routes
-Route::delete('/blogs', [BlogController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBlogs');
-Route::delete('/posts', [PostController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedPosts');
-Route::delete('/categories', [CategoryController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedCategories');
-Route::delete('/comments', [CommentController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedComments');
-Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->middleware(['auth'])->name('deleteCheckedBookmarks');
+Route::delete('/blogs', [BlogController::class, 'destroyAll'])
+    ->middleware(['auth'])
+->name('deleteCheckedBlogs');
+
+Route::delete('/posts', [PostController::class, 'destroyAll'])
+    ->middleware(['auth'])
+->name('deleteCheckedPosts');
+
+Route::delete('/categories', [CategoryController::class, 'destroyAll'])
+    ->middleware(['auth'])
+->name('deleteCheckedCategories');
+
+Route::delete('/comments', [CommentController::class, 'destroyAll'])
+    ->middleware(['auth'])
+->name('deleteCheckedComments');
+
+Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])
+    ->middleware(['auth'])
+->name('deleteCheckedBookmarks');
 
 // Friendship routes
-Route::post('/friends', [FriendController::class, 'createRequest'])->middleware(['auth'])->name('createFriendRequest');
-Route::post('/friends/{friendRequest}', [FriendController::class, 'acceptRequest'])->middleware(['auth'])->name('acceptFriendRequest');
-Route::delete('/friends/destroy/{friendRequest}', [FriendController::class, 'declineRequest'])->middleware(['auth'])->name('declineFriendRequest');
+Route::post('/friends', [FriendController::class, 'createRequest'])
+    ->middleware(['auth'])
+->name('createFriendRequest');
+
+Route::post('/friends/{friendRequest}', [FriendController::class, 'acceptRequest'])
+    ->middleware(['auth'])
+->name('acceptFriendRequest');
+
+Route::delete('/friends/destroy/{friendRequest}', [FriendController::class, 'declineRequest'])
+    ->middleware(['auth'])
+->name('declineFriendRequest');
 
 // Messages routes
-Route::get('/messages/conversation/{id}', [MessageController::class, 'getConversation'])->middleware(['auth'])->name('showConversation');
-
-Route::put('/set_current_blog_id', function() {
-    $user = User::where('id', Auth::user()->id)
-        ->update(['selected_blog_id' => request()
-    ->input('selected_blog_id')]);
-    
-    return redirect()->back();
-})->middleware(['auth'])->name('set_current_blog');
+Route::get('/messages/conversation/{id}', [MessageController::class, 'getConversation'])
+    ->middleware(['auth'])
+->name('showConversation');
 
 require __DIR__.'/auth.php';

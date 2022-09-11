@@ -118,10 +118,6 @@ class FriendRequestController extends Controller
             FriendRequest::where('user_id', $request->input('from_id'))
                 ->where('friend_id', Auth::user()->id)
             ->delete();
-
-            // Auth::user()->friends()->attach($request->input('from_id'));
-            // $u = User::find($request->input('from_id'));
-            // $u->friends()->attach(Auth::user()->id);
         }
 
         return redirect()->route('dashboard', ['tab' => 'friends']);
