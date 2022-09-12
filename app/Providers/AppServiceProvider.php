@@ -41,12 +41,12 @@ class AppServiceProvider extends ServiceProvider
             $num_of_comments = Comment::where('user_id', Auth::user()->id)->count();
 
             // For notifying user about new messages and friend requests
-            $new_messages = Message::where('recipient_id', Auth::user()->id)->where('is_read', false)->count();
+            // $new_messages = Message::where('recipient_id', Auth::user()->id)->where('is_read', false)->count();
             $new_requests = Auth::user()->incomingRequests()->count();
             $updated_bookmarks = Bookmark::where('user_id', Auth::user()->id)->where('has_changes', true)->count();
             
-            $view->with('new_messages', $new_messages)
-                ->with('new_requests', $new_requests)
+            $view->with('new_requests', $new_requests)
+                // ->with('new_messages', $new_messages)
                 ->with('updated_bookmarks', $updated_bookmarks)
                 ->with('num_of_blogs', $num_of_blogs)
                 ->with('num_of_posts', $num_of_posts)

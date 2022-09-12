@@ -16,6 +16,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ConversationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,7 @@ Route::resource('comments', CommentController::class)->middleware(['auth']);
 Route::resource('messages', MessageController::class)->middleware(['auth']);
 Route::resource('friendrequests', FriendRequestController::class)->middleware(['auth']);
 Route::resource('friends', FriendController::class)->middleware(['auth']);
+Route::resource('conversations', ConversationController::class)->middleware(['auth']);
 
 // Dashboard routes
 Route::get('/dashboard/blogs', [DashboardController::class, 'blogs'])

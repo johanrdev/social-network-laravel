@@ -67,12 +67,20 @@ class User extends Authenticatable
     //     return $this->hasMany(Message::class, 'recipient_id');
     // }
 
-    public function sentMessages() {
-        return $this->hasMany(Message::class, 'sender_id');
+    // public function sentMessages() {
+    //     return $this->hasMany(Message::class, 'sender_id');
+    // }
+
+    // public function receivedMessages() {
+    //     return $this->hasMany(Message::class, 'recipient_id');
+    // }
+
+    public function startedConversations() {
+        return $this->hasMany(Conversation::class, 'sender_id');
     }
 
-    public function receivedMessages() {
-        return $this->hasMany(Message::class, 'recipient_id');
+    public function receivedConversations() {
+        return $this->hasMany(Conversation::class, 'recipient_id');
     }
 
     public function friends() {
@@ -85,5 +93,9 @@ class User extends Authenticatable
 
     public function incomingRequests() {
         return $this->hasMany(FriendRequest::class, 'friend_id');
+    }
+
+    public function conversations() {
+        return $this->belongsToMany(Conversation::class);
     }
 }

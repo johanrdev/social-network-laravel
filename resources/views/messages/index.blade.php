@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('container')
     <div class="pb-12 sm:py-12">
@@ -35,4 +35,4 @@
             </x-list-container>
         </div>
     </div>
-@endsection
+@endsection --}}
