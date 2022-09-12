@@ -1,6 +1,6 @@
-@props(['classes' => ''])
+@props(['bodyClasses' => '', 'containerClasses' => ''])
 
-<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grow flex flex-col mb-6 col-span-2 order-0 lg:order-1">
+<div {{ $attributes->merge(['class' => 'bg-white overflow-hidden shadow-sm md:rounded-lg grow flex flex-col ' . $containerClasses]) }}>
     <div class="bg-white border-b border-gray-200">
         <div class="flex flex-col p-0">
             <div class="flex flex-col py-3">
@@ -15,7 +15,7 @@
                 @endif
             @endif
             
-            <div {{ $attributes->merge([$classes]) }}>
+            <div {{ $attributes->merge([$bodyClasses]) }}>
                 {{ $slot }}
             </div>
 

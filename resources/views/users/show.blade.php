@@ -31,9 +31,9 @@
             </div>
 
             <!-- Sidebar -->
-            <div class=" overflow-hidden shadow-sm col-span-12 lg:col-span-4 flex flex-col order-0 lg:order-1">
+            <div class=" overflow-hidden col-span-12 lg:col-span-4 flex flex-col order-0 lg:order-1 gap-6">
                 <!-- Recent Posts -->
-                <x-list-container :title="'Recent Posts'" :source="$posts" :paginate="false" class="h-80 overflow-y-scroll">
+                <x-list-container :title="'Recent Posts'" :source="$posts" :paginate="false" class="max-h-80 overflow-y-auto">
                     @foreach ($posts as $post)
                         <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
                             <div class="flex">
@@ -49,8 +49,8 @@
                 </x-list-container>
                 
                 <!-- Friend List -->
-                <x-list-container :title="'Friends'" :source="$friends" :paginate="false" class="h-80 overflow-y-scroll">
-                    @foreach ($friends as $friend)
+                <x-list-container :title="'Friends'" :source="$friends" :paginate="false" class="max-h-80 overflow-y-auto">
+                    @forelse ($friends as $friend)
                         <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
                             <div class="flex">
                                 <div class="bg-gray-800 rounded-full w-10 h-10 mr-0 mr-3 shrink-0 flex flex-col items-center justify-center self-center sm:self-start">
@@ -61,7 +61,26 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="p-3">
+                            @if (Auth::user()->id == $user->id)
+                                <p class="p-3 text-center">You don't have any contacts yet</p>
+                            @else
+                                @if (!$has_request)
+                                    <form method="POST" action="{{ route('createFriendRequest') }}">
+                                        @csrf
+
+                                        <p class="p-3 text-center">Want to become {{ $user->name }}'s first contact?</p>
+
+                                        <input type="hidden" name="friend_id" value="{{ $user->id }}" />
+                                        <x-button :type="'green'" class="w-full">Send request</x-button>
+                                    </form>
+                                @else
+                                    <p class="uppercase text-center font-bold text-sm">Pending request</p>
+                                @endif
+                            @endif
+                        </div>
+                    @endforelse
                 </x-list-container>
             </div>
         </div>
