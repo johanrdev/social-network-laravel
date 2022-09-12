@@ -15,7 +15,11 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        return view('bookmarks.index');
+        $bookmarks = Bookmark::where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+        ->paginate($this->pagination_max_items_per_page);
+
+        return view('bookmarks.index', compact('bookmarks'));
     }
 
     /**

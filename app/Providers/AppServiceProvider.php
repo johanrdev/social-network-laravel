@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Message;
+use App\Models\Bookmark;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +43,11 @@ class AppServiceProvider extends ServiceProvider
             // For notifying user about new messages and friend requests
             $new_messages = Message::where('recipient_id', Auth::user()->id)->where('is_read', false)->count();
             $new_requests = Auth::user()->incomingRequests()->count();
+            $updated_bookmarks = Bookmark::where('user_id', Auth::user()->id)->where('has_changes', true)->count();
             
             $view->with('new_messages', $new_messages)
                 ->with('new_requests', $new_requests)
+                ->with('updated_bookmarks', $updated_bookmarks)
                 ->with('num_of_blogs', $num_of_blogs)
                 ->with('num_of_posts', $num_of_posts)
                 ->with('num_of_categories', $num_of_categories)

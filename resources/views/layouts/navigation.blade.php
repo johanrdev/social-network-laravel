@@ -87,9 +87,9 @@
                             {{ __('Bookmarks') }}
                         @endif
 
-                        @if ($new_requests > 0)
+                        @if ($updated_bookmarks > 0)
                             <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none absolute right-1 top-1">
-                                {{ $new_requests }}
+                                {{ $updated_bookmarks }}
                             </span>
                         @endif
                     </x-nav-link>
@@ -184,9 +184,9 @@
                 <x-responsive-nav-link :href="route('bookmarks.index')" :active="request()->routeIs('bookmarks')" class="relative">
                     {{ __('Bookmarks') }}
 
-                    @if ($new_requests > 0)
+                    @if ($updated_bookmarks > 0)
                         <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
-                            {{ $new_requests }}
+                            {{ $updated_bookmarks }}
                         </span>
                     @endif
                 </x-responsive-nav-link>
