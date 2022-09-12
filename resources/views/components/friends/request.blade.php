@@ -1,4 +1,4 @@
-<div class="flex flex-col py-3 last:border-0 border-b border-gray-200">
+<div class="flex flex-col last:border-0 border-b border-gray-200 p-3 odd:bg-gray-100">
     <div class="flex">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
@@ -7,13 +7,15 @@
             
         <div class="flex flex-col grow">
             <span>
+                From
+                
                 @if ($from->id == Auth::user()->id)
-                    You
+                    you
                 @else
                     <a href="{{ route('users.show', $from->id) }}" class="text-rose-500 font-bold underline">{{ $from->name }}</a>
                 @endif
                 
-                sent a friend request to
+                to
                 
                 @if ($to->id == Auth::user()->id)
                     you

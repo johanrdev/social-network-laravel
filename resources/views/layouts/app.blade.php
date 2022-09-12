@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="flex flex-col min-h-screen">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,8 @@
 
         @stack('head')
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-200">
+    <body class="font-sans antialiased grow flex flex-col">
+        <div class="bg-gray-200 grow">
             @include('layouts.navigation')
 
             <!-- Page Content -->
@@ -25,4 +25,8 @@
             </main>
         </div>
     </body>
+
+    <footer class="bg-gray-400 p-6">
+            <p class="text-center text-gray-600 font-semibold">&copy; Copyright {{ date('Y') }}</p>
+    </footer>
 </html>

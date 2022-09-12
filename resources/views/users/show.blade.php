@@ -31,12 +31,26 @@
             </div>
 
             <!-- Sidebar -->
-            <div class=" overflow-hidden shadow-sm col-span-12 lg:col-span-4 flex flex-col order-0 lg:order-1 gap-0 sm:gap-6">
+            <div class=" overflow-hidden shadow-sm col-span-12 lg:col-span-4 flex flex-col order-0 lg:order-1">
+                <!-- Recent Posts -->
+                <x-list-container :title="'Recent Posts'" :source="$posts" :paginate="false" class="h-80 overflow-y-scroll">
+                    @foreach ($posts as $post)
+                        <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
+                            <div class="flex">
+                                <div class="bg-gray-800 rounded w-10 h-10 mr-0 mr-3 shrink-0 flex flex-col items-center justify-center self-center sm:self-start">
+                                    <span class="uppercase text-gray-600 font-bold text-xl">P</span>
+                                </div>
+                                <div class="flex sm:text-left grow justify-between items-center">
+                                    <h2 class="text-md font-bold"><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </x-list-container>
+                
                 <!-- Friend List -->
-                <div class="p-0 lg:p-6 bg-white border-b border-gray-200 sm:rounded-lg">
-                    <h2 class="pb-3 py-3 lg:pt-0 text-center font-black text-sm uppercase tracking-widest">Friends</h2>
-                    <div class="h-80 overflow-y-scroll">
-                        @foreach ($friends as $friend)
+                <x-list-container :title="'Friends'" :source="$friends" :paginate="false" class="h-80 overflow-y-scroll">
+                    @foreach ($friends as $friend)
                         <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
                             <div class="flex">
                                 <div class="bg-gray-800 rounded-full w-10 h-10 mr-0 mr-3 shrink-0 flex flex-col items-center justify-center self-center sm:self-start">
@@ -48,27 +62,7 @@
                             </div>
                         </div>
                     @endforeach
-                    </div>
-                </div>
-
-                <!-- Recent Posts -->
-                <div class="p-0 lg:p-6 bg-white border-b border-gray-200 sm:rounded-lg">
-                    <h2 class="pb-3 py-3 lg:pt-0 text-center font-black text-sm uppercase tracking-widest">Recent Posts</h2>
-                    <div class="h-80 overflow-y-scroll">
-                        @foreach ($posts as $post)
-                            <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
-                                <div class="flex">
-                                    <div class="bg-gray-800 rounded w-10 h-10 mr-0 mr-3 shrink-0 flex flex-col items-center justify-center self-center sm:self-start">
-                                        <span class="uppercase text-gray-600 font-bold text-xl">P</span>
-                                    </div>
-                                    <div class="flex sm:text-left grow justify-between items-center">
-                                        <h2 class="text-md font-bold"><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                </x-list-container>
             </div>
         </div>
     </div>

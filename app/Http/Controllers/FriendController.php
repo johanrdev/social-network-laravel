@@ -17,8 +17,9 @@ class FriendController extends Controller
     public function index()
     {
         $friends = Auth::user()->friends()->paginate($this->pagination_max_items_per_page);
+        $title = $friends->total() == 1 ? $friends->total() . ' Friend' : $friends->total() . ' Friends';
 
-        return view('friends.index', compact('friends'));
+        return view('friends.index', compact('friends', 'title'));
     }
 
     /**
