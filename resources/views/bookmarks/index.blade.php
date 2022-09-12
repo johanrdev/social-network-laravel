@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>No bookmarks were found</p>
+                    <p class="p-3 text-center">No bookmarks were found</p>
                 @endforelse
             </x-list-container>
         </div>

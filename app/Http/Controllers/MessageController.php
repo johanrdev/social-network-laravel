@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -20,6 +21,19 @@ class MessageController extends Controller
             ->orderBy('id', 'desc')
             ->groupBy('sender_id')
         ->paginate(10);
+        
+        // $conversations = DB::table('messages')
+        //     ->where('sender_id', Auth::user()->id)
+        //     ->orWhere('recipient_id', Auth::user()->id)
+        // ->get();
+
+        // $users = $conversations->map(function($conversation) {
+        //     if ($conversation->sender_id == Auth::user()->id) {
+        //         return $conversation->recipient_id;
+        //     }
+
+        //     return $conversation->sender_id;
+        // })->unique();
 
         return view('messages.index', compact('messages'));
     }
@@ -74,9 +88,7 @@ class MessageController extends Controller
 
         Message::create([
             'content' => $request->input('content'),
-            'sender_type' => 'App\Models\User',
             'sender_id' => Auth::user()->id,
-            'recipient_type' => 'App\Models\User',
             'recipient_id' => $request->input('recipient_id')
         ]);
 

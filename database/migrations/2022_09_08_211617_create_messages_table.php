@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->text('content');
-            $table->morphs('sender');
-            $table->morphs('recipient');
+            $table->foreignId('sender_id')->constrained('users');
+            $table->foreignId('recipient_id')->constrained('users');
         });
     }
 

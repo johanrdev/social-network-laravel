@@ -9,13 +9,13 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'sender_type', 'sender_id', 'recipient_type', 'recipient_id'];
+    protected $fillable = ['content', 'sender_id', 'recipient_id'];
 
     public function sender() {
-        return $this->morphTo();
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public function recipient() {
-        return $this->morphTo();
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 }

@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
         User::factory(1)->create(['name' => 'admin', 'email' => 'admin@example.com', 'password' => Hash::make('admin'), 'is_admin' => 1])->each(function ($user) {
             $blogs = Blog::factory(5)->create(['user_id' => $user->id]);
 
-            $user->update(['selected_blog_id' => $blogs->first()->id]);
-
             foreach ($blogs as $blog) {
                 $categories = Category::factory(3)->create(['user_id' => $blog->user->id, 'blog_id' => $blog->id]);
 
@@ -35,8 +33,6 @@ class DatabaseSeeder extends Seeder
         
         User::factory(9)->create()->each(function ($user) {
             $blogs = Blog::factory(5)->create(['user_id' => $user->id]);
-
-            $user->update(['selected_blog_id' => $blogs->first()->id]);
 
             foreach ($blogs as $blog) {
                 $categories = Category::factory(3)->create(['user_id' => $blog->user->id, 'blog_id' => $blog->id]);

@@ -59,12 +59,20 @@ class User extends Authenticatable
         return $this->morphMany(Bookmark::class, 'bookmarkable');
     }
 
+    // public function sentMessages() {
+    //     return $this->hasMany(Message::class, 'sender_id');
+    // }
+
+    // public function receivedMessages() {
+    //     return $this->hasMany(Message::class, 'recipient_id');
+    // }
+
     public function sentMessages() {
-        return $this->morphMany(Message::class, 'sender');
+        return $this->hasMany(Message::class, 'sender_id');
     }
 
     public function receivedMessages() {
-        return $this->morphMany(Message::class, 'recipient');
+        return $this->hasMany(Message::class, 'recipient_id');
     }
 
     public function friends() {
