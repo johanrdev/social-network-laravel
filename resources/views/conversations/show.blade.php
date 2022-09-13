@@ -41,7 +41,7 @@
                 <!-- Incoming Requests -->
                 <x-list-container :title="'Members'" :source="$conversation->users" :paginate="false">
                     @forelse ($conversation->users as $user)
-                        <x-friends.list-item :friend="$user" />
+                        <x-friends.list-item :friend="$user"></x-friends.list-item>
                     @empty
                         <p class="p-3 text-center">No users in this conversation</p>
                     @endforelse
