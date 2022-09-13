@@ -60,7 +60,7 @@ class UserController extends Controller
 
         $posts = Post::where('user_id', $user->id)
             ->orderBy('id', 'desc')
-            ->limit(5)
+            ->limit(8)
         ->get();
 
         $friends = User::whereHas('friends', function($query) use ($user) {

@@ -3,7 +3,7 @@
 @section('container')
     <div class="pb-12 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-list-container :title="'Conversations'" :source="$conversations" :paginate="false">
+            <x-list-container :title="'Conversations'" :source="$conversations" :scrollY="false">
                 @forelse ($conversations as $conversation)
                     <div class="px-3 py-2 odd:bg-gray-100 last:border-b-0 border-b border-gray-200">
                         <div class="flex">
@@ -11,12 +11,13 @@
                                 <span class="uppercase text-gray-600 font-bold text-xl">U</span>
                             </div>
                             <div class="flex sm:text-left grow justify-between items-center">
-                                <div class="flex items-center">
+                                <div class="flex flex-col">
                                     <h2 class="text-lg font-bold">
                                         <a href="{{ route('conversations.show', $conversation->id) }}">
                                             {{ $conversation->users->slice(0, 3)->implode('name', ', ') }} {{ count($conversation->users) > 3 ? '... (+' . count($conversation->users) - 3 . ' others)' : '' }}
                                         </a>
                                     </h2>
+                                    <p class="text-xs font-bold">{{ $conversation->updated_at->diffForHumans() }}</p>
                                 </div>
                             </div>
                         </div>

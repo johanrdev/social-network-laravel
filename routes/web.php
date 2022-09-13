@@ -114,4 +114,12 @@ Route::post('/conversations/{conversation}', [ConversationController::class, 'st
     ->middleware(['auth'])
 ->name('publishMessage');
 
+Route::get('/conversations/create/{user}', [ConversationController::class, 'createConversation'])
+    ->middleware(['auth'])
+->name('createConversation');
+
+Route::post('/conversations/create/{user}', [ConversationController::class, 'storeConversation'])
+    ->middleware(['auth'])
+->name('storeConversation');
+
 require __DIR__.'/auth.php';

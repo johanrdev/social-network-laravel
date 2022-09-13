@@ -4,7 +4,7 @@
     <div class="pb-12 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             <!-- Friend List -->
-            <x-list-container :title="$title" :source="$friends" class="lg:col-span-2 order-0 lg:order-1">
+            <x-list-container :title="$title" :source="$friends" class="lg:col-span-2 order-0 lg:order-1" :scrollY="false">
                 @forelse ($friends as $friend)
                     <x-friends.list-item :friend="$friend" />
                 @empty
@@ -14,7 +14,7 @@
 
             <div class="grid order-1 md:gap-6">
                 <!-- Incoming Requests -->
-                <x-list-container :title="'Incoming Requests'" :source="Auth::user()->incomingRequests" :paginate="false" class="max-h-80 overflow-y-auto">
+                <x-list-container :title="'Incoming Requests'" :source="Auth::user()->incomingRequests" :paginate="false">
                     @forelse (Auth::user()->incomingRequests as $friendRequest)
                         <x-friends.request :request="$friendRequest" :from="$friendRequest->user" :to="$friendRequest->friend" :canAccept="true" />
                     @empty
@@ -23,7 +23,7 @@
                 </x-list-container>
 
                 <!-- Outgoing Requests -->
-                <x-list-container :title="'Outgoing Requests'" :source="Auth::user()->outgoingRequests" :paginate="false" class="max-h-80 overflow-y-auto">
+                <x-list-container :title="'Outgoing Requests'" :source="Auth::user()->outgoingRequests" :paginate="false">
                     @forelse (Auth::user()->outgoingRequests as $friendRequest)
                         <x-friends.request :request="$friendRequest" :from="$friendRequest->user" :to="$friendRequest->friend" :canAccept="false" />
                     @empty

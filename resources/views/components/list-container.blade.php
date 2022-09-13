@@ -15,7 +15,7 @@
                 @endif
             @endif
             
-            <div {{ $attributes->merge([$bodyClasses]) }}>
+            <div {{ $attributes->merge(['class' => ($scrollY ? 'overflow-y-scroll ' . $maxHeight : '') . ' ' . $bodyClasses]) }}>
                 {{ $slot }}
             </div>
 

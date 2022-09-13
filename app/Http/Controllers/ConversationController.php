@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,15 +17,13 @@ class ConversationController extends Controller
      */
     public function index()
     {
-        $conversations = Auth::user()->conversations;
+        // $conversations = Auth::user()->conversations->paginate(5);
 
-        //  $unique_conversations = $conversations->map(function($conversation) {
-        //     if ($conversation->sender_id == Auth::user()->id) {
-        //         return $conversation;
-        //     }
-
-        //     return $conversation;
-        // })->unique();
+        $conversations = Conversation::with('users')->whereHas('users', function($query) {
+            $query->where('user_id', Auth::user()->id);
+        })
+            ->orderBy('updated_at', 'desc')
+        ->paginate($this->pagination_max_items_per_page);
 
 
         return view('conversations.index', compact('conversations'));
@@ -48,14 +47,28 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
+        //
+    }
 
-        return $conversation;
-        
-        // $test = Conversation::whereHas('user', function ($query) {
-        //     $query->where('user_id', Auth::user()->id);
-        // })->get();
+    public function createConversation(Request $request, User $user) {
+        return view('conversations.create', compact('user'));
+    }
 
-        // return $test;
+    public function storeConversation(Request $request, User $user) {
+        $conversation = Conversation::create();
+        $conversation->touch();
+
+        $message = Message::create([
+            'content' => $request->input('content'),
+            'conversation_id' => $conversation->id,
+            'user_id' => Auth::user()->id
+        ]);
+        $message->touch();
+
+        Auth::user()->conversations()->attach($conversation->id);
+        $user->conversations()->attach($conversation->id);
+
+        return redirect()->route('conversations.index');
     }
 
     public function storeMessage(Request $request, Conversation $conversation)
@@ -66,13 +79,9 @@ class ConversationController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        return redirect()->route('conversations.show', compact('conversation'));
-        
-        // $test = Conversation::whereHas('user', function ($query) {
-        //     $query->where('user_id', Auth::user()->id);
-        // })->get();
+        $conversation->touch();
 
-        // return $test;
+        return redirect()->route('conversations.show', compact('conversation'));
     }
 
     /**
@@ -85,7 +94,7 @@ class ConversationController extends Controller
     {
         $messages = Message::where('conversation_id', $conversation->id)
             ->orderBy('id', 'desc')
-        ->get();
+        ->paginate(5);
 
         return view('conversations.show', compact('conversation', 'messages'));
     }
