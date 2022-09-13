@@ -5,7 +5,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             <x-list-container :title="'Messages'" :source="$messages" :paginate="false" class="lg:col-span-2 order-0 lg:order-1">
                 <div class="p-6">
-                    <form method="POST" action="{{ route('comments.store') }}">
+                    <form method="POST" action="{{ route('publishMessage', $conversation) }}">
                         @csrf
                         
                         <x-textbox class="w-full rounded mb-3" name="content" rows="5" required></x-textbox>

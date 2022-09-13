@@ -13,7 +13,9 @@
                             <div class="flex sm:text-left grow justify-between items-center">
                                 <div class="flex items-center">
                                     <h2 class="text-lg font-bold">
-                                        <a href="{{ route('conversations.show', $conversation->id) }}">{{ $conversation->users->implode('name', ', ') }}</a>
+                                        <a href="{{ route('conversations.show', $conversation->id) }}">
+                                            {{ $conversation->users->slice(0, 3)->implode('name', ', ') }} {{ count($conversation->users) > 3 ? '... (+' . count($conversation->users) - 3 . ' others)' : '' }}
+                                        </a>
                                     </h2>
                                 </div>
                             </div>

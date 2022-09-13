@@ -48,7 +48,31 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        return $conversation;
+        
+        // $test = Conversation::whereHas('user', function ($query) {
+        //     $query->where('user_id', Auth::user()->id);
+        // })->get();
+
+        // return $test;
+    }
+
+    public function storeMessage(Request $request, Conversation $conversation)
+    {
+        Message::create([
+            'content' => $request->input('content'),
+            'conversation_id' => $conversation->id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->route('conversations.show', compact('conversation'));
+        
+        // $test = Conversation::whereHas('user', function ($query) {
+        //     $query->where('user_id', Auth::user()->id);
+        // })->get();
+
+        // return $test;
     }
 
     /**

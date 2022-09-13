@@ -109,4 +109,9 @@ Route::get('/messages/conversation/{id}', [MessageController::class, 'getConvers
     ->middleware(['auth'])
 ->name('showConversation');
 
+// Conversation routes
+Route::post('/conversations/{conversation}', [ConversationController::class, 'storeMessage'])
+    ->middleware(['auth'])
+->name('publishMessage');
+
 require __DIR__.'/auth.php';
