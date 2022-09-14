@@ -27,7 +27,7 @@
                             <div class="relative">
                                 @php
                                     $new_messages_count = $conversation->messages->where('user_id', '!=', Auth::user()->id)
-                                            ->where('created_at', '>', $conversation->users->find(Auth::user()->id)->pivot->last_visited)->count();
+                                            ->where('created_at', '>=', $conversation->users->find(Auth::user()->id)->pivot->last_visited)->count();
                                 @endphp
                             
                                 @if ($new_messages_count > 0)

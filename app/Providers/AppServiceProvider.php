@@ -45,7 +45,8 @@ class AppServiceProvider extends ServiceProvider
             $new_messages = 0;
             foreach (Auth::user()->conversations as $conversation) {
                 $count = $conversation->messages->where('user_id', '!=', Auth::user()->id)
-                                            ->where('created_at', '>', $conversation->users->find(Auth::user()->id)->pivot->last_visited)->count();
+                    ->where('created_at', '>=', $conversation->users->find(Auth::user()->id)->pivot->last_visited)
+                ->count();
 
                 $new_messages += $count;
             }

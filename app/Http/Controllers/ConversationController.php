@@ -59,15 +59,18 @@ class ConversationController extends Controller
         $conversation = Conversation::create();
         $conversation->touch();
 
+        Auth::user()->conversations()->attach($conversation->id);
+        $user->conversations()->attach($conversation->id);
+
+        Auth::user()->conversations()->updateExistingPivot($conversation->id, ['last_visited' => now()]);
+        $user->conversations()->updateExistingPivot($conversation->id, ['last_visited' => now()]);
+
         $message = Message::create([
             'content' => $request->input('content'),
             'conversation_id' => $conversation->id,
             'user_id' => Auth::user()->id
         ]);
         $message->touch();
-
-        Auth::user()->conversations()->attach($conversation->id);
-        $user->conversations()->attach($conversation->id);
 
         return redirect()->route('conversations.index');
     }
