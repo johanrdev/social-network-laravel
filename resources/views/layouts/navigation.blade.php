@@ -46,13 +46,19 @@
                         @endif
                     </x-nav-link>
 
-                    <x-nav-link :href="route('conversations.index')" :active="request()->routeIs('conversations.index')">
+                    <x-nav-link :href="route('conversations.index')" :active="request()->routeIs('conversations.index')" class="relative">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                         </svg>
 
                         @if (request()->routeIs('conversations.index'))
                             {{ __('Conversations') }}
+                        @endif
+
+                        @if ($new_messages > 0)
+                            <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none absolute right-1 top-1">
+                                {{ $new_messages }}
+                            </span>
                         @endif
                     </x-nav-link>
 
@@ -185,20 +191,20 @@
                     
                     {{ __('Users') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('conversations.index')" :active="request()->routeIs('conversations')" class="flex relative">
+                <x-responsive-nav-link :href="route('conversations.index')" :active="request()->routeIs('conversations')" class="flex relative items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                     </svg>
-                    
-                    {{ __('Conversations') }}
 
-                    {{-- @if ($new_messages > 0)
+                    {{ __('Conversations') }}
+                    
+                    @if ($new_messages > 0)
                         <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
                             {{ $new_messages }}
                         </span>
-                    @endif --}}
+                    @endif
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('friends.index')" :active="request()->routeIs('friends')" class="flex relative">
+                <x-responsive-nav-link :href="route('friends.index')" :active="request()->routeIs('friends')" class="flex relative items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                     </svg>
@@ -211,7 +217,7 @@
                         </span>
                     @endif
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('bookmarks.index')" :active="request()->routeIs('bookmarks')" class="flex relative">
+                <x-responsive-nav-link :href="route('bookmarks.index')" :active="request()->routeIs('bookmarks')" class="flex relative items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                     </svg>

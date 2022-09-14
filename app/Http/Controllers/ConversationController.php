@@ -7,6 +7,8 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class ConversationController extends Controller
 {
@@ -22,9 +24,8 @@ class ConversationController extends Controller
         $conversations = Conversation::with('users')->whereHas('users', function($query) {
             $query->where('user_id', Auth::user()->id);
         })
-            ->orderBy('updated_at', 'desc')
+        ->orderBy('updated_at', 'desc')
         ->paginate($this->pagination_max_items_per_page);
-
 
         return view('conversations.index', compact('conversations'));
     }
@@ -92,9 +93,11 @@ class ConversationController extends Controller
      */
     public function show(Conversation $conversation)
     {
-        $messages = Message::where('conversation_id', $conversation->id)
-            ->orderBy('id', 'desc')
-        ->paginate(5);
+        $messages = $conversation->messages()->orderBy('id', 'desc')->paginate(5);
+
+        Auth::user()->conversations()->updateExistingPivot($conversation->id, [
+            'last_visited' => Carbon::now()
+        ]);
 
         return view('conversations.show', compact('conversation', 'messages'));
     }
