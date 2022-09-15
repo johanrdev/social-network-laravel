@@ -22,12 +22,15 @@
                                     <span class="uppercase text-gray-600 font-bold text-xl">U</span>
                                 </div>
                                 <div class="flex sm:text-left grow justify-between items-center">
-                                    <div class="flex flex-col">
+                                    <div class="flex flex-col relative grow">
                                         <h2 class="text-lg font-bold">
                                             <a href="{{ route('users.show', $message->user->id) }}">{{ $message->user->name }}</a>
                                         </h2>
                                         <p class="text-xs font-bold mb-3">{{ $message->created_at->diffForHumans() }}</p>
                                         <p>{{ $message->content }}</p>
+                                        @if ($conversation->users->find($message->user->id)->pivot->last_visited < $message->created_at && $message->user->id != Auth::user()->id)
+                                            <span class="bg-rose-500 text-white absolute right-0 top-0 px-1 text-xs font-bold rounded-sm uppercase">New</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
