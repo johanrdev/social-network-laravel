@@ -19,8 +19,6 @@ class ConversationController extends Controller
      */
     public function index()
     {
-        // $conversations = Auth::user()->conversations->paginate(5);
-
         $conversations = Conversation::with('users')->whereHas('users', function($query) {
             $query->where('user_id', Auth::user()->id);
         })

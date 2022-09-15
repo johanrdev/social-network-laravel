@@ -25,7 +25,7 @@
                                 
                             </div>
                             <div class="relative">
-                                @php
+                                {{-- @php
                                     $new_messages_count = $conversation->messages->where('user_id', '!=', Auth::user()->id)
                                             ->where('created_at', '>=', $conversation->users->find(Auth::user()->id)->pivot->last_visited)->count();
                                 @endphp
@@ -33,6 +33,12 @@
                                 @if ($new_messages_count > 0)
                                     <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
                                         {{ $new_messages_count }} new
+                                    </span>
+                                @endif --}}
+
+                                @if ($conversation->getNewMessagesCount() > 0)
+                                    <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
+                                        {{ $conversation->getNewMessagesCount() }} new
                                     </span>
                                 @endif
                             </div>

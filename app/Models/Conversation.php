@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Conversation extends Model
 {
@@ -27,5 +28,10 @@ class Conversation extends Model
 
     public function users() {
         return $this->belongsToMany(User::class)->withTimestamps()->withPivot(['last_visited']);
+    }
+
+    public function getNewMessagesCount() {
+        return $this->messages->where('user_id', '!=', Auth::user()->id)
+        ->where('created_at', '>=', $this->users->find(Auth::user()->id)->pivot->last_visited)->count();
     }
 }

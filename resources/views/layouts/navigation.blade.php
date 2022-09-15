@@ -198,11 +198,11 @@
 
                     {{ __('Conversations') }}
                     
-                    @if ($new_messages > 0)
+                    {{-- @if ($new_messages > 0)
                         <span class="bg-rose-500 rounded-sm font-semibold px-1 uppercase text-xs text-white pointer-events-none select-none ml-2">
                             {{ $new_messages }}
                         </span>
-                    @endif
+                    @endif --}}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('friends.index')" :active="request()->routeIs('friends')" class="flex relative items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">
