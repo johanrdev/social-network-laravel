@@ -101,6 +101,7 @@ class ConversationController extends Controller
      */
     public function show(Conversation $conversation)
     {
+        $this->authorize('view', $conversation);
         // Check if conversation belongs to the current user
         $is_user_conversation = $conversation->users->contains(Auth::user());
 
