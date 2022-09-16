@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    public function index() {
+        return view('dashboard.index');
+    }
+
     public function blogs() {
         $blogs = Blog::where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')

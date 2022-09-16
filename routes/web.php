@@ -35,91 +35,44 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-})->middleware(['auth'])->name('dashboard');
-
 Route::model('friend', User::class);
 
-// Resource routes for each model
-Route::resource('users', UserController::class)->middleware(['auth']);
-Route::resource('blogs', BlogController::class)->middleware(['auth']);
-Route::resource('posts', PostController::class)->middleware(['auth']);
-Route::resource('categories', CategoryController::class)->middleware(['auth']);
-Route::resource('bookmarks', BookmarkController::class)->middleware(['auth']);
-Route::resource('comments', CommentController::class)->middleware(['auth']);
-Route::resource('messages', MessageController::class)->middleware(['auth']);
-Route::resource('friendrequests', FriendRequestController::class)->middleware(['auth']);
-Route::resource('friends', FriendController::class)->middleware(['auth']);
-Route::resource('conversations', ConversationController::class)->middleware(['auth']);
+Route::group(['middleware' => ['auth']], function() {
+    // Resource routes for each model
+    Route::resource('users', UserController::class);
+    Route::resource('blogs', BlogController::class);
+    Route::resource('posts', PostController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('bookmarks', BookmarkController::class);
+    Route::resource('comments', CommentController::class);
+    Route::resource('messages', MessageController::class);
+    Route::resource('friendrequests', FriendRequestController::class);
+    Route::resource('friends', FriendController::class);
+    Route::resource('conversations', ConversationController::class);
 
-// Dashboard routes
-Route::get('/dashboard/blogs', [DashboardController::class, 'blogs'])
-    ->middleware(['auth'])
-->name('blogs');
+    // Dashboard routes
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/blogs', [DashboardController::class, 'blogs'])->name('blogs');
+    Route::get('/dashboard/posts', [DashboardController::class, 'posts'])->name('posts');
+    Route::get('/dashboard/categories', [DashboardController::class, 'categories'])->name('categories');
+    Route::get('/dashboard/comments', [DashboardController::class, 'comments'])->name('comments');
 
-Route::get('/dashboard/posts', [DashboardController::class, 'posts'])
-    ->middleware(['auth'])
-->name('posts');
+    // Delete dashboard checked items routes
+    Route::delete('/blogs', [BlogController::class, 'destroyAll'])->name('deleteCheckedBlogs');
+    Route::delete('/posts', [PostController::class, 'destroyAll'])->name('deleteCheckedPosts');
+    Route::delete('/categories', [CategoryController::class, 'destroyAll'])->name('deleteCheckedCategories');
+    Route::delete('/comments', [CommentController::class, 'destroyAll'])->name('deleteCheckedComments');
+    Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])->name('deleteCheckedBookmarks');
 
-Route::get('/dashboard/categories', [DashboardController::class, 'categories'])
-    ->middleware(['auth'])
-->name('categories');
+    // Friendship routes
+    Route::post('/friends', [FriendController::class, 'createRequest'])->name('createFriendRequest');
+    Route::post('/friends/{friendRequest}', [FriendController::class, 'acceptRequest'])->name('acceptFriendRequest');
+    Route::delete('/friends/destroy/{friendRequest}', [FriendController::class, 'declineRequest'])->name('declineFriendRequest');
 
-Route::get('/dashboard/comments', [DashboardController::class, 'comments'])
-    ->middleware(['auth'])
-->name('comments');
-
-// Delete dashboard checked items routes
-Route::delete('/blogs', [BlogController::class, 'destroyAll'])
-    ->middleware(['auth'])
-->name('deleteCheckedBlogs');
-
-Route::delete('/posts', [PostController::class, 'destroyAll'])
-    ->middleware(['auth'])
-->name('deleteCheckedPosts');
-
-Route::delete('/categories', [CategoryController::class, 'destroyAll'])
-    ->middleware(['auth'])
-->name('deleteCheckedCategories');
-
-Route::delete('/comments', [CommentController::class, 'destroyAll'])
-    ->middleware(['auth'])
-->name('deleteCheckedComments');
-
-Route::delete('/bookmarks', [BookmarkController::class, 'destroyAll'])
-    ->middleware(['auth'])
-->name('deleteCheckedBookmarks');
-
-// Friendship routes
-Route::post('/friends', [FriendController::class, 'createRequest'])
-    ->middleware(['auth'])
-->name('createFriendRequest');
-
-Route::post('/friends/{friendRequest}', [FriendController::class, 'acceptRequest'])
-    ->middleware(['auth'])
-->name('acceptFriendRequest');
-
-Route::delete('/friends/destroy/{friendRequest}', [FriendController::class, 'declineRequest'])
-    ->middleware(['auth'])
-->name('declineFriendRequest');
-
-// Messages routes
-Route::get('/messages/conversation/{id}', [MessageController::class, 'getConversation'])
-    ->middleware(['auth'])
-->name('showConversation');
-
-// Conversation routes
-Route::post('/conversations/{conversation}', [ConversationController::class, 'storeMessage'])
-    ->middleware(['auth'])
-->name('publishMessage');
-
-Route::get('/conversations/create/{user}', [ConversationController::class, 'createConversation'])
-    ->middleware(['auth'])
-->name('createConversation');
-
-Route::post('/conversations/create/{user}', [ConversationController::class, 'storeConversation'])
-    ->middleware(['auth'])
-->name('storeConversation');
+    // Conversation routes
+    Route::post('/conversations/{conversation}', [ConversationController::class, 'storeMessage'])->name('publishMessage');
+    Route::get('/conversations/create/{user}', [ConversationController::class, 'createConversation'])->name('createConversation');
+    Route::post('/conversations/create/{user}', [ConversationController::class, 'storeConversation'])->name('storeConversation');
+});
 
 require __DIR__.'/auth.php';

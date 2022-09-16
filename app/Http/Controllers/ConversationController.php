@@ -75,6 +75,13 @@ class ConversationController extends Controller
 
     public function storeMessage(Request $request, Conversation $conversation)
     {
+        // Check if conversation belongs to the current user
+        $is_user_conversation = $conversation->users->contains(Auth::user());
+
+        if (!$is_user_conversation) {
+            return redirect()->route('conversations.index');
+        }
+
         Message::create([
             'content' => $request->input('content'),
             'conversation_id' => $conversation->id,
@@ -94,6 +101,13 @@ class ConversationController extends Controller
      */
     public function show(Conversation $conversation)
     {
+        // Check if conversation belongs to the current user
+        $is_user_conversation = $conversation->users->contains(Auth::user());
+
+        if (!$is_user_conversation) {
+            return redirect()->route('conversations.index');
+        }
+
         $messages = $conversation->messages()->orderBy('id', 'desc')->paginate(5);
 
         Auth::user()->conversations()->updateExistingPivot($conversation->id, [
