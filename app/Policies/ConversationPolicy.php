@@ -20,7 +20,7 @@ class ConversationPolicy
      */
     public function viewAny(User $user)
     {
-        //
+
     }
 
     /**
@@ -32,7 +32,7 @@ class ConversationPolicy
      */
     public function view(User $user, Conversation $conversation)
     {
-        return $user->id !== Auth::user()->id ? Response::allow() : Response::deny();
+        return $conversation->users->contains($user) ? Response::allow() : Response::deny();
     }
 
     /**

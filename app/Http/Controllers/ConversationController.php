@@ -102,12 +102,6 @@ class ConversationController extends Controller
     public function show(Conversation $conversation)
     {
         $this->authorize('view', $conversation);
-        // Check if conversation belongs to the current user
-        $is_user_conversation = $conversation->users->contains(Auth::user());
-
-        if (!$is_user_conversation) {
-            return redirect()->route('conversations.index');
-        }
 
         $messages = $conversation->messages()->orderBy('id', 'desc')->paginate(5);
 
